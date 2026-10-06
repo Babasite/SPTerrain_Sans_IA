@@ -1,0 +1,47 @@
+#mon_ancre{color:rgb(129, 28, 28)}
+body{background:rgb(238, 204, 238);
+    font-family: Arial, Helvetica, sans-serif;
+    color:black}
+h1{color:rgb(23, 23, 145);font-family:'lobster',cursive;
+        font-size: 2em ;}
+h2{color:green}
+h3{color:rgb(152, 114, 43)}
+h4{color:rgb(212, 170, 92)}
+h5{color: orange;}
+.notions,.nom,.valeur,.type{border:2px solid green;}
+.valeurtype{border:2px solid blue;padding: 5px}
+.console{color:red;}
+.declarervariables{display: flex;
+                   gap:20px;}
+.modifiervariable{display: flex;
+                   gap:20px;}
+.raccourci{font-size: 20px; display: inline-flex;
+    gap: 20px; 
+           }
+.ifelse{border:2px solid rgb(0, 157, 255);width: fit-content;padding: 5px;}
+.ifswitch{display: flex;gap: 15px}
+.ifswitch1{border:4px solid rgb(87, 179, 193);width: fit-content;padding:5px;}
+.ifswitch2{border:4px solid rgb(87, 179, 193);width: fit-content;padding:5px;}
+.fonction,.localeglobale{border:4px solid  rgb(0, 157, 255);width: fit-content;padding:5px}
+.ancre{border:4px solid rgb(128, 0, 109);width: fit-content;padding:5px;}
+.bouton img {width: 150px;}
+.arbre{display: flex;gap: 20px;}
+#arbre{width: 300px;}
+.htmljavascript{display: flex;gap:20px}
+.interpolation{border:5px solid blue;width:fit-content;}
+.ici{font-size: 15px;}
+.haut{font-size: 12px;display:inline-flex;gap:20px}
+#gitflow { width: 300px;}
+
+.fullstack{border:5px solid green;width:fit-content;}
+.serverjs{border:5px solid rgb(20, 151, 233);width:fit-content;}
+.appjs{border:5px solid rgb(128, 0, 79);width:fit-content;}
+.Thing{border:5px solid rgb(0, 90, 128);width:fit-content;}
+.stuff{border:5px solid rgb(233, 148, 20);width:fit-content;}
+.stuffc{border:5px solid rgb(192, 33, 33);width:fit-content;}
+.users{border:5px solid rgb(210, 74, 149);width:fit-content;}
+.usercontroleur{border:5px solid rgb(177, 125, 154);width:fit-content;}
+.userroute{border:5px solid rgb(25, 129, 137);width:fit-content;}
+.Securite{font-size: 17px; }
+.authjs{border:5px solid rgb(49, 81, 64);width:fit-content;}
+.multer{border:5px solid rgb(225, 235, 25);width:fit-content;}

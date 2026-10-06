@@ -1,0 +1,116 @@
+/* Un fichier CSS ne peut pas contenir du HTML 
+(alors que HTML peut contenir du CSS avec des balises <style></style).
+   Ici les "" ne servent pas à choisir un nom. Elles servent pour certains
+textes en chaîne de caractères (ou contenant des espaces).
+   En CSS, si deux règles ont la même priorité et ciblent le même élément,
+celle écrite plus bas gagne... Mais priorité du sélecteur d'abord
+(ou du plus spécifique) → si égalité, celui écrit le plus bas gagne.*/
+h2{color:#214C35;}
+h3{color:rgb(207, 138, 11);}
+h4{color:orange;}
+h2,h3{ margin-left: 2cm;}
+
+.youpi {color:rgb(248, 22, 195) ;}   
+#logo { width: 150px;}
+.youpi2 {font-size: 30px;}
+.vérité{color:brown;}
+.mon-bloc {color: #663399;}
+
+h1{color:rgb(23, 23, 145);font-family:'lobster',cursive;
+        font-size: 2em ;}
+.changer-apparence{color:rgb(23, 23, 145);
+        font-family:'lobster',cursive;}
+.EssaiAlignement{text-align: right;
+        display: inline-block;
+        width: 700px;
+        color:rgb(18, 118, 85)}
+/* Pr pouvoir tester text-align sur EssaiAlignement, je dois y ajouter display et width*/
+.EssaiAlignementMargin{margin-left: 100px;color:rgb(14, 125, 125);}
+/* Margin-left est plus adapté pour ça.*/     
+.titre-couleur{background-color: #E7F2FB;}
+body{background-color: #EFE3C3; margin:0;}
+.banniere{background-image: url('imagesCours1/nuage.png');
+                 color:rgb(28, 2, 87);
+                 background-position: center 60%;}
+.apparition:hover {
+        background-color: #BEAEE2;
+        color: rgb(69, 17, 17);}
+/* Refonte de ma page html à partir d'ici,
+   cours CSS terminé et cours1.css créée*/
+       #nom_du_bouton {color:rgb(129, 28, 28)}
+       #monlogo {width:100px;  
+      }
+       .montitre{font-size:30px;
+        font-family: fantasy;
+        color:#214C35;
+    }
+        .banniereheader{background-image: url('imagesCours1/nuage.png');
+         color:rgb(28, 2, 87);
+
+         display:flex;
+         flex-direction: row;
+         align-items: center;
+         gap: 520px;
+        } 
+        .debut{font-size: 20px;
+        }
+        .couleur-fond-haut{background-color: white;
+                           overflow: auto;
+                           padding: 20px;}
+       /* overflow retire les marges (« si le contenu dépasse, il gère automatiquement le débordement,
+        avec une barre de défilement si nécessaire ») */
+        .contenu-beige{padding:20px;}
+
+        .degrade{background: linear-gradient(#317fbf, #BEAEE2);}
+        .ombre{border:2px solid #214C35;}
+        .ombre2{border:2px solid #214C35;
+                border-top-width:10px;
+                border-radius: 10px;
+                box-shadow: 5px 5px 10px grey;}
+
+        .conteneur{display:flex;
+                   flex-direction: row;
+                    gap: 20px;
+                }
+
+        .grillegrids{display:grid;
+                     grid-template-columns: 1fr 1fr;
+                     grid-template-rows: auto;
+                     gap: 20px;
+                }
+        .case3 {
+          grid-column: 2;
+          grid-row: 2;
+        }
+        .case4 {
+        grid-column: 1;
+        }
+
+        .tableaux,.tableaux th,.tableaux td{border: 1px solid black;
+                                            padding: 10px;}
+        .tableaux{border-collapse: collapse;}
+/* J'ai un problème quand je mets "petit tableau" dans "grand tableau" car son CSS agit dessus. Donc */
+        .tableau-sans-css,.tableau-sans-css th,.tableau-sans-css td {border: none;
+                                                                     padding: 0;}
+/* Du coup, c'est pas du sans CSS, c'est du CSS qui annule le CSS précédent :) */
+        @media screen and (max-width: 1200px) {
+        p {
+        color: pink;
+        }}
+
+        .monmenu{color:white;
+                 font-family:'lobster',cursive;
+                 display:flex;
+                 gap:50px;
+                 justify-content:flex-end;
+                 padding-right: 50px;
+                }
+        nav{background: black;
+                margin-top: 0;}
+        .monmenu a {color: white;}
+        .allercss{font-size: 15px;
+                color:red}
+        .fit-content {border:2px solid rgb(20, 64, 91);
+                     width: fit-content;
+                     padding: 5px;}
+        
