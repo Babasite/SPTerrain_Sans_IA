@@ -1,0 +1,2523 @@
+<!--  python -m http.server 8000          (Dans le terminal)
+       http://127.0.0.1:8000/cours2.html  (Dans le navigateur) --> 
+<!--Qd on arrive au bouton .json :
+      npm run dev (Dans le terminal)
+       http://localhost:5173/cours2.html#dynamique (Dans le navigateur)-->
+
+<!--Ou pour simplifier ds les 2 cas :
+      npm run dev (ds le terminal)
+       http://localhost:5173/cours2.html (ds le navigateur)
+       http://localhost:5173/cours2.html#dynamique (ds la partie dynamique)
+-->
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title="JavaScript"></title>
+        <link href="cours2.css" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+
+        </header>
+        <main>
+            <h1 id="debut">JavaScript 
+              <span class="raccourci">
+                <a href="cours2.html"><a href="#interagir">Interagir avec HTML (web)</a>
+                <a href="cours2.html"><a href="#git">Git/GitHub</a>
+                <a href="cours2.html"><a href="#dynamique">Rendre page dynamique</a>
+                <a href="cours2.html"><a href="#node">Full-stack</a>
+              </span>
+            </h1>
+            <section>    
+                <h2>Prérequis</h2>
+    <p>HTML et CSS <a href="../../Cours1/cours1.html" target="_blank"> Voir le cours ici</a></p>
+    <p>Suivre le cours : 
+        <a href="https://openclassrooms.com/fr/courses/7696886-apprenez-a-programmer-avec-javascript" target="_blank">Cours JavaScript Openclassrooms
+        </a></p>
+    <p>Faire un fichier cours2.html (celui-ci) + un cours2.css (comme ds le cours1 "HTML et CSS")
+     et ajouter un cours2<mark>.js</mark> (pour travailler ce cours). </p>
+     <h3>Différences avec le Cours 1 (HTML et CSS)</h3>
+     <p>Lorsqu'on travaille sur .js , on a besoin d'ouvrir la <mark>console</mark>
+     (sur le navigateur, clic droit sur la page → Inspecter → onglet Console (ou raccourci F12))<br>
+     pour voir les résultats (et les éventuelles erreurs). <em>Rm</em>: Besoin de rafraîchir page pr chaque résultat.</p>
+     <p>On pourra le faire plus tard sans HTML (grace à Node.js) mais pour l'instant,
+     relier .js au .html en ajoutant <mark>&lt;script src="cours2.js"&gt;&lt;/script&gt;</mark> juste avant
+     &lt;/body&gt; .</p>
+     <P><em>Rm</em>: On pourrait s'entraîner sur "CodePen" (fournit zone JS + une console intégrée).</P>
+     </section>
+     <section>
+                <h2><span class="notions">Notions de programmation générales</span></h2>
+                <h2>Syntaxe: Déclarer une "variable" (pour ranger des données)</h2>
+                <p><em>Variable</em>: Conteneur qui stocke la donnée <u>temporairement</u> ds le code. <mark>
+               <span class="nom">Nom</span>
+               <span class="valeurtype"> <span class="valeur">= valeur</span> <span class="type">Type</mark>
+               </span></span> (texte,chiffre...).</p>
+                <p>Pour la <em>déclarer</em>, on utilise <strong>let</strong> (peut changer au cours du code) ou <strong>const</strong> 
+                (reste fixe). Ça dépendra du Nom.
+                  <div class="declarervariables">
+                    <div><h3>Type</h3>
+                      <p><em>Types basiques (simples)</em> : <strong>number</strong> (la donnée est un "chiffre"),<br>
+                      <strong>string</strong> (une chaîne de caractères ("texte")),
+                      <strong>boolean</strong> ("vraie ou fausse").</p>
+                      <p><em>Types complexes</em> : <strong>objets</strong>, <strong>tableaux</strong>. </p>
+                    </div>
+                    <div><h3>L'instruction </h3>
+                      <p>let <span class ="type">monage</span> <span class="valeurtype">=44</span> (puis juste: monage=44).</p>
+                      <p><mark>const</mark> monPrenom = <mark>"</mark>Bastien" (contrairement
+                       à let, Bastien ne pourra plus changer)</p>
+                      <p><strong>var</strong> : Peut être vu mais obsolette </p>
+                      <p>Pour <u>vérifier</u> l'instruction : <strong><span class=console>console.log()</span></strong></p>
+                    </div>
+                 </div>
+                    <h3>Modifier variable</h3>
+                 <div class="modifiervariable">
+                    <div><h4>Opérateurs d'affectation (symboles)</h4>
+                      <p>const entreesPremiereSemaine = 1<br>
+                      const entreesDeuxiemeSemaine = 2<br>
+                      const totalEntrees = 
+                      entreesPremiereSemaine <mark>+</mark>
+                      entreesDeuxiemeSemaine<br>
+                      <strong>console.log(totalEntrees)</strong>
+                      </p>
+                      <p><em>Symboles</em>: <mark>-</mark> (soustraction), 
+                      <mark>*</mark> (multiplications), <mark>/</mark>
+                      (divisions).
+                      </p>
+                      <p>placesDejaVendues = placesDejaVendues + 10
+                      (s'écrit : placesDejaVendues <mark>+=</mark> 1.
+                      Valable avec chaque calcul.)</p>
+                    </div>
+                    <div><h4>‘  ou “</h4>
+                     <p>let monTitre = "Le titre de mon article"<br>
+                     let monContenu = 'Le contenu de mon article'</p>
+                     <h4>Concaténation</h4>
+                     <p>Texte <mark>+</mark> texte</p>
+                     <p>let premierePartie = "Mon nom est Bond"<br>
+                     let deuxiemePartie = ", James Bond."<br>
+                     let punchline = premierePartie + deuxiemePartie    ou<br>
+                     let punchline = "Mon nom est Bond"<br>
+                     punchline +<mark>=</mark> ", James Bond."<br>
+                     <strong>Commenter en Javascript</strong> : <mark>//</mark> punchline vaut “Mon nom est Bond, James Bond.”</p>
+                    </div>
+                    <div><h4>Booléen</h4>
+                     <p>let connexionOk = false <br>(<mark>sans ""</mark>)</p>
+                     <h4>Pas mélanger les "types"</h4>
+                     <p>Enlever les guillemets ou ajouter <strong>Number()</strong></p>
+                    </div>
+                  </div>
+                     <h3>Objets <mark>{ }</mark></h3>
+                     <p>Si un élément a plrs valeurs à la fois  const <mark>= {</mark> puis on va à la ligne
+                         et <mark>:"",</mark> (autant qu'on veut) puis <mark>}</mark> .</p>
+                     <p>Si j'ai besoin d'en ajouter plus tard, un <mark>.</mark> suffira. <em>Ex</em>: 
+                     monPerso.voiture="Batmobile"</p>
+                     <p>Si je veux <u>accéder à la valeur d'une propriété</u> console.log(monPerso.voiture) 
+                     ou juste (voiture)</p>
+                     <h3>Tableaux <mark>[ ]</mark></h3>
+                     <p>Pour "regrouper" les données. Comme une "super variable":  const maSuperVariable =
+                     <mark>[ "</mark>valeur1"<mark>,</mark>"valeur2","valeur3" <mark>]</mark> </p>
+                     <h4>Les Méthodes <mark>( )</mark> (pour modifier données contenu <u>dans</u> tableau )</h4>
+                      <p> 
+                     maSuperVariable<mark>.push ( "</mark>valeur4" ) (pour <u>ajouter</u> un élément (mais
+                      avoir fait let)) <br>
+                    <em>Rm</em>: ( Si on le fait à la suite avec const, pas de "" )<br>
+                    let nouvelleVariable = "variable4"<br>
+                    const maSuperVariable = [ "variable1","variable2","variable3",<mark>  </mark> nouvelleVariable
+                    ]<br>console.log (maSuperVariable)<br>
+                    console.log (maSuperVariable[ <mark>0</mark> ]) (Pour accéder à une case (0="variable1") du
+                    tableau en particulier)</p>
+                    <p>Les tableau comportent des <strong>propriétés</strong> (informations sur leurs contenus)<br>
+                    Ex : "Taille" du tableau<br>console.log (maSuperVariable<mark>.lenght</mark>) </p>
+                     <p><mark>.pop</mark> (pour <u>supprimer</u> le dernier élément (avoir fait let aussi. Même pas besoin de
+                     remplir la parenthèse. "valeur4" sera effacé)</p>
+                     <p><u>Copier</u> par <strong>valeur</strong> ( On veut sauvegarder le contenu d'une variable1 avant de la modifier 
+                      variable1S )<br>Type <em>simple</em> (booléen, number, string) : On va prendre la valeur ds son tiroir
+                      et la "dupliquer" ds un autre tiroir: variable1<mark>=valeur 1</mark> variable1S<mark>=valeur 1</mark> <br>
+                      et par <strong>référence</strong> <br>
+                      Type <em>complexe</em> (objet, tableaux) : js ne va pas faire une vraie copie.
+                      Il va créé une "nouvelle variable" (qui va pointer sur le même contenu que l'ancienne)<br>
+                      <mark>variable1S <strong>=</strong> variable1</mark>  <br>
+                      Tableau : Opérateur <strong>spread operator</strong> <mark> ... </mark>  .
+                      Permet de faire automatiquement la copie en
+                      prenant tt les éléments dedans.<br>
+                      let(ou const) CopieMaSuperVariable = [...maSuperVariable]; <br>
+                      <em>Rm</em>: Même avec const, on peut modifier le contenu du tableau (Ce qui est constant,
+                      c'est endroit en mémoire où est stocké le tableau, pas le contenu. )</p>
+                     
+
+                     </section>
+                     <section>
+                     <h2 id="fichierjs">Fichier js
+                     <span class="haut"><a href="#debut">Revenir au début</a></span></h2>
+                      <script>
+alert("Donc là, j'utilise Javascript 😉. Pr mettre du \".js\" directement sur html, je le mets entre 2 balises <script> et <" + "/script>. Je ne peux pas \"couper\" une ligne .js sur mon HTML en allant à la ligne (ms pr .js, utiliser \\n) .\n On peut \"échapper\" les guillemets en mettant des ' ou avec \\ devant. On choisit en extérieur \" ou ' mais du coup, faire attention au texte qu'on écrit à l'intérieur.")
+console.log("Mon JavaScript fonctionne !")
+alert('Pr voir maintenant "Mon Javascript fonctionne !" avec console.log() plutôt que alert(), aller sur la "Console" du navigateur.')
+// VARIABLES
+const entreesPremiereSemaine = 10
+let entreesDeuxiemeSemaine = 25
+const totalEntrees = entreesPremiereSemaine + entreesDeuxiemeSemaine
+console.log(totalEntrees)
+// Et là on verra 35 dans la Console du navigateur ;).
+// TABLEAU []
+const entrees = [10, 25, 30]
+console.log(entrees)//(3)[10,25,30]
+// OBJET {}
+const zoo = {
+nom: "Le parc des Félins",
+département: "Seine et Marne",
+nombreLéopards: 5
+}
+console.log(zoo)//{"nom": "Le parc des Félins","département": "Seine et Marne","nombreLéopards": 5}
+// MÉTHODE ()
+entrees.push(80)
+console.log(entrees)//(4)[10,25,30,80]
+console.log(zoo.nombreLéopards)//5
+//Condition : Je continue sur Cours2.js 
+                      </script>
+                     <p><strong>Algorithme</strong>: Façon de concevoir les "étapes" (faire une liste) d’un code
+                     pour résoudre un problème donné (oganisées avec des "Blocs" de code (délimités par { } )).<br>
+                     Editeur de code: Visual Studio Code (=IDE).<br>
+                     <em>Bonne pratique</em> : <strong>Tester très régulièrement son code</strong> (pour éviter erreurs).<br>
+                     </p>
+                     <p>Pour ouvrir navigateur de IDE: Double-clic sur fichier "cours2.html", Reveal in File Explorer,
+                       double-clic sur fichier.</p>
+                     <h3>Conditions (pour "contrôler" le code) = test</h3>
+                     <p><em>Rédiger une condition</em>: Utiliser des structures conditionnelles -> rédiger un test
+                      -> rédiger un bloc de code.</p>
+                    <p>
+                      <u>Type if/else</u> (le "else" est optionnel)<br>
+                      <mark>if</mark> (si...) <mark>=== true</mark> (est vrai) <mark>&&</mark> (et que)
+                      <mark>else</mark> (...sinon...) <mark>--</mark> soustraire la valeur 1 à une variable (décrémentation).</p>
+                      <p>
+                       <div class="ifelse"> if (condition) { code exécuté si condition remplie<br>
+                      } else { code exécuté si la condition est fausse<br>
+                      }</div>
+                    </p>
+                      <p><strong>prompt</strong> (demander un "mot" ou poser une question à utilisateur et mettre
+                       ce mot ou cette question dans une variable)<br>
+                      let motUtilisateur = prompt("Entrez un mot :")<br>
+                      console.log(motUtilisateur) <strong>pour vérifier</strong></p>
+                      <p>Opérateurs de comparaison : <  (inférieur à),<= (inférieur ou égal à),===(égal à),
+                        >= (supérieur ou égal à),> (supérieur à),!== (différent de)</p>
+                     <p><u>Type switch/case</u> (structure conditionnelle, si plrs réponses)<br>
+                     Pr éviter de répéter des if: <mark>switch</mark>(laValeurATester), <mark>case</mark>(lister les valeurs possibles)<br>
+                     <mark>break</mark> ( sert à arrêter le code )  </p>
+                      <p><em>Exemple (si beaucoup d'insultes différentes à éviter):</em><br></p>
+                      <div class="ifswitch">
+                      <div class="ifswitch1">
+                      const motAppli="Bonjour"<br>
+                      let motUtilisateur= prompt("Entrez le mot:" + motAppli)<br>
+                      <br>
+                      if (motUtilisateur === motAppli){<br>
+                      consol.log("Bravo !")<br>
+                      } else { <br>
+                      if (motUtilisateur === "Connard")}<br>
+                      consol.log("Restez correct !")<br>
+                      } else { <br>
+                      if (motUtilisateur === "Idiot")}<br>
+                      consol.log("Restez gentils !")<br>
+                      } else { <br>
+                        consol.log("Erreur de frappe !")<br>
+                      }}}<br>
+                      </div>
+                      <div class="ifswitch2">
+                      const motAppli="Bonjour"<br>
+                      let motUtilisateur= prompt("Entrez le mot:" + motAppli)<br>
+                      <br>
+                      switch (motUtilisateur) {<br>
+                      case motAppli :<br>
+                      console.log ("Bravo !")<br>
+                      break ;<br>
+                      case "Connard" :<br>
+                      console.log ("Restez correct !")<br>
+                      break ;<br>
+                      case "Idiot" :<br>
+                      console.log ("Restez gentils !"")<br>
+                      break ;<br>
+                      default :<br>
+                      consol.log("Erreur de frappe !")<br>
+                      }<br>
+                     </div>
+                     </div>
+                     <h3>Boucle (pour "répéter" du code)</h3>
+                     <p><u>Type for</u> (pour un nombre précis)</p>
+                     <p>For ( déclaration ; continuer tant que condition respectée ; de combien va évolué la condition à chaque fois) { console.log (compteur) }</p>
+                     <P>For ( let compteur = 0 ; compteur < 500 ; compteur + 1) { console.log (compteur) }</P>
+                     <p><u>Type while</u> (répète autant de fois que nécéssaire)</p>
+                     <p><mark>let i</mark> = 0 (i convention mais on peut remplacer i par le "nom" qu'on veut)<br>
+                        while ( listContact[i].nom !== "Alice" ) { <br>
+                        i = i + 1 (ou <mark>i++</mark>, même chose mais va plus vite)<br>
+                        } <br>
+                      // On sait que Alice est le contact numéro i<br>
+                      console.log (listContact[i].telephone)</p>
+                     <h3>Fonction (pour "organiser" le code) <mark>( ) comme pour les Méthodes</mark></h3>
+                     <p>Morceau de code qui accomplit une tâche spécifique (pour organise code en "blocs fonctionnels")</p>
+                     <p>function  Verbe_qui_représente_action_de_la_<mark>Fct(= sum)</mark> <mark>(</mark> Paramètres <mark>x,y</mark>
+                      ... <mark>)</mark> <mark>{</mark> Fonctionnement_de_la_fct <mark>}</mark> <br>
+                      function  calculer TVA  ( prix HT , taux TVA ) { <mark>return</mark> prix TVA * tauxTVA/100 } <br>
+                      <br>
+                      Puis <u>appeler</u> la fonction (pr effectuer une action puis avoir un résultat): <br>
+                      <div class="fonction">function sum (x,y) {<br>
+                      let <mark>s</mark> = x + y ; (<em>Rm</em>: s = <mark>variable</mark> )<br>
+                      return s ; }    (<em>Rm</em>: "Return" pour pouvoir être utilisé plus tard)<br>
+                      <mark>result</mark> = sum (4,5) ; (<em>Rm</em>: 4,5 sont la "<mark>(liste des arguments)</mark>")<br>
+                      let <mark>Retour_fct</mark>= result (<em>Rm</em>: Appeler)<br>
+                      <mark>console.log</mark> (Retour_fct)<br>
+                      </div>
+                      <h4>Définir la porté des variables ( existent que ds un certain espace) </h4>
+                      Variables <u>globales</u> : Déclarées en dehors d'une fct et utilisables au sein de n'importe quelle fct.<br>
+                      Visibles et utilisables dans l’ensemble du code. <br>
+                      ( Moins on utilise de variables globales, meilleurs est le code (variables <mark>locales
+                      </mark>++))<br>
+                      Variables <u>locales</u> : Déclarées au sein d'une fct et pas utilisables en dehors.<br>
+                      (Comme restreintes à un bloc de code, <mark>moins sources d'erreur</mark>.)
+                      <div class="localeglobale">let <u>monNombre</u> = 1<br>
+                      <em>// monNombre est une variable globale, car elle est déclarée en dehors d’un bloc de code</em><br>
+                      function <strong>afficheUnNombre()</strong> {<br>
+                      let <u>monNombreLocal</u> = 2<br>
+                     <em>// monNombreLocal est une variable locale, car déclarée uniquement au sein d’une fonction</em><br>
+                      console.log("Intérieur de la fonction : ")<br>
+                      console.log(monNombre) <em>// monNombre est accessible</em><br>
+                      console.log(monNombreLocal) <em>// monNombreLocal est accessible</em><br>
+                      }<br>
+                      <br>
+                      <strong>afficheUnNombre()</strong><br>
+                      console.log("Extérieur de la fonction : ")<br>
+                      console.log(monNombre) <em>// monNombre est accessible</em><br>
+                      console.log(monNombreLocal) <em>// monNombreLocal n’est <mark>pas</mark> accesssible 
+                        -> renverra une <mark>erreur</mark></em><br>
+                     </div>
+                      <h4>Coder proprement</h4>
+                      <em>Bonnes pratiques</em>: Une "tâche" spécifique pour chaque fct, fcts "courtes" (pas plus de 30 lignes), 
+                      nommer "clairement" les fcts (en utilisant des verbes), les paramètres et les variables.
+                      <em>Rm</em>: On peut toujours insérer un commentaire pour ajouter une précision...<br>
+                      Organisez code en plrs fichiers (<mark>"1 fichier" .js par fct)</mark>. Ne pas oublier d'ajouter les
+                       &lt;script src=".js"&gt; sur le .html (<em>Rm</em>: l'ordre des script est important)<br>
+                      On peut appeler notre fonction "Résultat" (afficherResultat, calculerResultat,
+                       reinitialiserResultat) .<br>
+                     "Nettoyer" notre page de code en supprimant ce dont on a plus besoin et copier-coller ce 
+                    qu'on peut mettre sur un autre fichier .js .<br>
+                    Vérifier le plus possible (sinon on aura inévitablement des erreurs). On doit tester Fct
+                    chaque fois que l'on en créer une et ne pas attendre d'avoir tout mis en place .
+                  </p>
+                     </section>
+                     <section>
+                      <h2><span class="notions">Javascript peut communiquer directement avec HTML</span></h2>
+                     <h2 id="interagir">Faire interagir Javascript avec une page web (= avec HTML)
+                     <span class=haut><a href="cours2.html"><a href="#debut">Revenir au début</a></span></h2>
+                      <p>L'idée est d'avoir 3 fichiers complémentaires. Un .html (stucture), un .css (apparence)
+                       et un .js (comportement).
+                      </p>
+                      <h3>Récupérez un élément d’une page web</h3>
+                      <p><div class="ancre">Je fais une petite parenthèse dans ce cours pour intégrer l' "ancre"<br>
+                        vu dans la partie HTML et CSS : 
+                      <span id="mon_ancre">Salut, c'est moi l'ancre ⚓ 😄</span>
+                      </div>
+                      </p>
+        <p id="titreDOM">Structure <strong>DOM</strong> de HTML <span class="bouton">
+          <img src="ImagesCours2/Bouton.png">
+        </span></p>
+<!-- "C'est ici que tout commence vraiment en utilisant Javascript" ( En ajoutant
+ id="titreDOM" -->
+                      <div class="arbre">
+                      <p><img src="ImagesCours2/arbreDOM.png" id="arbre"></p>
+                      <P><u>Noeuds</u> (= body,header,h1,texte,main... <em>"Chaque élément"</em>).<br> Chaque nœud
+                         est un "objet HTMLElement" avec ses "propriétés" et "méthodes".<br>
+                        <u>Racine</u> (= body ds rectangle rouge. Tt <em>"premier nœud"</em> de l’arbre, celui qui n’a aucun parent)<br>
+                      <u>Branches</u> (= Les traits noirs. <em>"Liens"</em> parent → enfant.)<br>
+                  <u>Feuilles</u> (= textes ds les ovales. Ont <em>"aucun enfant"</em>)<br>
+                <br>
+              <mark>defer</mark> (ds html) pour différer l’exécution du script (attendre que la page soit chargée).<br>
+            <em>Ex</em>: On a écrit &lt;script src="cours2.js"&gt;&lt;/script&gt; juste avant &lt;/body&gt;. On aurait pu le mettre
+           au début de notre body en ajoutant defer (car sinon ça ne lit pas ce qu'il y a apres)</P>
+                      </div>
+                      <p>Variable "<strong>document.</strong>"" (= la page HTML. Pr interagir avec arbre DOM)
+                         grace à Méthode : <strong>.getElémentById ( )</strong>.<br>
+                         Autres "méthodes":  
+                        <strong>querySelector</strong> , <strong>querySelectorAll</strong> ... Le "triangle
+                         flèche" (au résultat) permet d'afficher les différentes propriétés.
+                      </p>
+                      <div class="htmljavascript">
+                      <div><p><u>HTML</u></p>
+                      <p>&lt;div <strong>id="prJavscipt"</strong>&gt;<br>
+                        &lt;h2&gt;<em>Récupérer élément (ou ts les éléments) d'une balise</em> &lt;/h2&gt;<br>
+                        &lt;p&gt;<em>On va utiliser la méthode getElémentById</em>&lt;/p&gt;<br>
+                        &lt;/div&gt; 
+                      </p>
+                      </div>
+                      <div>
+                      <p><u>JavascriptS sans CSS</u></p>
+                      <p><strong>Ma</strong>Balise<strong>Div</strong>=document<strong>.getElementById</strong>
+                         ("<em>Récupérer élément (ou ts les éléments)
+                       d'une balise</em>")<br>
+                        console.log (MaBaliseDiv)
+                      </p>
+                      <p><u>JavascriptS avec CSS (pas besoin d'ajouter de id=)</u></p>
+                      <p>let MaBalise<strong>Main</strong>=
+                        document <strong>.querySelector</strong> ("main")<br>
+                        <br>
+                        let <strong>Mes</strong>BalisesDiv=
+                        document <strong>.querySelectorAll</strong> ("div")<br>
+                      </p>
+                      </div>
+                      </div>
+                      <h4>Modifier l'élément</h4>
+                      <p>&lt;img <u>id</u>="premiereImage" <u>src</u>="image.jpg" <u>alt</u>="Ceci est une image
+                         de test" <u>class</u>="photo flexCenter"&gt;<br>
+                        La balise a 4 attributs :<br><u>id</u> : identifiant div;<br><u>src</u> : emplacement 
+                        image;<br> <u>alt</u> : txte alternatif pr image;<br> <u>class</u> : liste classes 
+                        appliquées sur balise image</p>
+<div class="declarervariables">                          
+                        <p><strong>.setAttribute</strong> (méthode générique, permet spécifier n’importe
+                         quel attribut)<br>
+                         let baliseImage = document.getElementById("premiereImage");<br>
+                         baliseImage<u>.setAttribute</u>("alt", "Ceci est la nouvelle valeur de alt");<br> 
+                         <em>Rm</em>: Si un attribut est valide en html, on peut écrire juste "<u>.alt</u>"
+                         </p>
+                         <p>
+                         <strong>.classList</strong> (propriété spécifique,permet modifier classes)<br>
+                         baliseImage.alt = "Ceci est une image de test modifiée";<br>
+                         baliseImage<u>.classList.add</u>("nouvelleClasse")<br>
+                         baliseImage.classList.<u>remove</u>("photo")<br>
+                         <em>Rm</em>: On utilise méthode <strong>
+                          .remove</strong> (pr enlever), <strong>.add</strong> (pr ajouter).
+                        </p>
+</div>                        
+                      <h4>Créer un élément</h4>
+                      <div class="declarervariables">
+                        <div>
+                        <p>Méthode <strong>.createElement ( )</strong> ( <em>Autres</em>: .prepend(), .before(),
+                          .insertAdjacentElement() ...)<br>
+                        Propriété <strong>.inner</strong>HTML=</p>
+                        <p>Insérer balise ds page (ds arbre DOM) :<br>
+                           Déterminer élément parent pr "ajouter enfant" 
+                        <strong>.appendChild( )</strong>
+                        </p>
+                        <p>// Créer le nouvel élément<br>
+                        let nouvelElement = document.createElement("p");<br>
+                        // Ajouter du contenu dans le nouvel élément<br>
+                        nouvelElement.innerHTML = "Bonjour";<br>
+                          // Récupérer un élément parent existant<br>
+                        let parentElement = document.getElementById("conteneur");<br>
+                        // Ajouter le nouvel élément au parent<br>
+                        parentElement.appendChild(nouvelElement);</p>
+                        <p><em>Rm</em>: .creatElement est fastidieux : Mieux d'écrire directement du HTML (sous forme de txte)
+                           <br>et juste l’insérer dans une propriété innerHTML. </p>
+                           </div>
+                           <div>
+                           <h5>Interpolation</h5>
+                           <p><u>Backticks</u> : <mark>`</mark> (AltGr+7 puis Espace sur clavier) entourés avec <mark>${ }</mark><br>
+                          <em>Rm</em>: Plus sécurisé que concaténation simple avec  +</p>
+                            <p><div class="interpolation">
+                              let TitrePage="Le titre de ma page"<br>
+                              let body= document.querySelector("body")<br>
+                              let HTML= `<br>
+                              &lt;header&gt;         <strong>&lt;- On <u>tappe</u> du HTML ds .js </strong><br>
+                              &lt;h1&gt;${TitrePage}&lt;/h1&gt;<br>
+                              &lt;/header&gt;<br>
+                              `<br>
+                              body.innerHTML=html   <strong>&lt;- On <u>met</u> le HTML ds .js </strong>
+                            </div>
+                          </p>
+                          </div>
+                          </div>
+                      <h4>Evenements (interagir avec élément d'une page web. Rend le site dynamique)</h4>
+                        <div class="declarervariables">
+                          <div> 
+                        <p>Un évnmt est un signal envoyé par le navigateur.<br>
+                           On utilise fcts "classiques"
+                         (function) ou "fléchées"<br>
+                          ( mot function est remplacé par des ()vides <mark>() => {</mark> ) .<br>
+                            <br>
+                         <em>Rm</em>: une fct avec ( ) vides est appelée "anonyme".<br>
+                          La fct fléchée est juste Plus
+                        moderne.</p>
+                        </div>
+                        <div>
+                          <h5>La programmation "événementielle" ( par opposition à "séquentielle" )</h5>
+                           <p>Consiste à écrire du code qui réagit à des événements.<br> 
+                          <strong>event</strong> contient des informations sur l'évnmt qui vient de se produire.
+                          (EventListener = "écouteur").
+                          </del></p>
+                          <p><div class="interpolation">let monbouton = document .getElementByld (monbouton);<br>
+                          monbouton <strong>.</strong>add<strong>EventListener</strong> ("click",<mark>()</mark> => {<br>
+                          let body = document .querySelector ( "body" )<br>
+                        // On change couleur de fond de la page<br>
+                      body.style.backgroundColor = "red" } ) ;
+                    </p>
+                  </div>
+                  <p><strong>eventListener</strong> : event contient les infos sur le clic<br>
+                    <strong>event.target</strong> : renvoie élément HTML qui a déclenché évnmt.<br>
+                  <strong>event.key</strong> : touche appuyée quand évnmt écouté, lié au clavier. <br>
+                  <strong>event.clientX</strong> et <strong>event.clientY</strong> : coordonnées souris
+                   qd évnmt écouté, lié à souris.
+                </p>
+                <p>On va pouvoir retirer les anciennes fcts prompt</p>
+                </div>
+              </div>
+                      <h3>Formulaire</h3>
+                      <h4>Récupérer valeur d’un champ de formulaire</h4>
+                      <div class="declarervariables">
+                        <div>
+                      <p>Anticiper de "<u>Soumettre le formulaire</u>" :<br>
+                        Submit (pour valider le formulaire).<br>
+                        .preventDefault() (éviter le rechargement de la page). </p>
+                      <p>
+                        <div class="interpolation">formulaire.addEventListener("<strong>submit</strong>", 
+                        function(event) {<br>
+                         <strong>event.preventDefault()</strong>;<br>
+                        let baliseNom = document.getElementById("nom")<br>
+                         let nom = baliseNom<strong>.value</strong>// on récupère la valeur<br>
+                         console.log(nom); // affiche ce qui est contenu dans la balise name<br>
+                         });
+                         </div>
+                        </p>
+                        <p><em>Cas particulier</em> : <u>Cases à "cocher"</u> (utilisateur ne rentre pas de 
+                        valeur)</p>
+                        <p>&lt;input type="checkbox" id="accepter" name="accepter"&gt;<br>
+                        let baliseAccepter = document.getElementById("accepter")<br>
+                        let accepter = baliseAccepter<strong>.checked</strong><br>
+                        console.log(accepter); // affiche true ou false
+                        </p>
+                        </div>
+                        <div>
+                        <p><u> Boutons radio</u> (partagent le même name.<br>
+                           Faire une boucle sur l’ensemble des
+                         boutons radio.<br> Les parcourir jusqu’à trouver celui qui est coché,<br>
+                          puis utilisez la
+                          propriété value sur ce bouton)</p>
+                        <p>let baliseCouleur = document.querySelectorAll('input[name="couleur"]')<br>
+                        let couleur = ""<br>
+                        for (let i = 0; i &lt; baliseCouleur.length; i++) {<br>
+                        if (baliseCouleur[i].checked) {<br>
+                        couleur = baliseCouleur[i].value<br>
+                        break }}<br>
+                        console.log(couleur) // affiche la valeur du radio coché
+                        </p>
+                        <p>Différents types de champs pour saisir ces informations<br>
+                           ( <strong>input</strong>
+                           de différents types (texte, numérique, radio, case à cocher…),<br>
+                           <strong>textarea</strong>, select)
+                          </p>
+                          </div>
+                          </div>
+                      <h4>Règles de validation (s’assurer qu’un champ est correctement rempli par utilisateur)</h4>
+                          <h5>Vérifier la valeur d’un champ (pour cas simples)</h5> 
+                          <div class="declarervariables">
+<div class="colonne1">                            
+<p>
+                           S’assurer qu’un champ est correctement rempli (que pas vide).
+                          <strong>trim()</strong> (nettoyer le chps)<br>
+                          <u>À l'envoie du formulaire</u> :<br>
+                          Pr vérifier si champ “nom” pas vide, à la soumission :<br>
+                           écouter évnmt submit (sur formulaire), récupérer valeur de ce champ, réaliser test.<br>
+                          <div class="interpolation">const form = document.querySelector('form');<br>
+                          // Ajout d'un écouteur d'événement sur le formulaire pour écouter le submit<br>
+                          form.addEventListener("<strong>submit</strong>", (event) => {<br>
+                          // On empêche le comportement par défaut<br>
+                          event.<strong>preventDefault</strong>();<br>
+                          // On fait la vérification.<br>
+                          const baliseNom = document.getElementById('nom');<br>
+                          const valeurNom = baliseNom.value;<br>
+                          if (valeurNom === "") {<br>
+                          console.log('Le champ nom est vide');<br>
+                          } else {<br>
+                          console.log('Le champ nom est rempli');<br>
+                          }<br>
+                          });<br>
+                          </div>
+                          Nettoyer les champs avant de les tester (méthode <strong>trim()</strong>)
+</p>
+</div>
+<div class="colonne2">
+<p>
+                          <u>À la saisie d’un champ du formulaire</u>:<br>
+                          Deux types d'événements possibles dans ce cas : <strong>input</strong> 
+                          (se déclenche chaque fois utilisateur tape une lettre ds le champ),<br>
+                         <strong>change</strong> (se déclenche qd utilisateur a fini de taper et sélectionne 
+                         un autre élément de la page) <br>
+                         <div class="interpolation">
+                         const baliseNom = document.getElementById('nom');<br>
+                         baliseNom.addEventListener('<strong>change</strong>', (event) => {<br>
+                         const valeurNom = event.target.value;<br>
+                         if (valeurNom === "") {<br>
+                         console.log('Le champ nom est vide');<br>
+                         } else {<br>
+                         console.log('Le champ nom est rempli');<br>
+                         }<br>
+                         });    <br>
+                         </div>
+ </p>
+</div>
+</div>
+                          <h5>Définir des expressions régulières (pour cas plus complexes)</h5>
+                          <p><u>Expressions régulières</u> : Décrire, dans un format précis,
+                          ensemble des chaînes de caractères possibles,<br>
+                           puis tester si chaîne caractères correspond à ce format.<br>
+                        Sont également appelées <strong>RegEx</strong> ou <strong>RegExp</strong>
+                        (“Regular Expression”, en anglais).<br>
+                        <div class="interpolation">let chaine = "cachalot"; // Testez avec chiffres pr
+                           voir différence<br>
+                        let regex = new <strong>RegExp</strong>("^[a-z]+$");<br>
+                       let resultat = regex.test(chaine);<br>
+                       console.log(resultat); // Affiche true.
+                       </div>
+                          </p>
+                          <p>
+                            <mark>^</mark> (chaîne doit commencer par ce qui suit),<br>
+                           <mark>[a-z]+</mark> (chaîne doit avoir des lettres comprises entre a et z. +  signifie faut au
+                            minimum une seule lettre entre a et z)<br>
+                          <mark>$</mark> (chaîne doit finir par ce qui précède)<br>
+                          <mark>[a-z]</mark> (lettre entre a et z)<br>
+                           <mark>[a-zA-Z]</mark> (lettre entre a et z ou A et Z)<br>
+                          <mark>[a|b]</mark> (lettre : a ou b, à exclusion de toutes les autres)<br>
+                          <mark>\d</mark> (n’importe quel chiffre)<br>
+                          <mark>\w</mark> (n’importe quelle lettre)<br>
+                          <mark>\d{3}</mark> (au moins trois chiffres)<br>
+                          <em>Rm</em>: Le <mark>.</mark> étant utilisé comme symbole dans les expressions 
+                          régulières, il faut "l'échapper" <mark>/.</mark> .<br> Ce "." doit être 
+                          considéré comme le caractère " . " , pas interprété... " / " s'appelle "backflash".
+                          <em>Rm</em>: Parfois il faut doubler l'échappement <mark>//</mark> . 
+                          </p>
+                      <p>Comme les expressions régulières sont difficiles à écrire, outil externe
+                       <strong>Regex 101</strong>.com <em>(pr tester)</em> , <strong>Regexpert</strong>
+                       <em>(pr visualiser)</em> .</p>
+                      <h4>Message d'erreur (directement ds le code)</h4>
+                        <p>Avec un if, on peut déjà gérer un cas d'erreur (car le code va s'arrêter de tourner).
+                          Pour éviter d' avoir trop de if : Méthode <strong>try/catch</strong> 
+                          (une ligne juste à la fin).<br>
+                          Permet distinguer exécution “quand tout marche bien” et gestion erreurs.
+                        </p>
+                        <p><em>Rm</em>: Ok pour erreurs Javascript mais pr "propres fonctions" 
+                          <strong>throw new Error(message)</strong></p>
+<div class="declarervariables">                          
+                        <p><div class="interpolation">
+                          <strong>try</strong>{<br> 
+                          let maVariable = document.getElementByld("idInexistant")<br>
+                          maVariable.createElement ("div")<br>
+                          // suite du traitement<br>
+                          } <strong>catch</strong> {<br>
+                          console.log ("Il y a eu une erreur dans le bloc try");<br>
+                          }<br>
+                        </div></p>
+                         <p><div class="interpolation">
+                          function verifierChamp(champ) {<br>
+                          // Si le champ est vide, on lance une exception<br>
+                          if (champ.value === "") {<br>
+                          <strong>throw</strong> new Error(`Le champ ${champ.id} est vide`)<br>
+                          }<br>
+                          }
+                        </div></p>
+</div>                        
+                        <p>Utile pr accéder à un serveur, ouvrir un document, code long et complexe...</p>
+                        <p><em>Rm</em>: “lancer une exception" ou “lever une exception” égale (en fait) à
+                         “lancer une erreur".</p>
+               </section>
+               <section>
+                      <h2 id="git">Git et GitHub (pr gérer son historique)
+                        <span class="ici">
+                      <a href= "https://openclassrooms.com/fr/courses/7162856-gerez-du-code-avec-git-et-github" target="_blank">Cours ici</a> 
+                      (<em>Rm</em>: On travaille au niveau du "terminal"
+                      <a href="../../ComprendreWeb.pdf" target="_blank">Les bases de base.</a> )
+                        </span>
+                        <span class=haut><a href="cours2.html"><a href="#debut">Revenir au début</a></span></h2>
+                    </h2>
+                    <div class="ouvrirjson">
+                      <a href="https://github.com/Babasite/SPTerrain_Sans_IA" target="_blank">Mon GitHub</a>
+                      </div>
+                      <p><u>GitHub</u> (site web qui "stocke" code)<br>
+                        <u>Git</u>=Gestionnaire de versions (outil pr "sauvegarder" code en utilisant
+                         "Contrôle de version"(=versioning) pr suivre modifs)
+                      </p>
+                      <p>Dépot = <strong>repository</strong> (locale (à améliorer) , distant (historique délocalisé))<br>
+                      <em>Rm</em>: Dépôt local est un clone de dépôt distant</p>
+                      <p><em>Plateformes</em> : GitHub+++, GitLab (pr anti-Microsoft), 
+                       Bitbucket (version de "Atlassian"(entreprise qui édite plusieurs outils
+                       pour développeurs))</p>
+                       <h3>Pour commencer</h3>
+                       <p><mark>github.com</mark> : sign up, <strong>contributions</strong>
+                         (ttes les actions sur des repositories),<br> <strong>Pull requests</strong>
+                        (permet informer autres utilisateurs modifications appliquées à une branche 
+                        d'un repository, et que je veux fusionner avec le code principal),<br>
+                      <strong>Explore</strong> (trouver de nvx projets open source sur lesquels travailler),<br>
+                    <em>Attention</em>: Pour les repository <strong>publics</strong>, tte information stockée est accessible
+                     à tous.</p>
+                     <p><em>Au commencement</em>:<br>Activer <strong>Push Protection</strong> (vérifier contient aucune information sensible
+                    comme clés ou secrets):<br> photo,setting,Code security (menu gauche), Enable all
+                     (sur Dependabot alerts <u>et</u> Dependabot security updates)<br>
+                    <em>Rm</em>: "Push protection for yourself" aussi, mais activé désormais par défaut,
+                     comme les "Secret scanning".</p>
+                     <p>
+                    <strong><mark>New repository</mark></strong> (en appuyant sur + ds barre du haut)<br>
+                      Installer Git sur ordi (pr travailler en locale). Pr vérifier: Ouvrir PowerShell (CtrlC), git --version<br>
+                     </p>
+                     <p><em>Lignes de commandes pour commencer ( créer un dépôt local = <u>Initialiser un dépôt Git</u> )</em>:<br> 
+                     <strong> cd</strong> ApprendreDvmt , <strong>mkdir</strong> SPTerrain_Sans_IA ,
+                     <strong>cd</strong> SPTerrain_Sans_IA , <strong>git config <mark>--global</mark></strong>
+                     (pour le faire qu'une seule fois)
+                      user.name "Bastien Sabouret" ,<br> (puis avec)  user.email MonMail@gmail.com ,<br> (puis avec) 
+                    color.diff auto , (puis avec) color.status auto , (puis avec) color.branch auto ,
+                  (puis avec) core.editor vim (afin d’améliorer la lisibilité des différentes branches),<br>
+                   (puis avec) merge.tool vimdiff, <strong>git init</strong>
+                </p>
+                <h3>Travaillez depuis dépôt local Git</h3>
+                <p><strong>pwd</strong> dans Git Bash (ou cd)</p>
+                <p>On a donc créé un .html et un .css ds <mark>Working directory</mark>. Il faut ensuite
+                 les conserver ds une zone <mark>Index</mark> .<br> Qd on est sûr et qu'on veux valider, on
+                les place ds zone "repository" (Attention car y sera pour tjrs jusqu'à prochain commit cette fois ).</p>
+                <p>
+                  <div class="valeurtype">
+                  <em>Dépôt local</em> : <u>Working directory(1)</u> (sur ordi), <strong>git add</strong>
+                   <u>Stage = Index(2)</u> (fichier modifié), <strong>git commit -m 
+                   </strong> <u><mark>Repository</mark>(3)</u>
+                   (nelle version)) &lt;-&gt; <strong>git push</strong> <em>Dépôt distant</em>
+                   (<u>GitHub(4)</u>)</p>
+                  </div>
+                   <p>(1 à 2) Indexer (=Stage un fichier)<br>
+                       (2 à 3) Committer un fichier<br>
+                       (3 à 4) Pusher son code</p>
+                   <p>(3) -m (comme message) est un argument, ajouté à la commande principale</p>
+                  <p>(4) "Pusher" le commit : Avec <strong>HTTPS</strong> (demande juste confirmation de votre identifiant et
+                     mot de passe)<br>
+                    ou SSH (<strong>clé SSH</strong> = clé Secure Shell. Qd machine tierce, 
+                    <strong>plus rapide</strong> . Une clé SSH privée est unique
+                    et personnelle). <em>Rm</em>: clée GPG (pr signer ce qu'on produit)</p>
+                    <p>
+    (1 à 3) On peut faire des <em><u>Branches</u></em> : travailler sur une version du code sans modifier directement branche principale.
+    <strong>main</strong> (anciennement appelée <strong>master</strong>).<br>
+    Pour créer une nouvelle branche :
+    <strong>git branch</strong> nomDuRajout<br>
+    Pour voir les branches :
+    git branch<br>
+    * main<br>
+    nomDuRajout<br>
+    Pour basculer sur la nouvelle branche :
+    <strong>git checkout</strong> nomDuRajout  <em>Rm</em>: Ils peuvent être <mark>Untracked</mark>
+(Git ne les suit pas encore).<br>
+    On aura alors :<br>
+    git branch<br>
+    main<br>
+    * nomDuRajout<br>
+    Après avoir fait les modifications :<br>
+    git add . → les fichiers passent en <mark>Staging</mark>
+     (prêts à être enregistrés).<br>
+    git commit -m "nouveau rajout"<br>
+    Pour fusionner la branche avec main :
+    → les modifications sont enregistrées dans un <mark>Commit</mark> (historique git).<br>
+    git checkout main<br>
+    <strong>git merge</strong> nomDuRajout<br>
+</p>
+<h3>Travaillez avec un dépôt distant (pr travailler sur un projet à plrs)</h3>
+<p>Maintenant c'est sur le site<mark>GitHub</mark> qu'on travaille (après avoir "pushé").</p>
+<p><u>Cloner</u> un projet GitHub sur notre ordi (le ReadMe présent est le mode d'emploi du projet)<br>
+<em>Sur site</em>: Clicker sur "Code", puis "HTTPS" (ou SSH), puis sur "bouton copier".<br>
+<em>Sur terminal</em>: <strong>git clone</strong> l'adresse_url,
+<strong>git remote add</strong> (pr lier ce dépôt à un "nom court").</p>
+<p>Pr récupérer (en local) des modifs faites : cd , <strong>git pull</strong> origin main , git branch 
+(pr vérifier les branches en cours).</p>
+<p>On ne peut pas faire "git merge" (pr fusionner modifs de notre branche avec branche principale)
+car "main" souvent sécurisé.<br> On fait <strong>pull request</strong> (demande autorisation)
+puis clicker sur "reviewers" (ds site) et on choisit un relecteur pr ns vérifier.<br>
+<em>Rm</em>: Sera acceptée avec "merge pull request"
+</p>
+<h3>Gérer des erreurs</h3>
+<p><u>En local</u>: git branch <strong>-d</strong> (pr supprimer la branche) et <strong>-D</strong> (si des
+  modifications y ont déjà été faites), git branch <strong>-M main</strong> 
+ (si brche ppale se nomme "master" et non "main")<br>
+  <em>Rm</em> : Sans avoir fait de "commit", suffit de faire <strong><mark>-</mark></strong> 
+ (appelé remise = stash, pr mettre ses modifs de côté, le tps créer nvelle branche et d’y appliquer
+  cette remise).<br>
+  <strong>git stash</strong> (pr mettre modif de fichier suivit par git de côté pr la réutiliser plus tard)<br>
+  git stash <strong>-u</strong> (fait la même chose, mais inclut aussi les nouveaux fichiers non suivis (untracked).)<br>
+  <strong>git status</strong> (pr voir état des fichiers qui ont été modifiés ms pas encore comit). <br>
+  Pour "remettre" la remise (mise de côté) : git stash <strong>list</strong> (pr voir ttes les modifs en attente),
+  puis git stash <strong>apply</strong> NomDeLaModifàRécupérer . Il ne reste plus qu'à commit.</p>
+  <p>Si on a déjà fait un commit : <strong>git log</strong> (analyse derniers commits), on récupère le bon 
+  <strong>hash</strong> (identifiant),<br> puis <strong>git reset --hard HEAD^</strong>, créer et basculer sur une 
+  nelle branche, puis <strong>git reset</strong>  ( git reset --hard ca83a6df 
+  (seuls 8 premiers caractères de identifiant st nécessaires)).<br>
+  Changer "message" du commit : <strong>git commit --amend -m "NxMessage"</strong> (que pr dernier commit réalisé)<br>
+  Ajout fichier oublié : git add fichierZappé.txt , git comit --amend <strong>--no-edit</strong> (sans le -m en fait).
+ </p>
+<p><u>En distant</u> (on a pushé mauvais fichier): git reset (revenir à l'état précédent sans créer un
+   nouveau commit), git revert (va créer un nouveau commit).<br>
+  <strong>git revert</strong> HEAD^ (annule commit public,
+   = annule changmts commités),<br>
+ <strong>git reset</strong> HEAD (annule commit privée, = annule changmts non commités)
+  -> En <strong>--soft</strong> (Repository), en <strong>--mixed</strong> (Stage)
+   et en <strong>--hard</strong> (Working directory).<br>
+   <em>Rm</em>: Si on précise pas git reset, git reset --mixed HEAD~ par défaut.
+   </p>
+   <p>Conflits (si y a 2 propositions en même tps, après un git merge): Effacer la mauvaise .</p>
+   <p>Journalisation (pr corriger un commit raté, savoir qui a fait l'erreur) : 
+    <strong>git log</strong> (montre structure arborescente de la branche),<br>
+    <strong>git reflog</strong> (liste de ttes les actions effectuées), 
+    <strong>git blame</strong> (qui et où), <strong>Cherry pick</strong>
+     (cherche par "identifiant SHA" de commit, pr dupliquer des commits existants)
+   </p>
+               </section>
+               <section>
+<h3>Devenez un "expert" de Git et GitHub
+ <span class="ici">
+  <a href= "https://openclassrooms.com/fr/courses/7688581-devenez-un-expert-de-git-et-github"
+   target="_blank">Cours ici</a> 
+  </span>
+  </h3>
+  <p><a href="https://git-scm.com/docs" target="_blank" >Documentation officielle de Git (en anglais)</a> et
+    <a href="https://www.atlassian.com/fr/git/tutorials" target="_blank">Tutos en plus</a> .
+     </p>
+     <p><strong>GitHub Issues</strong> (nouvelles taches)<br>
+      Pr éviter faire copie "clone" du projet (serait confut sur un projet en Open Source),<br>
+       faire un "<strong>fork</strong>" du projet (copie du projet sur notre propre compte GitHub).
+       Au lieu d'un "push", on fera un "<strong>Pull Request</strong>" (isolé du projet d'origine).<br>
+       On pourra alors cloner ce fork
+        (en recupérant le code (url du projet) sur le site, à entrer ds terminal).<br>
+     git clone Url_du_projet</p>
+     <p><em>Rm</em>: Pr "forker", faut le dépôt public de <u>quelqu'un d'autre</u> .</p>
+     <p><u>git pull</u> (pr récupérer dernier dossier si il a été changé entre tps), 
+      puis comme il y aura<br>
+       "conflit", choisir le mieux (ma version,l'autre version, ou une fusion des 2). <u>git status</u>
+     </p>
+     <p>
+     <u>On garde version distante</u> (l'autre): <br>
+     <strong>git checkout --theirs fichier_à_choisir </strong>, git add fichier_à_choisir,
+     git commit -m "message_de_commit", git push, git status (pr vérifier que conflit résolut) <br>
+     <u>On garde version locale</u> (ma version): <br>
+     git checkout <strong>--ours</strong> fichier_à_choisir, git add ... <br>
+     <u>On fait une nouvelle version</u> (fusion des 2):<br>
+     <strong>editeur de texte</strong> (comme "sublime texte") et on supprime les lignes nécessaires à la main,
+     enregistrer, git add ...
+     </p>
+     <h4>Avoir historique propre</h4>
+     <p>Retirer et/ou modifier "comits" et/ou "branches" inutiles</p>
+     <p> <strong>git log</strong> (pr visualiser l'historique)<br>
+      git status, git checkout -b feature (pr se positionner sur la branche "feature")<br>
+      <u>Ajout fichier ds un commit</u> : git commit <strong>--amend</strong><br>
+       <u>Remettre commits d'une branche "fonctionnalité" ds branche ppal "main"</u>:
+       <strong>git rebase</strong> (déplacer commit à la pointe pr réécrire l’historique de la branche que l’on rebase)<br>
+     <u> Annuler un commit existant alors qu'il y a un commit sur lequel on travail après</u> : 
+      <strong>git stash</strong> (pr mettre de côté notre bon commit), git status, <br> 
+      <strong>git bisect</strong> (identifier le commit erroné ) :
+        git bisect start (puis bad HEAD,(git log),good (+l'id),good ou bad,reset),<br>
+        <strong>git revert</strong> ((+id mauvais_comit) annuler les effets de ce commit),<br>
+        reprendre travail avec <strong>git stash <u>pop</u></strong> (pr récupérer modif misent de côté), 
+        <strong>cat</strong> .
+    </p>
+    <h4>GitFlow (structurer collaboration avec un workflow)</h4>
+    <a href="https://app.readthedocs.org/projects/git-flow/downloads/pdf/latest/" target="_blank">Documentation
+      GitFlow
+    </a>
+    <p><strong>workflow</strong> (liste de recommandations à suivre) .
+    Chaque équipe peut créer le sien pr son projet.<br>
+    <u>Les plus connus</u>: workflow centralisé (Centralized Workflow),
+     workflow de création de branches de fonctionnalités (Feature Branch Workflow),<br>
+      workflow <a href="https://trunkbaseddevelopment.com/"target="_blank">basé sur le tronc</a>
+       (Trunk Based Development),
+       workflow <strong>GitFlow</strong>,
+      workflow de duplication (Forking Workflow).
+    </p>
+    <p>GitFlow est composé de 5 branches (permet de garder branche Main propre): Main, Hotfixes, Release,
+       Develop, Feature .</p>
+       <div class="declarervariables">
+       <p><img src="ImagesCours2/workflow.png" id=gitflow></p>
+       <p>git flow init (cré branches "main" et "develop" (sur laquelle on se retrouve positionné),<br>
+        git flow feature start fonctionnalite1 (brche de fctionnalité créée à partir de dvlop),<br>
+        commit fonctionnalite1,<br>
+        pull request (pr que travail soit validé par qui de droit),<br>
+        git flow feature finish fonctionnalite1 (brche fonc1 est "merge" sur brch dvlp ),<br>
+        git flow release start 0.0.1 (créer la release),<br>
+        git flow release finish ‘0.0.1’ (release intégrée à brche main)<br>
+       </p>
+      </div>
+       <h4>Automatiser des contrôles et traitements</h4>
+       <p><strong>Hooks</strong> = Crochet (script personnalisé qui peut être lancé lors de certaines actions)<br>
+        Peuvent se situer côté client ou côté serveur.<br>
+        Ecrire un hook requiert des compétences de <u>scripting</u> <br>
+         (écrire programmes courts, qui donnent suite
+         d'instructions
+         à un ordi ou à un logiciel pour automatiser des actions ou produire un comportement).
+      </p>
+      <p><strong>pre</strong> et <strong>post</strong>(pas bloquant) : Pr définir si le hook s’exécute avant
+         ou après une opération)<br>
+        <em>Rm</em>: Contenu du répertoire .git/hooks pas cloné qd on fait un git clone </p>
+        <p>On modifit le texte du hook sur fichier ds ordi, puis sur terminal:<br>
+           git add MonHook.txt, 
+          git commit -m " message pr MonHook " (pas préfixé par # et numéro qui suit), 
+          git commit -m " # 1 message pr MonHook "
+        </p>
+        <p>
+          Les hooks permettent lancer scripts personnalisés pr effectuer contrôles et traitements lors
+           des opérations Git.<br>
+          Les hooks <u>côté client</u> sont scripts exécutés sur repository <u>local</u>.<br>
+          Les hooks <u>côté serveur</u> sont scripts exécutés sur repository <u>distant</u>.<br>
+          Git fournit ensemble hooks utilisables et adaptables ds répertoire <strong>.git/hooks</strong>.
+        </p>
+        <h3>A savoir</h3>
+        <p><strong>client GUI</strong> = outil graphique (utilisé à la place du terminal, on garde juste
+          éditeur de texte).<br>
+        Choisir un client GUI : GitHub Desktop, GitExtensions, GitKraken, </p>
+               </section>
+                     <section>
+                         <h2 id="dynamique">Créez des pages web dynamiques avec JavaScript
+                          <span class=haut><a href="cours2.html"><a href="#debut">Revenir au début</a></span></h2>
+                          <p>Suivre ce nx cours : 
+        <a href="https://openclassrooms.com/fr/courses/7697016-creez-des-pages-web-dynamiques-avec-javascript" target="_blank">Cours JavaScript Openclassrooms
+        </a>    
+      Outils en plus nécessaires: <strong>Git</strong> et <strong>GitHub</strong>,  
+      créer en plus un fichier cours2<mark>.json</mark> .</p>
+        <p><u>Formats</u>: Textuels (CSV, XML, JSON), Binaire (XLSX pr xl, ODS pr open-office) plus légers 
+          ms indéchiffrables pr humains,<br> Base de données (<strong>SQL</strong>) pr structurer un 
+          grand nbre de données. Le plus adapté pour construire un projet web de zéro.</p>
+        <p><u>Emplacements</u> (méthode de stockage de nos données): Fichier (en locale), Base de données 
+          (serveur), <strong>API en ligne</strong> (service web accessible 24 h/24, pr météo par exemple) . </p>  
+          <p>On peut combiner les formats et les emplacements en fct des besoins<br>
+          SQL -> Base de données<br>
+          CSV, JSON -> <mark>Fichier</mark><br>
+          API en ligne <- XML, <mark>JSON</mark></p>
+          <p><div class="declarervariables">
+            <p><em>CSV</em> (pr tableau)<br>
+              <br>
+              Nom de la pièce,Prix en euros,Catégorie<br>
+              Ampoule LED,90,Optiques<br>
+              Pédale d’accélérateur,150,Habitacle<br>
+            </p>
+            <p><em>XML</em> (pr logiciels)<br>
+              <br>
+    &lt;ListePieces&gt;<br>
+    &lt;Piece&gt;<br>
+    &lt;Nom&gt;Ampoule LED&lt;/Nom&gt;<br>
+    &lt;Prix&gt;90&lt;/Prix&gt;<br>
+    &lt;Categorie&gt;Optiques&lt;/Categorie&gt;<br>
+    &lt;Description&gt;Ces ampoules augmentent visibilité !<br>
+    &lt;/Description&gt;<br>
+    &lt;/Piece&gt;<br>
+    &lt;Piece&gt;<br>
+    &lt;Nom&gt;Pédale d’accélérateur&lt;/Nom&gt;<br>
+    &lt;Prix&gt;150&lt;/Prix&gt;<br>
+    &lt;Categorie&gt;Habitacle&lt;/Categorie&gt;<br>
+    &lt;/Piece&gt;<br>
+    &lt;/ListePieces&gt;<br>
+            </p>
+            <p><em>JSON</em> (+++ transmettre, stocker, configurer des données.)<br>
+              <br>
+    [<br>
+    {<br>
+        "nom": "Ampoule LED",<br>
+        "prix": 90,<br>
+        "categorie": "Optiques",<br>
+        "description": "Ces ampoules augmentent visibilité !"<br>
+    },<br>
+    {<br>
+        "nom": "Pédale d’accélérateur",<br>
+        "prix": 150,<br>
+        "categorie": "Habitacle"<br>
+    }<br>
+]<br>          
+            </p>
+            </div>
+          </p>
+<p>Lancer un projet (avec VSCode): Sur le .html, clic droit puis "Open with Live Server"<br>
+<em>Rm</em>: Si pas d'extension pr lancer serveur web, utiliser <strong>Node.js</strong> <br>
+ (et le gestionnaire de package npm fourni lors de l’installation)
+  <a href="https://nodejs.org/en" target="_blank"> Installer Node.js </a> <br>
+  et lancer ds terminal : npm install puis npm run dev<br>
+(avec navigateur à l’adresse http://localhost:8080) </p>
+<h3>.JSON</h3>
+<div class="ouvrirjson"><p>Pr travailler sur .json :<br>
+Dire au <strong>.html</strong> que mon JS est un "module" en y remplacant
+ <u>&lt;script src="cours2.js"&gt;&lt;/script&gt;</u>
+par <u>&lt;script <mark>type="module"</mark> src="cours2.js"&gt;&lt;/script&gt;</u><br>
+Puis ds <strong>.js</strong> : <u>const reponse = await <mark>fetch("cours2.json")</mark>;</u> 
+(fetch va chercher mon fichier cours2.json)<br>
+<u>const donnees = await reponse.json();</u> (
+transforme la réponse .json en données utilisables par .js)<br>
+Et enfin <u>console.log(donnees);</u> (pr afficher les données récupérées dans la console)
+</p>
+<p>Pr voir les effets du "boutonJSON ci-dessous, installer node (version LTS) 
+  <a href="https://nodejs.org/en/download?utm_source=chatgpt.com" target="_blank">
+     Installateur Windows (.msi)</a> ,
+   relancer ensuite sur terminal :
+  <div class="fullstack"> <u></u> (installation de <mark>node.js sur ordi</mark>)<br>
+    exit (on sort de Git Bash, on ferme node et réouvrons, on clique sur "terminal")<br>
+    node --version<br>
+    npm --version <br>
+    <em>Rm</em>: Avec ces 2 commandes, on vérifit déjà que "node" soit bien installé.<br>
+    Ensuite seulement, on utilise npm pour installer des choses (Node.js <u>+ npm disponibles</u>
+     → npm nous permet d'installer Vite, Chart.js, etc.).<br>
+    <mark>cd</mark> Cours2/frontendCours2/cours2 (pr retourner ds le dossier ou on voudra installer)<br>
+    <mark>npm</mark> init -y<br>
+    npm install --save-dev <mark>vite</mark> (installe un petit <mark>serveur</mark> "Vite"(
+     "dev" est le nom du "script" créé. C'est les scripts qu'on lance avec "run".))<br>
+    npm pkg set scripts.dev="vite"(pr demarrer ce serveur. Crée le script "dev": "vite".)<br>
+    <u>npm <mark>run dev</mark></u> (Démarrage de vite. Adresse http://localhost:5173/cours2.html créée)</u><br>
+Puis changer l'adresse ds le navigateur: <u><mark>http://localhost:</mark>5173/Cours2/frontendCours2/cours2.html</u><br>
+(et plus adresse
+ <mark>file:///C:/Users/</mark>basti/ApprendreDvmt/Cours2/frontendCours2/cours2.js)<br>
+  </div>
+</p>
+ <p><em>Rm</em>: Ce sont deux façons différentes d’ouvrir page. 
+file:/// (Chrome ouvre directement un fichier qui se trouve sur mon ordi) 
+http://localhost: (un petit serveur web tourne sur mon propre ordi et Chrome lui demande
+ma page. Ce n’est plus un site publié sur Internet. localhost désigne mon ordinateur lui-même).
+</p>
+<!-- Désormais je dois taper ds le terminal http://localhost:5173/cours2.html-->
+<p><span class="bouton"><img id="boutonJSON" src="ImagesCours2/BoutonJSON.png"></span></p>
+</div>
+<h4>Syntaxe</h4>
+<p>Issu langage .js, format plus limité car utilisé par programmes écrits ds d’autres
+   langages<br> (Python, C, PHP). Vocation à s’adapter à cette diversité d’environnement</p>
+   <p><u>4 types primitifs</u> : Nombres (0 à 9 avec <mark>.</mark> et <mark>-</mark> (pour moins)),
+    Textes (avec <mark>""</mark>, si " ds txte <mark>/</mark>""),<br>
+    <em>Rm</em>: JavaScript permet délimiter chaînes caractères de 2 manières (guillemet simple  ' 
+     et back tick  `). JSON n’a conservé que double guillemet.<br>
+     Booléens, valeur Null (pr absence de valeur)
+  </p>
+   <p><u>2 types structurants</u> : les objets { " " : " ", } et les tableaux [ , ,... ]</p>
+   <h4>Gérer contenu avec DOM</h4>
+   <p>On va chercher à automatiser (car sinon trop long) <br>
+      On va importer données JSON ds code JS <strong>fetch</strong> .
+    <div class="interpolation">// Récupération des Elements depuis le fichier JSON<br>
+const reponse = await fetch("<em>mesElements</em>.json");<br>
+const <em>Elements</em> = await reponse.json();
+    </div>
+  </p>
+   <p><u>Choisir balises HTML</u> (quelles données on veut "afficher"),<br>
+    <u>Créer éléments</u> pr chaque balise <br>
+    (const <em>ElementOnVeut</em> = <strong>document.createElement ( "<em>nomDeBaliseàCréerEnHTML</em>" ) ; ) ,</strong>),<br>
+    <u>Afficher ces élément</u> sur la page (les rattacher au Body de la page web avec Enfants Parents du DOM) avec 
+    <strong>appendchild()</strong>, <br>
+   <u>Vérifier</u> les données (opérateur ternaire (choisir entre deux possibilités),<br> opérateur nullish
+     <strong>??</strong> (lorsqu'on pense avoir une information dans une variable mais que finalement,
+      y en a pas.) <em>Rm</em>: Anciennement <strong>||</strong> ) .
+   </p>
+   <p>Littéraux de gabarit (=template string): <strong>= `Prix: ${article.prix} €`;</strong> 
+  </p>
+  <p>On peut utiliser <strong>&lt;innerText&gt;</strong> (pr modifier textes des balises)</p>
+  <h4>Listes en JS</h4>
+  <p>Pour organiser suivant réponses <strong>filter (function (<em>Elements</em>))</strong> <br>
+    Pour réordonner les éléments de liste <strong>sort (function (a,b))</strong> pr appeler plrs fois .<br>
+    <em>Rm</em>: On utilise boucles à l'intérieur. <strong>do while</strong> (permet exécuter au moins
+   une fois une instruction avt de vérifier s’il faut la répéter)<br>
+   Copie avec <srong>= Array.from ();</srong>
+  </p>
+  <h4>Projeter données (mapper: recupérer nom des élements)</h4>
+  <p>Copie d'une liste en appliquant une transformation <strong>map (function (Element))</strong> {}
+     (fct anonyme)<br>
+  Créer nelle valeur : {return <em>Element</em>.<em>nom</em>;}  (le nom peut être un calcul)
+  <div class="interpolation"> Version simplifiée (appelée fct <u>lambda</u>):<br>
+    map(function(Element){return Element.Nom;}<br> <strong>(Element) => Element.nom ;</strong><br>
+    const noms=Elements.map(Element=>Element.nom);
+  </div>
+  <strong>.splice</strong> (pr supprimer des noms):<em>Rm</em>: parcourir la liste de la fin vers le début
+</p>
+<h4>Mettre à jour affichage page web</h4>
+<p>La pluspart des éléments du DOM possèdent propriétés:<br>
+&lt;innerText&gt; (pr modifier textes des balises)
+ et <strong>&lt;innerHTML&gt;</strong> (plus puissante,plus courte, peu lisible dc à combiner avec technique
+de génération )</p>
+<p><em>Rm</em>: Il existe des moyens plus optimisés pr mettre à jour la page web
+   (avec framework comme vujs ou react pr réaliser du code plus concis)
+  </p>
+  <p>innerHTML: permet d'effacer ou de remplacer le contenu
+     d'un élément du DOM, peut être utilisé pr régénérer une 
+     nelle version d'une page web,<br> mettre à jour la page en fct 
+     des interactions des utilisateurs .
+     <div class="interpolation">
+      // Efface le contenu de la balise body et donc l’écran<br>
+document.querySelector(".fiches").innerHTML = '';<br>
+// Récupération des pièces depuis le fichier JSON<br>
+const pieces = await fetch("pieces-autos.json").then(pieces => pieces.json());<br>
+// Fonction qui génère toute la page web<br>
+function genererPieces(pieces) {<br>
+  for (let i = 0; i < pieces.length; i++) {<br>
+       // Création d’une balise dédiée à une pièce auto<br>
+       const pieceElement = document.createElement("article");<br>
+       // On crée l’élément img.<br>
+       const imageElement = document.createElement("img");<br>
+       // On accède à l’indice i de la liste pieces pour configurer la source de l’image.<br>
+       imageElement.src = pieces[i].image;<br>
+       // On rattache l’image à pieceElement (la balise article)<br>
+       pieceElement.appendChild(imageElement);<br>
+       // Idem pour le nom, le prix et la catégorie ...<br>
+       // ...    <br>
+       // On rattache la balise article au body<br>
+       document.body.appendChild(pieceElement);<br>
+  }}<br>
+// Premier affichage de la page<br>
+genererPieces(pieces);<br>
+// Ajout du listener pour trier les pièces par ordre de prix croissant<br>
+// ( On rend <strong>interactive</strong> la page car l'utilisateur clic sur un bouton ) <br>
+<strong>const boutonTrier</strong> = document.querySelector(".btn-trier");<br>
+boutonTrier.addEventListener("click", function () {<br>
+  //<strong>sort() → réordonner</strong><br>
+   const piecesOrdonnees = Array.from(pieces)<br>
+   piecesOrdonnees.<strong>sort</strong>(function (a, b) {<br>
+       return b.prix - a.prix;<br>
+   });<br>
+  // Effacement de l'écran et regénération de la page<br>
+  document.querySelector(".fiches").innerHTML = "";<br>
+  genererPieces(piecesOrdonnees);<br>
+});<br>
+// Ajout du listener pour filtrer les pièces non abordables<br>
+const boutonFiltrer = document.querySelector(".btn-filtrer");<br>
+boutonFiltrer.addEventListener("click", function () {<br>
+  //<strong>filter() → sélectionner</strong><br>
+   const piecesFiltrees = pieces.filter(function (piece) {<br>
+       return piece.disponibilite;<br>
+   });<br>
+   // Effacement de l'écran et regénération de la page avec les pièces filtrées uniquement<br>
+  document.querySelector(".fiches").innerHTML = "";<br>
+  genererPieces(piecesFiltrees);<br>
+});
+     </div>
+     </p>
+     <h3>Envoyer une requête (on utilise maintenant une API en ligne à la place d'un fichier)</h3>
+     <p id="meteo">Météo (avec une API)<span class="resultatMeteo"></span><- Ce résultat change</p>
+     <p>Une API permet d'être "à jour" si des valeurs sont amenées à changer</p>
+     <p>On aura désormais besoin d'un "serveur" en ligne.
+      <em>Rm</em>: On abandonne l’utilisation d’un fichier JSON</p>
+      <p><strong>API HTTP</strong> (qd un service web offre une façade à travers le protocole HTTP)</p>
+      <p>Récupérer le fichier JSON :<br>
+      const reponse = await <strong>fetch</strong>("MonDossierJSON.json");<br>
+      const pieces = await reponse.json();<br>
+      En utilisant une API, plus besoin.</p>
+      <p>On demande une <strong>requête</strong> au serveur (avec le nom puis le verbe HTTP) :<br>
+        <strong>POST</strong> pour la création ;<br>
+        <strong>GET</strong> pour la récupération ;<br>
+        <strong>PUT</strong> pour la modification ;<br>
+        <strong>DELETE</strong> pour la suppression.<br>
+        <em>Rm</em>: Comme pr un fichier on utilise "fetch" (qui prend get par défaut).<br>
+        Mot clé <strong>async</strong> (indique qu'une fonction est <u>asynchrone</u> (= on commande pr plus tard))
+      </p>
+      <h4>Réponse du serveur</h4>
+      <p>La réponse à la requête prend du tps. Pr que ordi fctionne en attendant :
+         programmation asynchrone (pr mettre en veille le code)<br>
+        <u>Mot clé</u> (<strong>await</strong> (anciennement <strong>.then</strong> 
+       <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide/Using_promises" target="_blanks">Promesses</a>
+        )) puis <u>instruction</u> asynchrone (<em>Ex</em>: fetch) <br>
+      Pr créer fct asynchrone : <strong>async</strong> function (event)</p>
+      <p> <div class="interpolation">await fetch("http://monsite.fr/ma-ressource");<br>
+        console.log("Le script continuera après avoir reçu la réponse");<br>
+        // <em>Pr la réponse de l'API, il faut "<strong>désérialiser</strong>" le JSON.</em><br>
+        const avis = await reponse.json();<br>
+        //<em>Puis générer des éléments grâce aux fonctions createElement et appendChild</em><br>
+        const pieceElement = event.target.parentElement;<br>
+        const avisElement = document.createElement("p");<br>
+        for (let i = 0; i < avis.length; i++) {<br>
+        avisElement.innerHTML += `${avis[i].utilisateur}: ${avis[i].commentaire} <br>`;}
+      </div></p>
+      <h4>Sauvegarder données (grâce à une API HTTP)</h4>
+      <p><div class="interpolation">
+        fetch ("ressources", {objet <br>
+        <strong>method</strong>: get ou post<br>
+        <strong>body</strong>:  charge utile (Ex: au format JSON<br>
+        <strong>headers</strong>: format (de la charge utile) (Ex: en-tête Content-Type application/json)<br>
+        }); 
+      </div>
+      </p>
+      <p><strong>localStorage</strong>: Pr que ce soit disponible même hors résaux</p>
+      <p><div class="interpolation">
+        &gt; écriture<br>localStorage.<strong>setItem</strong> ("identifiant", "valeur")<br>
+        &gt; lecture<br>localStorage.<strong>getItem</strong> ("identifiant")<br>
+        &gt; supression<br>localStorage.<strong>removeItem</strong> ("identifiant")
+      </div>
+      </p>
+      <p>
+        <div class="interpolation">
+        window.localStorage.setItem("nom", "Les Bonnes Pièces !");<br>
+        // Récupération des pièces depuis le fichier JSON<br>
+const reponse = await fetch("http://localhost:8081/pieces");<br>
+const pieces = await reponse.json();<br>
+// ou en une seule ligne à la place<br>
+ const pieces = await fetch("http://localhost:8081/pieces").then(pieces => pieces.json());<br>
+// Transformation des pièces en JSON<br>
+const valeurPieces = JSON.stringify(pieces);<br>
+// Stockage des informations dans le localStorage<br>
+window.localStorage.setItem("pieces", valeurPieces);<br>
+// Ensuite pr y avoir accès<br>
+const nomEntreprise = window.localStorage.getItem("nom");<br>
+// Récupération des pièces éventuellement stockées dans le localStorage<br>
+const pieces = window.localStorage.getItem("pieces");<br>
+// Récupération des pièces éventuellement stockées dans le localStorage<br>
+let pieces = window.localStorage.getItem("pieces");<br>
+if (pieces === null) {<br>
+  /* Code de récupération des pièces depuis l’API HTTP */<br>
+}<br>
+//Récupération des pièces eventuellement stockées dans le localStorage<br>
+let pieces = window.localStorage.getItem('pieces');<br>
+if (pieces === null){<br>
+   // Récupération des pièces depuis l'API<br>
+   const reponse = await fetch('http://localhost:8081/pieces/');<br>
+   pieces = await reponse.json();<br>
+   // Transformation des pièces en JSON<br>
+   const valeurPieces = JSON.stringify(pieces);<br>
+   // Stockage des informations dans le localStorage<br>
+   window.localStorage.setItem("pieces", valeurPieces);<br>
+}else{<br>
+   pieces = JSON.parse(pieces);<br>
+}<br>
+//puis supprimer?<br>
+&lt;h3&gt;Ajouter un avis&lt;/h3&gt;<br>
+&lt;form class="formulaire-avis"&gt;&lt;!-- …-->&lt;/form&gt;<br>
+&lt;!-- code à ajouter--&gt;<br>
+&lt;h3&gt;Données&lt;/h3&gt;<br>
+&lt;button class="btn-maj"&gt;Mettre à jour les pièces&lt;/button&gt;<br>
+window.localStorage.removeItem("nom");<br>
+// Ajout du listener pour mettre à jour des données du localStorage<br>
+const boutonMettreAJour = document.querySelector(".btn-maj");<br>
+boutonMettreAJour.addEventListener("click", function () {<br>
+  window.localStorage.removeItem("pieces");<br>
+});
+</div>
+      </p>
+      <h3>Librairies</h3>
+      <p>Code informatique réutilisable (qu'on peut partager sur sites open source comme github)<br>
+      On va chercher sur google (par mots clés ce qui nous intéresse): <u>awesome</u> (genial) javascript graph<br>
+      Prioriser les librairies populaires (bcp de téléchargements), actives (des commits récents sur GitHub),
+    bien documentés (avec un site web officiel c'est mieux) .<br>
+    On peut "personnaliser" sa librairie. Parfois, elles ont un support technique.<br>
+    Une librairie à une <strong>licence logicielle</strong> (contrat qui oblige l’utilisateur du logiciel
+     à se conformer aux exigences de l’auteur) .<br>
+    On peut créer un <strong>fork</strong> (pr apporter ses propres modifications) si licence le permet.
+  <em>Rm</em>: Pr la "cryptographie et le chiffrement", développer son propre code de chiffrement est même 
+  une faute professionnelle (tjrs utiliser une librairie).<br>
+  <em>Ex de licences</em>:  MIT, Apache, GPL.
+  </p>
+    <p>Noms de librairies intéressantes (ou où les trouver) :  jQuery, ds site NPM (pr js), ds GitHub.com <br>
+      <em>Rm</em>: Si on en compare 4 : Babylon.js, A-Frame, PlayCanvas, Three.js (gagnant des 4)</p>
+      <p>La librairie ajoute la variable <strong>$</strong> comme alias de la fonction document
+        .querySelector. On peut changer le texte de l’élément sélectionné avec la fonction <strong>text</strong> plutôt
+         qu’avec la propriété innerText.<br>
+        <em>Ex</em>: document.querySelector("button").innerText = "Rejoignez l’entreprise Les Bonnes Pièces !";<br>
+        devient<br>
+        $("button").text("Rejoignez l’entreprise Les Bonnes Pièces !");
+      </p>
+      <h4>Installer librairie sur ordi</h4>
+      <div class="ouvrirjson">Le projet utilise déjà "npm" et "Vite" (ms "Vite" plutôt un "outil"
+         qu'une "librairie"),<br>
+         une librairie JavaScript s’installe généralement depuis un nx terminal avec 
+        <span class="fullstack">npm install nom-de-la-librairie</span>.<br> 
+        Comme 1er terminal est occupé par Vite avec "npm run dev", ouvrir un 
+        <mark>2eme terminal</mark> (+ en haut à drte du terminal ouvert) avec:
+        <div class="fullstack">cd Cours2/frontendCours2</div>
+        <div class="fullstack">npm <mark>install</mark> chart.js</div> 
+        <em>Rm</em>: On peut vérifier ds quel dossier on est avec <mark>pwd</mark> et le changer
+        avec <mark>cd...</mark><br>
+        On dois ajouter <mark>en 1ere ligne, tt en haut de .js</mark>:
+        <div class="serverjs"> import Chart from "chart.js/auto";</div>
+        "Chart.js" n'a pas besoin d'être lancé comme "Vite" :
+         Il est utilisé par .js grâce à import ci-dessus.<br>
+        Ensuite, on ajoute sur .html<br>
+        <span class="html"> &lt;canvas id="monGraphique"&gt;&lt;/canvas&gt;</span>
+        (&lt;canvas&gt;= zone dans laquelle JS pourra dessiner)<br>
+         on écrit du code avec <mark>Chart</mark> pour créer un graphique.<br>
+        <em>Rm</em>: On aurait pu juste fermer le 1er terminal avec <mark>Ctrl C</mark>,
+        "installer Chart.js" dans ce même terminal, puis relancer Vite avec 
+        <span class="fullstack">npm run dev</span>.
+        <div class="serverjs">
+          const graphique = document.getElementById("monGraphique");<br>
+          new Chart(graphique, {type: "bar",data: {<br>
+          labels: ["Lundi", "Mardi", "Mercredi"],datasets: [{data: [10, 20, 15]}]}<br>
+          });
+        </div>
+        Et ds .css pr en limiter la hauteur
+        <div class="css">#monGraphique {max-width: 300px; max-height: 150px;}</div>
+        <canvas id="monGraphique"></canvas>
+        </div>
+      <p><em>Ex</em>: Gestionnaire de paquet NPM de la librairie Chart.js</p>
+      <p><u>Gestionnaire de "paquet"</u> (un paquet contient plrs librairies) : <strong>NPM (Node Package Manager)</strong> 
+        <a href="https://www.npmjs.com/" target="_blank">site web NPM</a><br>
+        NPM composé de 2 parties: le site web public qui référence tous les paquets publiés, 
+        l’outil en ligne de commande sur mon ordinateur (installé en même tps que Node.js).<br>
+        Il sert à : Documenter le nom et la version des librairies dont votre projet dépend (dépendance),
+        Automatiser téléchargement dépendances,<br>
+        Documenter nom et version des librairies dont projet dépend.
+      </p>
+      <p>Avec lignes de commandes ds terminal: <u>Initialiser NPM</u> <strong>npm init</strong><br>
+      # Création d’un répertoire (optionnel)<br>
+      mkdir mon-projet<br>
+      # Changement de répertoire<br>
+      cd mon-projet<br>
+      # Initialisation du projet NPM<br>
+      npm init<br>
+      npm install chart.js
+    Confirmer, puis <u>Installer la librairie</u> (nom sur la page de description du paquet)
+     <strong>npm install</strong> NomDuPaquet (éviter d'ajouter ce dosier ds historique Git car allourdirait).
+    </p>
+    <h4>Utiliser le paquet (Chart.js)</h4>
+    <p>Utiliser documentation (si il y a une description): bouton “Get started” (ou Getting started) sur
+    site web permet récupérer instructions nécessaires. 
+    </p>
+    <h3>Respecter conventions de codage</h3>
+    <p><strong>linter</strong> (avec lignes de commande) pr corriger erreurs de l'execution du code</p>
+    <strong>ESLint</strong>: installer le paquet eslint (npm install eslint),
+     <strong>npm init @eslint/config</strong> et répondre aux questions,<br>
+      lancer script ds .json 
+     ( "scripts": {"dev": "http-server", "lint": "eslint *.js"} ). Lancer avec commande "npm run lint".
+            </section>
+             <section>
+  <h2 id="node">Full-stack avec JavaScript (Partie back-end)
+  <span class="ici">
+    <a href="https://openclassrooms.com/fr/courses/6390246-passez-au-full-stack-avec-node-js-express-et-mongodb"
+    target="_blank">Cours ici</a>
+  </span>
+  <span class=haut><a href="cours2.html"><a href="#debut">Revenir au début</a></span>
+  <span class=Securite><a href="cours2.html"><a href="#securite">Sécurité</a></span>
+</h2>
+  <p>Il faut ajouter les compétences <strong>Node.js</strong>,
+     <strong>Express</strong> et <strong>MongoDB</strong> (base de données NoSQL, pr rendre API 
+     entièrement dynamique et données pleinement persistantes)
+  </p>
+  <p><a href="https://nodejs.org/en/"target="_blank">Installer runtime de Node</a>, avoir un terminal qui exécute 
+    npm run star.
+  </p>
+  <p><mark><em><u>Stack</u></em></mark>: Ensemble technologies utilisées pr construire et faire fonctionner une application.<br>
+    <u>Frontend</u> → ce que voit l'utilisateur : React, Vue.js, Angular, HTML/CSS/JavaScript…<br>
+    <u>Backend</u> → logique <strong>serveur</strong> et API : Node.js, Java/Spring, Python/Django, PHP/Laravel…<br>
+    <u>Base de données</u> → stockage des données : PostgreSQL, MySQL, MongoDB, Redis…
+    <u>Infrastructure/déploiement</u> → où et comment l'application tourne : Docker, Kubernetes, AWS, Azure, Vercel…<br>
+    <u>Outils complémentaires</u> → Git, GitHub/GitLab, CI/CD, monitoring, tests, etc.<br>
+    <em>Rm</em>: On rencontre aussi des stacks qui ont un nom, comme MERN.
+    </p>
+  <div class="ouvrirjson">
+    👻 (sans visibilité navigateur): Pour commencer back-end, aller dans dossier depuis terminal :<br>
+    <div class="fullstack">Ctrl + C (pr arrêter Vite qui occupe le terminal)<br>
+    pwd (pr savoir où on est. Ici on est ds /c/Users/basti/ApprendreDvmt)<br>
+    cd Cours2/backendCours2 (pr changer de dossier. On vérifit avec un autre "pwd")<br>
+    npm init (on en refait un parce que back-end est ici un projet Node séparé,
+     pas parce que Node doit être réinstallé)
+    </div>
+     <em>Rm</em>: la <mark>page ne fonctionne plus</mark> car Vite est arrêtée<br>
+     <em>Attention</em>: "entrée" plrs fois <mark>jusqu'à "entry point: (index.js)"</mark>
+     (et écrire <u>à la suite</u> <mark>server.js</mark>)
+     puis "entrée" jusqu'à avoir valider "yes".<br>
+    <em>Créer 2 fichiers</em>: "<mark>.gitignore</mark>" (liste de ce que Git devra
+     ignorer pr pas le surcharger).<br>
+     <em>Rm</em>: On y mets les fichiers ou dossiers à ignorer à chaque ligne.<br>Et 
+    "<mark>server.js</mark>" (pr créer un <mark>serveur</mark> sans avoir besoin de Vite)<br>
+    <div class="fullstack">
+    node server (server visible désormais à http://localhost:3000)<br>
+    ctrl C (pr arrêter le serveur)<br>
+    npm install -g nodemon (pr installer <mark>nodemon</mark> (outil pr redémarrer
+     automatiquement server.js qd modifié))<br>
+    nodemon server (pr démarrer le serveur avec cette surveillance)<br>
+    ctrl C<br>
+    npm install <mark>express</mark> --save ("--save" pr enregistrer "Express" 
+    ds dépendances package.json<br>
+    <em>Rm</em>: Avec versions récentes npm, automatique, 
+    dc pas besoin de l'ajouter.<br>
+    </div>
+    Créer "<mark>app.js</mark>" (et le remplir), compléter server.js<br>
+  <div class="fullstack">
+    nodemon server (Node démarre avec Express)<br>
+  </div>  
+   Compléter app.js (2),(3) et (4). 
+   On met nelle adresse ds le nav :http://localhost:3000/api/stuff . Puis app.js (5)(6) <br>
+  Créer "<mark>stuff.js</mark>" (pr déplacer <u>rtes</u> ds un fichier séparé) et remplir+(a)<br>
+  On complete par (7)<br>
+  Créer 2eme "<mark>stuff.js</mark>" (ds un dossier Controllers) et remplir. Puis (b)et (c).<br>
+  <div class="fullstack">
+  ctrl C<br>
+  npm install <mark>mongoose</mark> (bibliothèque permet Node.js communiquer avec MongoDB)
+</div>
+Créer "<mark>Thing.js</mark>" et "<mark>Users.js</mark>" (ds dossier models) et les remplir<br>
+Ds app.js (8) et (9)<br>
+S'inscrire sur le site MongoDB <mark>Atlas</mark> et créer un compte.<br>
+<u>Pour m'intéresser au métier de "Data Analyst", 
+je vais continuer pr le moment sur SQL et Python...</u> 
+<a href="../../Cours3/cours3.html" target="_blank">Cours 3 : Analyse de données</a></p>
+     
+  </div>
+  </div>
+  <h3>Comprendre le fonctionnement d'un serveur web : localhost, ports et HTTP</h3>
+  <p>
+Ma métaphore de l'<mark>immeuble</mark>
+<table>
+    <tr>
+        <th>Informatique</th>
+        <th>Métaphore de l'immeuble 🏢</th>
+    </tr>
+    <tr>
+        <td>Ordinateur</td>
+        <td>L'immeuble 🏢</td>
+    </tr>
+      <tr>
+        <td>Adresse IP (127.0.0.1) </td>
+        <td>L'adresse de l'immeuble 📍</td>
+      </tr>
+       <tr>
+        <td>localhost </td>
+        <td>Le nom qui désigne ton propre immeuble 📍</td>
+      </tr>
+    <tr>  
+        <td>Port (8000)</td>
+        <td>Le numéro de porte 🚪</td>
+    </tr>
+    <tr>
+        <td>Logiciel serveur</td>
+        <td>La personne qui travaille derrière la porte 👨‍💻</td>
+    </tr>
+     <tr>
+      <td>Serveur local</td>
+      <td>Une personne qui travaille dans ton propre immeuble 🏠</td>
+    </tr>
+    <tr>
+      <td>Serveur distant (site Internet)</td>
+      <td>Une personne qui travaille dans un autre immeuble, accessible à distance 🌍</td>
+    </tr>
+    <tr>
+        <td>Navigateur</td>
+        <td>Le visiteur qui demande un service 🙋</td>
+    </tr>
+    <tr>
+      <td>Requête HTTP </td>
+      <td>La demande du visiteur 📩</td>
+    </tr>
+    <tr>
+      <td>Réponse HTTP </td>
+      <td>Ce que lui remet le serveur 📦</td>
+    </tr>
+    <tr>
+      <td>URL</td>
+      <td>L'adresse complète indiquant l'immeuble, la porte éventuelle et la ressource recherchée 🗺️</td>
+    </tr>
+    <tr>
+      <td>DNS</td>
+      <td>L'annuaire qui permet de retrouver l'adresse d'un immeuble à partir de son nom 📖</td>
+    </tr>
+    <tr>
+      <td>HTTPS</td>
+      <td>Un échange sécurisé entre le visiteur et l'immeuble 🔒</td>
+    </tr>
+    <tr>
+      <td>base de données</td>
+      <td>La salle des archives où sont conservées les informations 🗄️</td>
+    </tr>
+    <tr>
+      <td>Fichier HTML (.html)</td>
+      <td>Le plan d'aménagement d'une pièce : murs, portes, tables, chaises… 🏗️</td>
+    </tr>
+    <tr>
+      <td>Fichier CSS (.css)</td>
+      <td>Le décorateur qui choisit les couleurs, les dimensions, les espacements et la disposition 🎨</td>
+    </tr>
+    <tr>
+      <td>Fichier JavaScript (.js)</td>
+      <td>L'électricien qui installe les boutons, les automatismes et les interactions ⚡</td>
+    </tr>
+    <tr>
+      <td>Fichier PHP (.php)</td>
+      <td>L'employé qui travaille en coulisses, traite les demandes et prépare les réponses 👨‍💼</td>
+    </tr>
+    <tr>
+      <td>Fichier JSON (.json)</td>
+      <td>Une fiche contenant des informations organisées selon un format précis 📋</td>
+    </tr>
+    <tr>
+      <td>Fichier Python (.py)</td>
+      <td>Un ensemble d'instructions qu'un employé sachant lire le Python peut exécuter 🐍</td>
+    </tr>
+    <tr>
+      <td>Fichier SQL (.sql)</td>
+      <td>Des instructions permettant de consulter ou modifier les archives 🗄️</td>
+    </tr>
+    <tr>
+      <td>Fichier Markdown (.md)</td>
+      <td>Un document rédigé avec des conventions simples pour organiser titres, listes et textes 📝</td>
+    </tr>
+    <tr>
+      <td>Fichier de configuration (.env)</td>
+      <td>Une fiche contenant des paramètres propres au fonctionnement de l'immeuble ⚙️</td>
+    </tr>
+    <tr>
+      <td>Fichier image (.png, .jpg)</td>
+      <td>Les photographies et illustrations accrochées aux murs 🖼️</td>
+    </tr>
+    <tr>
+      <td>Fichier PDF (.pdf)</td>
+      <td>Un document prêt à être consulté ou imprimé 📄</td>
+    </tr>
+    <tr>
+      <td>Dossier</td>
+      <td>Une armoire contenant plusieurs documents 📂</td>
+    </tr>
+    <tr>
+      <td>Chemin d'accès</td>
+      <td>Les indications permettant de retrouver un document dans l'immeuble 🧭</td>
+    </tr>
+</table>
+  </p>
+<h3>Serveur Node</h3>
+<div class="ouvrirjson">
+Node.js permet également de <strong>créer des pages HTML et CSS</strong><br>
+(mais contrairement à PHP, Node.js n'interprète pas directement du HTML mélangé à du JavaScript).<br>
+Dans un fichier .js. <a>Créer un serveur Node.js</a> <mark>server.js</mark> :<br>
+<div class="fullstack">
+const http = require("http"); <mark>// Importation du module HTTP de Node.js</mark><br>
+const server = http.createServer((req, res) => {  // Création du serveur<br>
+  // Définition du type de contenu envoyé au navigateur:<br>
+res.setHeader("Content-Type", "text/html; charset=utf-8");<br>
+res.end(`<br>
+<mark>&lt;</mark>!DOCTYPE <mark>html</mark><br>
+&lt;html lang="fr"&gt;<br>
+&lt;head&gt;<br>
+&lt;meta charset="UTF-8"&gt;<br>
+&lt;title&gt;Mon site Node.js&lt;/title&gt;<br>
+<mark>&lt;</mark>style&gt; <mark>/* CSS */</mark><br>
+h1 {<br>
+color: red;<br>
+}<br>
+&lt;/style&gt;<br>
+&lt;/head&gt; <mark>&lt;!-- Je reprend le HTML --&gt;</mark><br>
+&lt;body&gt;<br>
+&lt;h1&gt;Bonjour avec Node.js !&lt;/h1&gt;<br>
+&lt;p&gt;Bienvenue sur mon site.&lt;/p&gt;<br>
+&lt;/body&gt;<br>
+&lt;/html&gt;<br>
+`);<br>
+});<br>
+server.listen(3000); // Démarrage du serveur sur le port 3000
+</div>
+</div>
+<p><mark>Node</mark>: <strong>runtime</strong> qui permet écrire ttes tâches côté serveur (en JavaScript), comme logique métier,
+  persistance des données et sécurité. Node ajoute également fonctionnalités que le JS du navigateur standard 
+  ne possède pas (par exemple accès au système de fichiers local).</p>
+  <p><mark>Express</mark> est un <strong>framework</strong> reposant sur Node, qui facilite création et gestion
+   serveurs Node.</p>
+   <p><strong>.gitignore</strong> : Dit à Git quels fichiers ou dossiers il doit ignorer (pas ajouter au dépôt).
+    Il sert pr des dossier non suivit. 
+  </p>
+  <p>
+      <div class="fullstack">🆕
+    <u>Pour initialiser un projet</u> : 1) <em>Créer 2 dossiers</em> (<u>backend</u>Cours2
+     et <u>frontend</u>Cours2) ds dossier ApprendreDvmt,<br>
+  2) <em>Sur terminal</em> : (on travaille ds dossier backendCours2) <u>cd</u> backendCours2 ,<br> 
+  <u>npm init</u> (initialise un nx projet Node),
+  On change juste le "entry point" en l'appelant "serveur.js" (on ajoute serveur.js ), puis touche entré plsr 
+  fois jusqu'à la fin.<br>
+  <em>Rm</em>: Dans le dossier backendCours2 on a alors bien créé un "<strong>package.json</strong>" 
+qui contient ttes les informations sur les packages qu'on va utiliser.<br>
+On initialise un dépot Git: <u>git init</u>, 
+3) On <em>créé un fichier "<u>.gitignore</u>"</em> à la main ds le dossier backendCours2, on y écrit 
+"node_modules"<br>
+On créé également un fichier "<u><em><mark>server.js</mark></em></u>" (ds ce même dossier backendCours2. contiendra le code
+ pr mon 1er serveur node).
+ </div>
+ </p>
+ <h4>Server.js</h4>
+<p><em>Rm</em>: Si on tape ds terminal "<strong>node server</strong>", on a le contenu de server.js qui 
+  apparait. <strong>^C</strong> pr en sortir</p>
+<p>Création du 1er programme qui va attendre des requêtes http (importer le package http de node) : 
+  </p>
+<div class="declarervariables">
+  <div class="serverjs">🆕
+ const http = <strong>require</strong> ('http');<br>
+ const server = http.createServer ((req,res) => {<br>
+res.end ('Voilà la réponse du serveur !');<br>
+});<br>
+</div>
+<div>
+<p><em>Rm</em>: req = requête et res = réponse .<br> Pr importer contenu d'un module JS,
+  mot-clé "require" plutôt que "import" (permet d'omettre extension .js).<br>
+  Le serveur est prêt mais doit maintenant écouter</p>
+  </div>
+  </div>
+  <div class="declarervariables">
+    <div>
+<p> <div class="serverjs">server.listen (process.env.PORT || 3000);</div>
+</p>
+<p><em>Rm</em>: Par défaut en dévlppmnt, on utilise le "port" (qu'on veut écouter) <strong>3000</strong> .<br>
+Mais parfois pas disponible : Ds ce cas on utilise une "variable environnement" <strong>env</strong> <br>
+process.env.PORT||3000   ("|"" c'est "Alt Gr 6").<br>
+<a href="https://www.postman.com/" target="_blank">Outil de test pr effectuer une requête</a></p>
+</div>
+<div>
+<p><u>Installation nodemon</u><br>
+Pr pas avoir à redémarrer serveur à chaque fois, installer outil "nodemon".<br>
+<div class="fullstack">Terminal: npm install-g nodemon</div>
+( à la place de "node serveur", on utilise désormais la commande "<strong>nodemon serveur</strong>").</p>
+</div>
+</div>
+<h3>Application Express (2eme élément de ma stack)</h3>
+<div class="declarervariables">
+  <div>
+<p>
+   Installer Express: l'ajouter au package .json et installer le package :
+  <div class="fullstack">Terminal: npm install express --save (pr l'enregistrer ds le package .json)</div>
+  Créé un nx fichier pr contenir l'application <strong><mark>app.js</mark></strong> ds backendCours2. Y écrire:
+  <div class="appjs">🆕
+    const express = require ('express');<br>
+    const app = express ();<br>
+    module.exports = app;
+  </div>
+</p>
+<p>Exécuter application sur serveur node<br>
+  Ds server.js, (ajouter et modifier) :
+<div class="serverjs">
+const http = require ('http');<br>
+<strong>const app = require ('./app');</strong><br>
+<strong>app.set('port',process.env.PORT|| 3000);</strong><br>
+const server = http.createServer (<strong>app</strong>);<br>
+server.listen (process.env.PORT || 3000);<br>
+</div>
+</p>
+<p>Le port répont plus (error 404), donc modifier app.js :
+  <div class="appjs">
+const express = require ('express');<br>
+const app = express ();<br>
+<strong>app.use ((req, res) => {<br>
+  res.json ({message:'Ma requête a bien été reçue !' });<br>
+  });</strong><br>
+module.exports = app;
+</div>
+</p>
+</div>
+<div>
+<h4>middlewares (série de fcts)</h4>
+<p>Chaque élément de middleware reçoit objets request et response. Peut les lire, analyser, manipuler.<br>
+  Le middleware Express reçoit également <strong>méthode next</strong>
+  (permet à chaque middleware passer exécution au
+  middleware suivant) .</p>
+  <p>Ds app.js
+    <div class="appjs">
+    const express = require ('express');<br>
+const app = express ();<br>
+<strong><mark>app.use</mark> ((req, res, next) => {<br>
+  console log (' Requête recue !');<br>
+  next ();<br>
+});<br>
+app.use ((req, res, next)=>{<br>
+  res status (201);<br>
+  next ();<br>
+});</strong><br>
+app.use ((req, res<strong>, next</strong>) => {<br>
+res.json ({message:'Ma requête a bien été reçue !' });<br>
+<strong>next ()</strong><br>
+});<br>
+<strong>app use ((req, res) => {<br>
+  console log ('Réponse envoyée avec succès !');<br>
+});</strong><br>
+module.exports = app;
+    </div>
+  </p>
+  <p><em>Rm</em>: On peut améliorer server.js ...<br>
+     fct <strong>normalizePort</strong> renvoie un port valide, qu'il soit fourni sous forme
+    numéro ou chaîne. <br>
+fct <strong>errorHandler</strong> recherche différentes erreurs et les gère de manière appropriée
+(elle est ensuite enregistrée dans le serveur)<br>
+Un "écouteur d'évènements" est également enregistré, consignant port ou canal nommé (sur lequel serveur
+ s'exécute dans la console).
+  </p>
+  </div>
+  </div>
+<h4>Route GET (construire API) <em>endpoint (= demande get)</em></h4>
+<p><em><strong>API</strong></em>: Interface qui permet à deux programmes de communiquer entre eux (svt pont entre frontend et backend) .
+</p>
+<p><em><strong>CRUD</strong></em>: Create, Read, Update (modifier), Delete .<br>
+  Propre sécurité <em>CORS</em> (qd frontend et backend partage pas même origine): Cross, Origin, Ressource, Sharing .
+</p>
+<p>Ajouter chemin vers url (ds app.js) : <div class="appjs">
+  const express = require ('express');<br>
+  const app = express ();<br>
+  <strong>
+ <mark> app.use</mark> (' <s>http://localhost:3000</s> /api/stuff', (req, res, next) => {<br>
+const stuff = [ <em>(stuff = le tableau)</em><br>
+{<br>
+_id: 'oeihfzeoi',<br>
+      title: 'Mon premier objet',<br>
+      description: 'Les infos de mon premier objet',<br>
+      imageUrl: 'https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg',<br>
+      price: 4900, <em>(le prix est en centimes pr éviter des virgules)</em><br>
+      userId: 'qsomihvqios', <em>(identifiant utilisateur)</em><br>
+},<br>
+    {<br>
+      _id: 'oeihfzeomoihi',<br>
+      title: 'Mon deuxième objet',<br>
+      description: 'Les infos de mon deuxième objet',<br>
+      imageUrl: 'https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg',<br>
+      price: 2900,<br>
+      userId: 'qsomihvqios',<br>
+    },<br>
+  ];<br>
+  res.status(200).json(stuff); <em>(attribuer au middleware code 200 à une réponse réussie)</em><br>
+});<br>
+</strong>
+module.exports = app;
+</div>
+</p>
+<p>Mais on a tjrs un problème (spinner) cors (sécurité qui empêche des requêtes malveillantes)
+   entre navigateur et serveur ... Donc ajouter un middleware :
+   <div class="appjs">
+    ...<br>
+    const app = express()<br>
+    <strong>
+      <mark>app.use</mark> ((req, res, next) => {<br>
+      res.setHeader ('Access-Control-Allow-Origin', '*'); <em>(*=tt le monde peut y accéder)</em><br>
+      res.setHeader ('Access-Control-Allow-<u>Headers</u>', 
+      'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');<br>
+      res.setHeader ('Access-Control-Allow-<u>Methods</u>', 'GET, POST, PUT, DELETE, PATCH, OPTION');<br>
+      next ();<br>
+      });
+    </strong><br>
+    <mark>app use</mark> ('/api/stuff', (req, res, next) => {<br>
+    const stuff = [<br>
+    {<br>
+      _id: 'oeihfzeoi',<br>
+      title: 'Mon premier objet',<br>
+      description: 'Les infos de mon premier objet',<br>
+      imageURL:'<strong>https://cdn.pixabay.com/photo/...</strong>',<br>
+      ...
+   </div>
+  </p>
+<h4>Route POST (permet aux utilisateurs de mettre leurs propres articles à vendre)</h4>
+<p><div class="appjs">
+  ...<br>
+  const app = express ();<br>
+  <strong>
+app.use ( express.json()); 
+<em>(anciennement on utilisait "body-parser" pour accéder au corps de la requête)</em><br>
+  </strong>
+app.use ((req, res, next) => {<br>
+  ...<br>
+});<br>
+<strong>
+<mark>app.post</mark> ('/api/stuff', (req, res, next) => { <em>(pr intercepter les requêtes post)</em><br>
+console.log(req.body);<br>
+res.status(201).json ({ <em>(code 201 pr une création de ressource)</em><br>
+message: 'Objet créé !'<br>
+});
+});
+</strong><br>
+  <s>app. use ('/api/stuff', (req, res, next) => {</s><br>
+  app.<strong>get</strong> ('/api/stuff', (req, res, next) => { 
+     <em>(Car maintenant, on veut que les requêtes get)</em><br>
+  ...
+</div>
+</p>
+<p><em>Rm</em>: La route "post" est créé après mais se retrouve avant route "get" </p>
+<h3>Mongo DB (BDD NoSQL)</h3>
+<p>On va créé une <strong>BDD</strong> (base de données) Mongo DB <strong>Atlas</strong> (cluster). 
+  Outil <strong>mongoose</strong></p>
+<p><u>BDD</u>: Collection de données structurées (structure des données et organisation de la collection 
+  dépendent type BDD : Deux types de base SQL et NoSQL).
+</p>
+<p><strong>SQL</strong>: BDD "relationnelle" (organise sesdonnées ds "tables" selon des "schémas")<br>
+<em>Rm</em>: Difficile d'agrandir une base de données SQL (si trop d'utilisateurs). <br>
+<strong>No-SQL</strong>: Données sont stockées comme des collections de documents individuels
+ décrits en JSON. Pas de schéma strict de données (on peut écrire ce qu'on veut où on veut). 
+ Pas de relation concrète entre les différentes données ( faut des "outils" pr ce besoins).
+</p>
+<h4> MongoDB Atlas 
+  <div class="haut"><a href="https://www.mongodb.com/try?initial=true#community" target="_blank">Configurer</a>
+  </div>
+</h4>
+<p>S'inscrire sur la version gratuite du site : Ds "add new user", clicker "Read and write to any database",
+  noter le Mot de Passe pr après, "Network Access" puis ds "add API adress" cliquer sur
+   "Allow access from anywhere", confirm. <br>
+Le "cluster" est terminé. Y connecter son "API" : "connect", "connect your application",
+ prendre version plus récente du "driver Node.js", "connection string only", copie du MP.
+ </p>
+ <p>Sur terminal: A partir dossier "backend" <div class="fullstack">npm install mongoose</div></p>
+<p><strong>Mongoose</strong>: Permet de "valider" format des données, gérer "relations" entre documents,
+"communiquer" directement avec BDD pr lecture et écriture des documents (pr dépasser plrs
+   des obstacles qu'on peut rencontrer avec des BDD  NoSQL).   
+</p>
+<p>Sur app.js: <div class="appjs">const mongoose = require('mongoose');</div>
+Puis en dessous déclaration de cste app (remplacer adresse SRV par la mienne, 
+et chaîne &lt;PASSWORD&gt; par mon MP utilisateur MongoDB) : 
+<div class="appjs">
+mongoose.connect('mongodb+srv://jimbob:&lt;PASSWORD&gt;@cluster0-pme76.mongodb.net/test?retryWrites=true&w=
+majority',<br>
+  { useNewUrlParser: true,<br>
+    useUnifiedTopology: true })<br>
+  .then(() => console.log('Connexion à MongoDB réussie !'))<br>
+  .catch(() => console.log('Connexion à MongoDB échouée !'));
+</div>
+</p>
+<p>Redémarer serveur Node, message « Connexion à MongoDB Atlas réussie ! » dans la console, 
+  API à présent connectée ma BDD.
+</p>
+<h5>Schéma de données (ds Mongoose)</h5>
+<p>L'avantage de mangoose, c'est de pouvoir faire des shémas de données (pr rendre application plus robuste 
+  et plus stable).<br>
+Force à respecter certains modèles de données.</p>
+<p>créer ds dossier Backend un dossier <strong>models</strong> puis ds ce dernier dossier, un fichier 
+<strong>Thing.js</strong> ds lequel on écrit :</p>
+<div class="Thing">🆕
+  const mongoose = require ('mongoose');<br>
+  const thingSchema = mongoose.Schema ({<br>
+   title : { type: String, required: true },<br>
+   description: { type: String, required: true },<br>
+   imageUrl: { type: String, required: true },<br>
+   userId: { type: String, required: true },<br>
+   price : { type: <u>Number</u>, required: true },<br>
+  });
+  module.exports = mongoose.model('Thing', thingSchema);
+</div>
+<h5>Enregistrer et récupérer données</h5>
+<p>Ds app.js :
+  <div class="appjs">
+const express = require('express');<br>
+const bodyParser = require('body-parser');<br>
+const mongoose = require('mongoose');<br>
+<strong>const Thing = require('./models/thing'); <em>(car chemin en local)</em></strong><br>
+<br>
+mongoose.connect('mongodb+srv://fred:AocA6sgmgdj4kt3G@cluster0-pme76.mongodb.net/test?useNewUrlParser=true', {<br>
+    useNewUrlParser: true,<br>
+    useUnifiedTopology: true<br>
+})<br>
+    .then(() => console.log('Connexion à MongoDB réussie !'))<br>
+    .catch(() => console.log('Connexion à MongoDB échouée !'));<br>
+    <br>
+const app = express();<br>
+<br>
+<mark>app.use</mark>((req, res, next) => {<br>
+    res.setHeader('Access-Control-Allow-Origin', '*');<br>
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept,
+     Content-Type, Authorization');<br>
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');<br>
+    next();<br>
+});<br>
+app.use(bodyParser.json());<br>
+<mark>app.post</mark>('/api/stuff', (req, res, next) => {<br>
+    <s>console.log({...req.body});<br>
+    res.status(201).json({<br>
+        message: 'Objet créé !'<br>
+    });</s><br>
+    <strong>delete req.body._id;
+      const thing = new Thing ({<br>
+    ... req.body  <em>(... est un raccourci nommé "Spread" 
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax"
+    target="_blank">Info Syntaxe MDN</a>)</em><br>
+    })<br>
+  thing.save()<br>
+  .then(() => res.status(201).json({ message: ' Objet enregistré !'}))<br>
+  .catch(error => res.status(400).json({error})); <em>(equivalent de error=error)</em></strong><br>
+});<br>
+<mark>app.use</mark>('/api/stuff', (req, res, next) => {    <em>(Rm: "<mark>get</mark>"
+   est redevenu "use" ds son cours 😠)</em><br>
+    const stuff = [<br>
+        {<br>
+            _id: 'oeihfzeoi',<br>
+            title: 'Mon premier objet',<br>
+            description: 'Les infos de mon premier objet',<br>
+            imageUrl: 'https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg',<br>
+            price: 4900,<br>
+            userId: 'qsomihvqios'<br>
+        </div>
+</p>
+<p>La BDD MongoDB est fractionnée en "collections" : Nom de la collection  défini par défaut sur le pluriel
+   du nom du modèle. Ici, ce sera "Thing<strong>s</strong>" .</p>
+   <p>
+ <div class="appjs">
+app.post('/api/stuff', (req, res, next) => {<br>
+    delete req.body._id;<br>
+    const thing = new Thing({<br>
+        ...req.body<br>
+    });<br>
+    thing.save()<br>
+        .then(() => res.status(201).json({ message: 'Objet enregistré !' }))<br>
+        .catch(error => res.status(400).json({ error }));<br>
+});<br>
+    app.use('/api/stuff', (req, res, next) => {   <em>(😠 tjrs mon get)</em><br>
+    <s>const stuff = [<br>
+        {<br>
+            _id: 'oeihfzeoi',<br>
+            title: 'Mon premier objet',<br>
+            description: 'Les infos de mon premier objet',<br>
+            imageUrl: 'https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg',<br>
+            price: 4900,<br>
+            userId: 'qsomihvqios',<br>
+        },<br>
+        {<br>
+            _id: 'oeihfzeomojhi',<br>
+            title: 'Mon deuxième objet',<br>
+            description: 'Les infos de mon deuxième objet',<br>
+            imageUrl: 'https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg',<br>
+            price: 2900,<br>
+            userId: 'qsomihvqios',<br>
+        },<br>
+    ];<br>
+    res.status(200).json(stuff);<br>
+});</s><br>
+<strong>Thing.find ()<br>
+  .then ( <mark>things</mark> => res.status (200).json (things))<br>
+  .catch ( error => res.status (400).json({ error }));
+</strong><br>
+});<br>
+module.exports = app;<br>
+ </div>
+   </p>
+<p>Si on veut maintenant récupéré un "Thing" spécifique :</p>
+<p><div class="appjs">
+<mark>app.post</mark>('/api/stuff', (req, res, next) => {<br>
+    delete req.body._id;<br>
+    const thing = new Thing({<br>
+        ...req.body<br>
+    });<br>
+    thing.save()<br>
+        .then(() => res.status(201).json({ message: 'Objet enregistré !' }))<br>
+        .catch(error => res.status(400).json({ error }));<br>
+});<br>
+<strong><mark>app.get</mark> (' /api/stuff/ <u>: id</u> ', (req, res, next) => {   <em>(1er segment dynamique: Le
+   frontend va envoyer l'id de l'objet)</em><br>
+<s>req.params.id</s> Thing<mark>.findOne</mark> ({ _id: req.params.id})      <em>(findOne pr trouver 1 seul objet)</em><br>
+  .then (thing => res.status (200).json (thing))<br>
+  .catch (error => res.status (404).json ({error}));<br>
+});
+</strong><br>
+<s>app.use</s> <mark>app.get</mark> ('/api/stuff', (req, res, next) => {  <br>
+   <em>(Mon "get" qui récupère "ts les objets" revient.
+    Même 2 du coup... 😄(le 1er, pas même URL, pr 1 objet seulement))</em><br>
+    Thing.find()<br>
+        .then(things => res.status(200).json(things))<br>
+        .catch(error => res.status(400).json({ error }));<br>
+});<br>
+module.exports = app;
+</div>
+</p>
+<h5>Modifier et supprimer des données</h5>
+<div class="declarervariables">
+  <div>
+<p>Mettre à jour un "Thing" existant. On découvre <strong>.put</strong>.</p>
+<p>
+<div class="appjs">
+app.post('/api/stuff', (req, res, next) => {<br>
+delete req.body._id;<br>
+const thing = new Thing({<br>
+...req.body<br>
+});<br>
+thing.save()<br>
+.then(() => res.status(201).json({ message: 'Objet enregistré !' }))<br>
+.catch(error => res.status(400).json({ error }));<br>
+});<br>
+<strong><mark>app.put</mark> ('/api/stuff/:id', (req, res, next) => {<br>
+  Thing<mark>.updateOne</mark> ({_id: req.params.id }, { ... req.body, _id: req.params.id })<br>
+  .then (() => res.status (200).json ({ message: 'Objet modifié !'}))<br>
+  .catch (error => res.status (400).json ({error}));<br>
+});</strong><br>
+app.get (' /api/stuff/ : id ', (req, res, next) => { <br>
+Thing.findOne ({ _id: req.params.id}) <br>
+.then (thing => res.status (200).json (thing))<br>
+.catch (error => res.status (404).json ({error}));<br>
+});<br>
+app.use app.get ('/api/stuff', (req, res, next) => {<br>
+Thing.find()<br>
+.then(things => res.status(200).json(things))<br>
+.catch(error => res.status(400).json({ error }));<br>
+});<br>
+module.exports = app;
+</div>
+</p>
+</div>
+<div>
+<p>Supprimer</p>
+<p><div class="appjs">
+app.post('/api/stuff', (req, res, next) => {<br>
+delete req.body._id;<br>
+const thing = new Thing({<br>
+...req.body<br>
+});<br>
+thing.save()<br>
+.then(() => res.status(201).json({ message: 'Objet enregistré !' }))<br>
+.catch(error => res.status(400).json({ error }));<br>
+});<br>
+app.put ('/api/stuff/:id', (req, res, next) => {<br>
+  Thing.updateOne ({_id: req.params.id }, { ... req.body, _id: req.params.id })<br>
+  .then (() => res.status (200).json ({ message: 'Objet modifié !'}))<br>
+  .catch (error => res.status (400).json ({error}));<br>
+});<br>
+<strong>app<mark>.delete</mark> ('/api/stuff/:id', (req, res, next) => {<br>
+  Thing.deleteOne ({_id: req.params.id } ) <em>(Pas besoin de 2eme argument car c'est une supression)</em><br>
+  .then(() => res.status(200).json({message: 'Objet supprimé !'}))<br>
+  .catch (error => res.status (400).json ({error}));<br>
+});
+</strong><br>
+app.get (' /api/stuff/ : id ', (req, res, next) => { <br>
+Thing.findOne ({ _id: req.params.id}) <br>
+.then (thing => res.status (200).json (thing))<br>
+.catch (error => res.status (404).json ({error}));<br>
+});<br>
+app.use app.get ('/api/stuff', (req, res, next) => {<br>
+Thing.find()<br>
+.then(things => res.status(200).json(things))<br>
+.catch(error => res.status(400).json({ error }));<br>
+});<br>
+module.exports = app;
+</div>
+</p>
+<p> L'application incrémente maintenant un "CRUD" complet.</p>
+</div>
+</div>
+<h3 id="securite">Sécurité</h3>
+<p>Il faut s'authentifier à son API.</p>
+<h4>Optimiser structure du code (backend) existant</h4>
+<p>Ne pas tout garder ds un même fichier (app.js): Déplacer routes et contrôleurs (logique métier) ds un fichier chacun, à part (plus facile à comprendre et à maintenir).</p>
+<h5>Routage (on reprend les routes de app.js)</h5>
+<p>Faire un nouveau dossier ds dossier backend appelé "Routes" et y créer un fichier "stuff.js".<br>
+Remplir "stuff.js" (en orange) et adapter "app.js" (en violet) :</p>
+<div class="declarervariables">
+<div class="stuff">🆕
+  const express = require ('express');<br>
+const <strong>router</strong> = express.Router ();<br>
+<em>Puis copier-coller de "app.js", ttes les "app." et remplacer les noms "app."<br> par "router." 
+  (router.get et router.post)</em><br>
+  On remplace aussi tt les <strong>'/api/stuff'</strong> par <strong>'/'</strong> et <strong>'/:id'</strong> 
+  (qd y a un identifiant).<br>
+  <strong>const Thing = require('<mark>..</mark>/models/thing');</strong>
+<div class="appjs">
+<s>const Thing = require('<mark>.</mark>/models/thing');</s><br>
+<strong><mark>router</mark></strong>.post(<mark>'/'</mark>, (req, res, next) => {<br>
+  const thing = new Thing({<br>
+    title: req.body.title,<br>
+    description: req.body.description,<br>
+    imageUrl: req.body.imageUrl,<br>
+    price: req.body.price,<br>
+    userId: req.body.userId<br>
+  });<br>
+  thing.save().then(<br>
+    () => {<br>
+      res.status(201).json({<br>
+        message: 'Post saved successfully!'<br>
+      });
+    }<br>
+  ).catch(<br>
+    (error) => {<br>
+      res.status(400).json({<br>
+        error: error<br>
+      });
+    }
+  );
+});<br>
+<br>
+<strong>router</strong>.get(<mark>'/:id'</mark>, (req, res, next) => {<br>
+  Thing.findOne({<br>
+    _id: req.params.id<br>
+  }).then(<br>
+    (thing) => {<br>
+      res.status(200).json(thing);<br>
+    }<br>
+  ).catch(<br>
+    (error) => {<br>
+      res.status(404).json({<br>
+        error: error<br>
+      });
+    }
+  );
+});<br>
+<br>
+<strong>router</strong>.put('/:id', (req, res, next) => {<br>
+...
+<br>
+<strong>router</strong>.delete('/:id', (req, res, next) => {<br>
+...
+<br>
+<strong>router</strong>.get('/' ...
+</div>
+<em>Puis on réexporte le router de ce fichier là.</em><br>
+<strong>module.exports = router;</strong>
+</div>
+<div class="appjs">
+  const express = require('express');<br>
+const bodyParser = require('body-parser');<br>
+const mongoose = require('mongoose');<br>
+<br>
+<strong>const stuffRoutes = require('./routes/stuff');</strong><br>
+<br>
+mongoose.connect('mongodb+srv://fred:AocA6sgmgdj4kt3G@cluster0-pme76.mongodb.net/test', {<br>
+    useNewUrlParser: true,<br>
+    useUnifiedTopology: true<br>
+})<br>
+.then(() => console.log('Connexion à MongoDB réussie !'))<br>
+.catch(() => console.log('Connexion à MongoDB échouée !'));<br>
+<br>
+const app = express();<br>
+<br>
+app.use((req, res, next) => {<br>
+    res.setHeader('Access-Control-Allow-Origin', '*');<br>
+    res.setHeader(<br>
+        'Access-Control-Allow-Headers',<br>
+        'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'<br>
+    );<br>
+    res.setHeader(<br>
+        'Access-Control-Allow-Methods',<br>
+        'GET, POST, PUT, DELETE, PATCH, OPTIONS'<br>
+    );<br>
+    next();<br>
+});<br>
+app.use(bodyParser.json());<br>
+<br>
+<s>app.post('/api/stuff', (req, res, next) => {<br>
+    delete req.body._id;<br>
+    const thing = new Thing({<br>
+        ...req.body<br>
+    });<br>
+    thing.save()<br>
+        .then(() => res.status(201).json({ message: 'Objet enregistré !' }))<br>
+        .catch(error => res.status(400).json({ error }));<br>
+});<br>
+</s><br> ...<br> <s><br>
+app.get('/api/stuff/:id', (req, res, next) => {<br>
+    Thing.findOne({ _id: req.params.id })<br>
+        .then(thing => res.status(200).json(thing))<br>
+        .catch(error => res.status(404).json({ error }));<br>
+});<br>
+<br>
+app.get('/api/stuff', (req, res, next) => {<br>
+    Thing.find()<br>
+        .then(things => res.status(200).json(things))<br>
+        .catch(error => res.status(400).json({ error }));<br>
+});
+</s>
+<br>
+<strong>app.use('/api/stuff', stuffRoutes);</strong>
+<br>
+module.exports = app;
+</div>
+</div>
+<h5>Contrôleurs (on reprend la logique métier)</h5>
+<p>On crée un fichier "stuff.js" (même nom), ds un dossier créé "<strong>Controllers</strong>" ds dossier "backend".</p>
+<div class="declarervariables">
+<div class="stuffc">🆕
+  const Thing = require('../models/Thing');<br>
+  <br>
+  <strong>exports.createThing =</strong> <span class="stuff">(req, res, next) => {</span><br>
+   <div class="stuff"> delete req.body._id;<br>
+   const thing = new Thing ( {<br>
+      ... req.body<br>
+    });<br>
+    thing.save ()<br>
+    .then(() => res.status (201).json({ message: 'Objet enregistré !'}))<br>
+    .catch( error => res.status (400).json ({ error }));<br>
+  });</div>
+    <em>Puis on fait pareil pr les autres routes...</em><br>
+    <br>
+  <strong>exports.modifyThing = <br>
+  exports.deleateThing =<br>
+exports.getOneThing =<br>
+export.getAllThings</strong>  
+  
+
+</div>
+<div class="stuff">
+  const express = require ('express');<br>
+const router = express.Router ();<br>
+<s>const Thing = require('../models/thing');</s><br>
+<strong>const stuff<mark>Ctrl</mark> = require ( '../controllers/stuff');</strong><br>
+<br>
+<strong>router.post('/', <mark>stuffCtrl.createThing);</mark> </strong><br>
+<s>router.post('/', (req, res, next) => {<br>
+const thing = new Thing({<br>
+title: req.body.title,<br>
+description: req.body.description,<br>
+imageUrl: req.body.imageUrl,<br>
+price: req.body.price,<br>
+userId: req.body.userId<br>
+});<br>
+thing.save().then(<br>
+() => {<br>
+res.status(201).json({<br>
+message: 'Post saved successfully!'<br>
+}); }<br>
+).catch(<br>
+(error) => {<br>
+res.status(400).json({<br>
+error: error<br>
+}); } ); });<br></s>
+<br>
+<strong>router.put ('/:id', stuffCtrl.modifyThing);<br>
+  router.delete ('/:id', stuffCtrl.deleteThing);<br>
+  router.get ('/:id', stuffCtrl.getOneThing);<br>
+  router.get ('/', stuffCtrl.getAllThings);<br>
+</strong>
+  <br>
+module.exports = router;
+</div>
+</div>
+<h4>Cryptage (Préparez la base de données pour les informations d'authentification)</h4>
+<p>Ne <mark>JAMAIS</mark> enregistrer de MP <strong>non cryptés</strong> ds une BDD. Stocker MP 
+ chaque utilisateur sous forme d'un <strong>hash</strong> ou d'une <strong>chaîne chiffrée</strong>.
+</p>
+<p>package de chiffrement <strong>bcrypt</strong> (utilisé avec mongoose):</p>
+<p>Ds dossier models, créer fichier <mark>Users.js</mark></p>
+<div class="fullstack">nmp install --save mongoose-unique-validator 
+</div>
+<p>Rm: Parfois, après une nelle version de mongoose, besoin ajouter "<mark>flag</mark>"
+   (une "option en plus") <strong>--force</strong>. </p>
+<div class="users">🆕
+  const mongoose = require ('mongoose');<br>
+  <strong>const uniqueValidator = required ('mongoose-unique-validator')</strong>;<br>
+  const userSchema = mongoose.Schema ({<br>
+    email:{ type: String, required: true, <strong>unique</strong>: true },     <em>(Pr pas pouvoir s'
+      inscrire plrs fois avec même adresse mail)
+    </em><br> 
+    password: { type: String, required: true }<br>
+  });<br>
+<strong>userSchema.plugin (uniqueValidator)</strong>;<br>
+  module.exports = mongoose.model ('User', useSchema);
+</div>
+<h5>Créer utilisateurs</h5>
+<p>Créer un rooter spécifique pr authentification : Ds dossiers "Contrôleur" et "Route", créer 2 fichiers
+   "user.js" (1 ds chaque) <br>
+  Ds user.js (contôleur):
+</p>
+<div class="usercontroleur">🆕
+  exports.signup = (req, res, next) => {<br>
+  };<br>
+  exports.login = (req, res, next) => {  <em>Pr connecter des utilisateurs existants)</em><br>
+  };
+</div>
+<p> Ds user.js (route):
+</p>
+<div class="userroute">🆕
+  const express = require ('express');<br>
+  const router = express.Router();<br>
+  <strong>const userCtrl = require ('../controllers/user');<br>
+  router.post ('/signup', userCtrl.signup);<br>
+  router.post ('/login', userCtrl.login);</strong><br>
+  module.exports = router;
+</div>
+<p>On peut ainsi l'importer ds app.js</p>
+<div class="appjs">
+  const stuffRoutes = require (./routes/stuff');<br>
+<strong>const userRoutes = require ('./routes/user');</strong><br>
+...<br>
+app.use('/api/stuff', stuffRoutes);<br>
+<strong>app.use ('/api/<mark>auth</mark>', userRoutes);</strong><br>
+module.exports = app;
+</div>
+<p>On complete user.js (contôleur):</p>
+<div class="fullstack">
+npm install --save bcrypt
+<em>(Package de cryptage pr les MP)</em>
+</div>
+<div class="usercontroleur">
+<strong>const bcrypt = require ('bcrypt'); <br>
+  const User = require ('../models/User');</strong>  <br>
+exports.signup = (req, res, next) => {<br>
+  <strong>bcrypt.hash (req.body.password, 10)<br>
+    .then (hash => {<br>
+    const user = new User ({<br>
+    email: req.body.email,<br>
+    password : hash
+  });<br>
+  user.save()<br>
+  .then (() => res.status (201).json ({ message: 'Utilisateur crée !'}) )<br>
+  .catch (error => res.status (400).json => ({error}));<br>
+})<br>
+    .catch (error => res.status (500).json => ({error}));<br>
+    <em>(Pr "hacher" le MP, 10 est nbre de "tour" qu'on demande ("saler" le MP 10x) 
+      <a href="https://www.npmjs.com/package/bcrypt" target="_blank">Doc bcrypt</a>
+      , 500 pr une erreur "serveur")</em></strong><br>
+};<br>
+exports.login = (req, res, next) => { <br>
+};
+</div>
+<h5>Vérifier identifiants d'un utilisateur</h5>
+<p>Utilisateur peut s'inscrire avec user ds bdd. Vérifier maintenant ses identifiants en comparant
+  le "h du MP entrée" avec le "h enregistré ds la BDD".</p>
+  <div class="usercontroleur">
+exports.login = (req, res, next) => {<br>
+<strong>User.findOne({email: req.body.email })<br>
+  .then( user => {<br>
+    if ( user === null) {<br> 
+    res.status (401).json ({ message: 'Paire identifiant/mot de passe incorrecte'});<br>
+  } else {<br> 
+    bcrypt<mark>.compare</mark> ( req.body.password, user.password )<br>
+    .then (valid => { <br>
+      if ( ! valid) { <br>
+        res.status (401).json ({message: 'Paire identifiant/mot de passe incorrecte'})<br>
+      } else { <br>
+        res.status (200).json (){<br>
+          userId : user._id, <br>
+         <mark>token</mark> : 'TOKEN'<br>
+        });<br>
+        }<br>
+    })<br>
+    .catch (error => { <br>
+    res.status (500.json ({error});<br> 
+    )<br>
+  })<br>
+} <br>
+  })<br>
+  .catch( error => {<br>
+    res.status (500) .json ({ error });<br>
+  } )
+</strong>  <br>
+};
+  </div>
+<h5>Tokens</h5>
+<p>Ds le cours, il a apparemment fait le ménage ds le fichier sans prévenir...</p>
+<div class="declarervariables">
+<div class="usercontroleur">
+  exports.login = (req, res, next) => {<br>
+User.findOne({email: req.body.email })<br>
+.then( user => {<br>
+  <u>if (!user){<br>
+  </u>
+<s>if ( user === null) {</s><br>
+<u>return</u> res.status (401).json <s>({ message: 'Paire identifiant/mot de passe incorrecte'});<br>
+} else {</s> <u>({ error: 'Utilisateur non trouvé !' });<br>
+}</u> <br>
+bcrypt.compare ( req.body.password, user.password )<br>
+.then (valid => {<br>
+if ( ! valid) {<br>
+res.status (401).json <s>({message: 'Paire identifiant/mot de passe incorrecte'})<br>
+} else {</s><br>
+  <u>({error : 'Mot de passe incorrect !'});<br>
+}</u><br>
+res.status (200).json (<s>)</s>{<br>
+userId : user._id,<br>
+token : 'TOKEN'<br>
+});<br>
+<s>}</s><br>
+})<br>
+.catch (error => { res.status (500.json ({error})<u>)</u>;<br>
+<s>)</s><br>
+})<br>
+<s>}<br>
+})</s><br>
+.catch( error => { res.status (500) .json ({ error })<u>)</u>;
+<s>} )</s>
+};
+</div>
+<div>
+<p>On reprend donc de là</p>
+<div class="fullstack">
+  npm install --save jsonwebtoken
+</div>
+<div class="usercontroleur">
+const bcrypt = require ('bcrypt');<br>
+<strong>const jwt = require ('jsonwebtoken');</strong><br>
+const User = require ('../models/User');<br>
+...<br>
+exports.<mark>login</mark> = (req, res, next) => {<br>
+User.findOne({email: req.body.email })<br>
+.then( user => {<br>
+if (!user){<br>
+return res.status (401).json ({ error: 'Utilisateur non trouvé !' });<br>
+}<br>
+bcrypt.compare ( req.body.password, user.password )<br>
+.then (valid => {<br>
+if ( ! valid) {<br>
+res.status (401).json ({error : 'Mot de passe incorrect !'});<br>
+}<br>
+res.status (200).json ({<br>
+userId : user._id,<br>
+token : <s>'TOKEN'</s> <strong>jwt.sign ( <br>
+  {userId: user._id},<br>
+  '<mark>RANDOM_TOKEN_SECRET</mark>',<br>
+  { expiresIn: '<mark>24h</mark>'}<br>
+<em>(L'utilisateur devra donc se reconnecter au bout de 24 heures.)</em><br>
+  )</strong><br>
+});<br>
+})<br>
+.catch (error => { res.status (500.json ({error}));<br>
+})<br>
+.catch( error => { res.status (500) .json ({ error })); };<br>
+</div>
+</div>
+</div>
+<h5>Construction d'un middleware d'authentification</h5>
+<p>Créer un dossier "middleware ds dossier "backend".<br>
+Y créer un fichier "auth.js"</p>
+<div class="declarervariables">
+<div class="authjs">🆕
+  const jwt = require ('jsonwebtoken');<br>
+  module.exports = (req, res, next) => { <br>
+    try{ <br>
+      const token = req.headers.authorization.split('')[1];<br>
+      const decodedToken = jwt.verify(token,'RANDOM_TOKEN_SECRET');<br>
+      const userId = decodedToken.userId;<br>
+      req.auth = {<br>
+        userId: userId<br>
+      };<br>  
+    } catch (error) {<br>
+      res.status(401).json({error});<br>
+    }<br>
+  };<br>
+</div>
+<div class="userroute">
+const express = require ('express');<br>
+<strong>const auth = require ('auth'); </strong><br>
+const router = express.Router();<br>
+<br>
+const userCtrl = require ('../controllers/user');<br>
+<br>
+<s>router.post ('/signup', userCtrl.signup);<br>
+router.post ('/login', userCtrl.login);</s><br>
+  router.get('/', <strong>auth,</strong> stuffCtrl, getAllStuff);<br>
+  router.post('/', <strong>auth,</strong> stuffCtrl, createThing);<br>
+  router.get('/:id', <strong>auth,</strong> stuffCtrl, getOneThing);<br>
+  router.put('/:id', <strong>auth,</strong> stuffCtrl, modifyThing);<br>
+  router.delete('/:id',<strong>auth,</strong> stuffCtrl, deleteThing);<br>
+<br>
+module.exports = router;
+</div>
+</div>
+<h5>multer (Téléchargement de fichiers par utilisateur)</h5>
+<p>Créer un dossier "images" ds dossier "backend".<br>
+Ds dossier "middleware", créer un fichier 
+"<strong>multer-config.js</strong>"</p>
+<div class="fullstack">
+  npm intall --save multer
+</div>
+<div class="multer">🆕
+const multer = required ('multer');<br>
+const MIME_TYPES = { <br> 
+  'images/jpg': 'jpg',<br>
+  'images/jpeg': 'jpg'<br>
+  'images/png' : 'png'<br>
+};<br>
+const storage = multer.diskStorage({<br>
+  destination: (req, <mark>file</mark>, <mark>callback</mark>) => {<br> 
+  callback(null, 'images')<br>
+},
+  filename: (req, file, callback) => {<br> 
+  const name = file.originalname.split('').join('_');<br> 
+  <em>(élimine le pb des espaces)</em><br>
+  const extension = MIME_TYPES [file.mimetype];<br>
+  callback (null, name + Date.now () + '.' + extension);<br>
+  }<br>
+});<br>
+module.exports = multer ({ storage }).single ('image');
+</div>
+<h5>Modifier rtes pr prendre en cpte fichiers</h5>
+<p>Il faut modifier routes "post" et "put" pr prendre en cpte
+  images (changmt url et devenus fichiers).</p>
+<div class="userroute">
+const express = require ('express');<br>
+const auth = require ('auth'); <br>
+const router = express.Router();<br>
+<strong>const multer = require ('../middleware/multer-config');</strong><br>
+<br>
+const userCtrl = require ('../controllers/user');<br>
+<br>
+router.get('/', auth, stuffCtrl, getAllStuff);<br>
+router.post('/', auth,<strong>multer,</strong> stuffCtrl, createThing);<br>
+router.get('/:id', auth, stuffCtrl, getOneThing);<br>
+router.put('/:id', auth, stuffCtrl, modifyThing);<br>
+router.delete('/:id',auth, stuffCtrl, deleteThing);<br>
+<br>
+module.exports = router;
+</div>  
+<div class="stuffc">
+const Thing = require('../models/Thing');<br>
+<em>const fs = require('fs');</em><br>
+<br>
+exports.createThing = (req, res, next) => {<br>
+<strong>const thingObject = JSON.parse(req.body.thing);<br>
+delete thingObject._id;<br>
+delete thingObject._userId;<br>
+<em>(car le format de la requête a changé. Il faut "parser" l'objet
+  requête)</em><br>
+const thing = new Thing({<br>
+...thingObject,<br>
+userId: req.auth.userId,<br>
+imageUrl:
+ '§{req.protocol}://${req.get('host')}/image/${req.file.filename}'<br>
+});<br>
+thing.save()<br>
+.then(() => { res.status(201).json({message: 'Objet enregistré !'})})<br>
+.catch(error => { res.status(400).json ({ error })})<br>
+</strong>
+};<br>
+<br>
+  exports.modifyThing =
+exports.deleateThing =
+exports.getOneThing =
+export.getAllThings
+</div>
+<div class="appjs">
+  ...<br>
+  app.use ('/api/stuff', stuffRoutes);<br>
+  <strong>app.use ('/images', express.static(path.join 
+    (__dirname, 'images')));</strong><br>
+  module.exports = app;
+</div>
+<p>Puis faire pareil pour la route "put". Attention, il faut cette fois 
+  tenir compte des 2 possibilités.
+</p>
+<div class="userroute">
+router.get('/', auth, stuffCtrl, getAllStuff);<br>
+router.post('/', auth, multer, stuffCtrl, createThing);<br>
+router.get('/:id', auth, stuffCtrl, getOneThing);<br>
+router.put('/:id', auth, <strong>multer</strong>, stuffCtrl, modifyThing);<br>
+router.delete('/:id',auth, stuffCtrl, deleteThing);
+</div> 
+<div class="stuffc">
+const Thing = require('../models/Thing');<br>
+<em>const fs = require('fs');</em><br>
+<br>
+exports.createThing = (req, res, next) => {<br>
+const thingObject = JSON.parse(req.body.thing);<br>
+...<br>
+exports.modifyThing = (req, res, next) => {<br>
+<strong>const thingObject = req.file ? {<br> 
+  ...JSON.parse (req.body.thing),<br>
+  imageUrl: 
+  '${req.protocol}://${req.get('host')}/images/${req.file.filename}'<br>
+  } : { ...req.body };<br>
+ delete thing0bject._userId;<br>
+  Thing.findOne ({ _id: req.params.id })<br>
+    .then ((thing) => {<br>
+      if (thing.userId != req.auth.userId) {<br>
+      res.status (401).json ({ message: 'Non autorisé'});<br>
+      } else {<br>
+        Thing.updatOne ({ _id: req.params.id}, 
+        { ... thingObject, _id: req.params.id})<br>
+        .then (() => res.status (200).json({message: 'Objet modifié!'}))<br>
+        .catch (error => res.status(401).json ({ error }));<br>
+      }<br>    
+    })<br>
+    .catch ((error) => {<br>
+      res.status (400).json ({ error });<br>
+    });<br>
+};
+</strong> <br>
+};<br>
+exports.deleteThing =<br>
+exports.getOneThing =<br>
+export.getAllThings<br>
+</div>
+<h5>Delete du backend</h5>
+<p>fs (file system): (=système de fichiers) Donne accès fcts qui 
+permettent de modifier système de fichiers (y compris aux fcts permettant
+supprimer fichiers).</p>
+<div class="stuffc">
+  const Thing = require ('../models/thing');<br>
+  <strong>const fs = require ('fs');</strong><br>
+  ...<br>
+exports.deleteThing = (req, res, next ) => {<br>
+<strong>Thing.findOne ({_id: req.params.id}) <br> 
+   .then(thing => {<br>
+           if (thing.userId != req.auth.userId) {<br>
+               res.status(401).json({message: 'Non autorisé'});<br>
+           } else {<br>
+               const filename = thing.imageUrl.split('/images/')[1];<br>
+              <mark> fs.unlink</mark>(`images/${filename}`, () => {<br>
+                   Thing.deleteOne({_id: req.params.id})<br>
+      .then(() => { res.status(200).json({message: 'Objet supprimé !'})})<br>
+      .catch(error => res.status(401).json({ error }));<br>
+               });<br>
+           }<br>
+       })<br>
+       .catch( error => {<br>
+           res.status(500).json({ error });<br>
+       });<br></strong>
+}; 
+</div>
+<h2>Pour la suite</h2>
+<p>Commencer apprentissage d'un framework
+   ou d'une librairie front-end avancée (Angular, React ou Vue).</p>
+    <span class=haut><a href="#debut">Revenir au début</a></span>
+                     </section>
+        </main>
+        <footer>
+        </footer>
+        <script type="module" src="cours2.js"></script>
+<!-- Pour relier mon .js à mon .html-->  
+ <!-- On ajoute type="module" pr relier .json à .js (via .html)-->      
+    </body>
+</html>

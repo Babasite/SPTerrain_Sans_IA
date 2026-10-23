@@ -1,0 +1,29 @@
+body{background:#777BB4;
+    font-family: Arial, Helvetica, sans-serif;
+    color:black}
+h1{color:rgb(23, 23, 145);font-family:'lobster',cursive;
+        font-size: 2em ;}
+.sql{font-size: 15px; display: inline-flex;
+    gap: 20px; }
+.cours{display: inline-block;
+    border:10px solid rgb(0, 4, 128);
+    padding: 5px;}
+.php{display: inline-block;
+    border:5px solid rgb(0, 4, 128);
+    padding: 5px;}
+h2{color:green}
+h3{color:rgb(152, 114, 43)}
+h4{color:rgb(212, 170, 92)}
+h5{color: orange;}
+.enligne{display: flex;
+                   gap:20px;}
+.important{display: inline-block;
+    border:5px solid rgb(7, 79, 23);
+    padding: 5px;}
+table td:nth-child(3) {
+    padding-left: 30px;
+}    
+table th:nth-child(3) {
+    position: relative;
+    left: -50px;
+}

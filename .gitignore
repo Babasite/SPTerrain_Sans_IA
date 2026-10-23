@@ -1,0 +1,7 @@
+# Il faut un .gitignore pour que mes .env ne fuitent pas. 
+# Celui-ci à la racine protège ts les .env, même ceux des sous-dossiers. ;)   
+.env
+
+node_modules/
+.env
+.env.*

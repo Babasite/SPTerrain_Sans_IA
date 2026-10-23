@@ -1,0 +1,438 @@
+<!--   python -m http.server 8000         (Dans le terminal)
+       http://127.0.0.1:8000/Cours1.html  (Dans le navigateur) -->
+<!--https://openclassrooms.com/fr/courses/1603881-creez-votre-site-web-avec-html5-et-css3-->       
+<!DOCTYPE html>
+<!-- On commence toujours par "!DOCTYPE"-->
+<html lang="fr">
+<!-- Permet au navigateur de comprendre que contenu est en francais-->
+    <head>
+<!--Tab (tabulation) = touche avec double flèches = Pour mettre début de la ligne de balise au bon endroit = indentation -->
+        <meta charset="utf-8">
+<!-- Indique l’encodage utilisé dans le fichier -->        
+        <title>Cours HTML et CSS</title>
+<!--"title" est pour l’onglet du navigateur -> sert pour résultats recherche google-->
+         <link href="cours1.css" rel="stylesheet">  
+<!-- Link, c'est pour aller chercher le CSS (ds un autre fichier)-->
+         <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+<!-- Le link pour aller chercher une police sur le site google fronts pour modifier mon h1-->         
+     </head>
+<!-- "head" est la première balise "enfant" de "html" parent-->
+
+      <body>
+        <header class="couleur-fond-haut">
+<!-- J'ai continué <body> avec <h1><h2> pour commencer. Pour la bonne
+     disposition j'ajoute <header> entre <body> et <h1> -->    
+           <div class="banniereheader"> <img src="imagesCours1/logo.png"  id="monlogo">
+              <span class="montitre">J'apprend à développer moi-même SPTerrain<br>
+                (partie réalisée sans IA)</span> 
+           </div>                 
+        </header>
+
+        <nav> 
+             <span class="monmenu"><p><a href="cours1.html">HTML et CSS</a></p> 
+             <p><a href="../Cours2/frontendCours2/cours2.html" target="_blank">Javascript</a></p>
+             <p><a href="../Cours3/cours3.html" target="_blank">Analyse de données</a></p>
+             <p><a href="../Cours4/cours4.html" target="_blank">Sécurité</a></p>
+             <p><a href="../Cours5/cours5.html" target="_blank">IA</a></p>
+             <p><a href="../Cours6/cours6.html" target="_blank">PHP</a></p>
+             <p><a href="../Cours7/cours7.html" target="_blank">Python</a></p>
+             <p><a href="../Cours8/cours8.html" target="_blank">R</a></p>
+             <p><a href="../Niveauactuel/niveauactuel.html" target="_blank">SPTerrain</a></p> 
+<!-- menu -->
+             </span>
+        </nav>
+
+        <main>   
+        <section class="couleur-fond-haut">
+        <h1>HTML 5   
+        <span class="allercss">
+                <a href="#css3">Aller directement à CSS</a></span>      
+        <span class="allercss">
+                <a href="#mep">ou à "Mise en Page"</a></span> 
+             <br>
+                <span class="debut">Le <span class="vérité">"vrai"</span>
+<!--"vrai" a une classe span nommée "vérité" (pour CSS)-->                 
+        titre de ma page est h1 (sans compter le header vert ci-dessus... Et parce que le &lt;title&gt; ds &lt;head&gt; 
+        est pour l’onglet du navigateur).</span> </h1>
+<!-- On peut aller jusqu'à 6 titres puis sous sous titre jusqu'à h6-->
+ <h2> Pour écrire un mot ... </h2>
+                <a href="../ComprendreWeb.pdf">Les bases de base.</a> 
+         <p>Ma première page web fonctionne grace à <strong>&lt;p&gt;</strong><br>
+<!-- "br" pour aller à la ligne-->            
+          A retenir :<strong>&lt;!DOCTYPE&gt;</strong> ; <strong>
+          &lt;html lang="fr"&gt;</strong> ; <strong>&lt;head&gt;</strong>
+          avec <strong> &lt;meta</strong> charset="UTF-8"&gt; (encodage correcte)
+          puis <strong> &lt;title&gt; </strong> ; <strong>&lt;body&gt;</strong> (c'est là que commence le texte visible sur la page)<br>
+            puis bien refermer avec <strong>&lt;/html&gt; </strong></p>
+            <p>Rm:<strong> &lt;br&gt;</strong> pour aller à la ligne. <br>
+             Pour afficher ma page sur le navigateur (quand j'ai créé ou modifié un fichier),
+             je tappe dans le terminal :
+             <mark>python -m http.server 8000</mark> <br>
+             puis dans le navigateur: 
+             <mark>http://127.0.0.1:8000/Cours1.html </mark></p>
+                <p>Enregistrer ses fichiers en minuscules, sans espace et sans accent.</p>
+<!-- <p></p> pour commencer à écrire veut dire paragraphe -->
+ <!-- On a des balises "en paires" et "orphelines" (qui finissent parfois par \) -->
+        <h2> Commenter son code en HTML</h2>
+         <p><strong> &lt;!-- Mon commentaire --&gt;</strong> (« Ctrl + K » puis « Ctrl + C »)</p>
+         <p> Pour coder une balise → <mark>< ></mark> ; pour montrer < et > à l'utilisateur comme du texte → <strong>&amp;lt; et &amp;gt;</strong>.</p>
+         <p>Donc "balise réelle" dans le code : &lt;p&gt;Bonjour&lt;/p&gt; et "Texte affiché avec des chevrons" : &amp;lt;p&amp;gt;Bonjour&amp;lt;/p&amp;gt;</p>
+         <P>Il existe des balises "orpheline" (qui ne se ferment pas avec &lt;/&gt;)</P>
+        <h3> Commencer à faire des "Listes" <mark>&lt;ol&gt;</mark> ( et <mark>&lt;ul&gt;</mark> si on veut pas d'"ordre")</h3>
+        <ol>
+<!-- On commence par écrire <ul> puis on le transforme en <ol> pour organiser les liste <li> suivantes.-->
+            <li>Attributs : options des balises : &lt;img Nom de l’attribut = « Valeur de l’attribut »&gt;</li>
+            <li>Mettre en valeur des textes importants : <strong>&lt;strong&gt;</strong> (gras),<u> &lt;u&gt;</u>
+                 (sousligner),<mark>&lt;mark&gt;</mark> (surligner),<em> &lt;em&gt;</em> (italique),
+                 <s>&lt;s&gt;</s> (barrer) .
+                </li>
+            <li><u>Liens hypertextes</u> : <em>Lien externe</em> <mark>&lt;a href="lien"&gt;</mark> (= url) et on ajoute le nom du "bouton" à cliquer (puis &lt;/a&gt;)
+                <a href="https://spterrain.fr">Mon site SPTerrain</a> ,<br>
+                <em> Lien interne</em> &lt;a href="Cours2.html"&gt; (fonctionne si ds même dossier) 
+                <a href ="../Cours2/frontendCours2/cours2.html">Mon Cours n°2</a> ,<br>
+                Rm : Si les pages sont situées : Dans des dossiers différents : &lt;a href="dossier/Cours2.html"&gt; <br>
+                Dans des dossiers "parents" : &lt; a href="../cours2.html"&gt;   (./ veut dire ds même dossier (pas utile), <mark>../</mark> veut dire qu'on remonte de 1 dossier, ../../ de 2 dossiers...)<br>
+                Dans la même page : <mark>&lt;a</mark> href="<mark>#</mark>css3"&gt;Aller plus bas dans le 
+                cours à CSS<mark>&lt;/a&gt;</mark><br> (en faisant &lt;h1 <mark>id</mark>="css3"&gt;CSS 3&lt;/h1&gt; au
+                niveau de CSS3) 
+                <a href="#css3">Aller plus bas dans le cours à CSS</a><br>
+                <em>Ancre </em> (lien vers des endroits précis du site):
+         Fixer mon ancre: &lt;id="mon_ancre"&gt;salut&lt;/p&gt; <br>
+         puis créer le lien : &lt;a href =<strong>#</strong>mon_ancre&gt;nom_du_bouton&lt;/a&gt;
+         <a id="nom_du_bouton" href =../Cours2/frontendCours2/cours2.html#mon_ancre>Salut :)</a> (appelé lien "relatif")<br>
+         Ajouter <strong>target="_blank"</strong> si on veut que la page s'ouvre sur un nouvel onglet <br>
+         <a href="https://spterrain.fr" target="_blank">Mon site SPTerrain</a> 
+         &lt;a href="https://spterrain.fr" target="_blank">Mon site SPTerrain&lt;/a&gt;
+        </li>
+        <li>Inserer des images : Choisir un format d'image (<string>JPG</string>,PNG,GIF,SVG ...)
+site "Unsplash"(photos libres de droits).<br>
+<strong>&lt;p&gt;&lt;img <mark>src=</mark>"image1.png"&gt; &lt;/p&gt;</strong><br>
+On utilise l'URL complète si elle est sur un autre site web.<br>
+On lui ajoute un texte "alternatif" avec <strong>alt="</strong><em>C'est difficile de reprendre à 0</em><strong>"</strong><br>
+Info bulle (texte qui apparait sur l'image lorsqu'on la survole): 
+On ajoute <strong>title="</strong><em>Pas facile!</em><strong>"</strong>à la fin de notre ligne de code.<br>
+<u>Rendre l'image cliquable</u>:  &lt;p&gt;&lt;<strong>a href =</strong> "image1.png"&gt;&lt;img src="image1miniature.png"  alt "C'est difficile de reprendre à 0" title="Pas facile!"<strong>&lt;/a&gt;</strong>&lt;/p&gt;
+     <p>
+        <a href = "imagesCours1/image1.png">
+        <img src="imagesCours1/image1miniature.png" 
+        alt ="C'est difficile de reprendre à 0" title="Pas facile!">
+        </a>
+     </p>
+        </li>
+        </ol>
+  </section>
+<section><div class="couleur-fond-haut">
+        <h1 id="css3">CSS 3</h1>
+<p>Pour le CSS, c'est à partir des balises <strong>&lt;style&gt;&lt;/style&gt;</strong> dans notre page HTML<br>
+Mais on peut le faire sur une page dédié CSS. On entre alors juste un "<strong>link</strong>" dans head 
+pour l'appeler.<br>  &lt;link href="cours1.css" rel="stylesheet"&gt;</p>
+ <p>On peut choisir ce qu'on met entre "". On doit agir sur HTML puis dans style.<br>
+Dans "style", les "" ne servent pas à choisir un nom. Elles servent pour 
+certains textes en chaîne de caractères (plusieurs mots) ou contenant des espaces. <br>
+En CSS, priorité du sélecteur d'abord (ou du plus spécifique) → si égalité,
+celui écrit le plus bas gagne.</p>
+<!-- Link est ds le "head" pour appeler le fichier. Le CSS est ds <style></style> -->
+        <h2> Sélecteur (h1 <mark>{</mark>...), propriété(s)(color...) <mark>:</mark>, valeurs (blue,15px...)
+        <mark>;</mark><mark>}</mark></h2>
+        <p>h2,h3{ margin-left: 2cm;}</p>
+        <h3>Pour appliquer un style à un seul élément parmi d'autres, on utilise un attribut <mark>class</mark> (ds html).</h3>
+        <p>&lt;<strong>p</strong> class="Ce_qu'on_veut"&gt; &lt;/p&gt;  (Pour commencer on met où, ici on veut que ce soit ds un &lt;p&gt;)</p> 
+        <p class="Commenter"> </p>
+        <p>&lt;h3 class="youpi"&gt;Commenter /* puis */ &lt;/h3&gt; (ici ds html donne ...)</p>
+        <h3 class="youpi">Commenter /* puis */</h3> 
+        <p><mark>.</mark>youpi {color: pink;}   
+        (car on a ajouté ça ds style plus bas)</p>
+        <p><strong>.classe:pseudo-classe {propriété: valeur;}</strong></p>
+        <p>Rm: Une même classe peut être utilisée plrs fois une fois nommée.</p>
+
+        <h4>Pour appliquer un style à un élément <u>unique</u> en son genre, on utilise un attribut 
+        <mark>id</mark> (Utile pour JavaScript). </h4>
+        <p>&lt;img src="images/logo.png" alt="Logo du site" <strong>id=</strong>"logo"&gt;  (id pour appeler sur html)</p>
+        <p><img src="imagesCours1/logo.png" alt="Logo du site" id="logo"></p>
+        <p><strong>#</strong>logo {/* Indiquez les propriétés CSS ici */}  (<mark>#</mark> pour appeler sur CSS (<u>à la place de .</u>)) <br>
+         #logo { width: 150px;}   (Pour le rétrécir déjà)</p>
+
+        <h3>Appliquez plusieurs propriétés CSS d'un coup à un élément</h3>
+
+        <h4>Déclarer le style (donc ds le CSS, la partie "style")</h4>
+        <p>.youpi {color: pink;}<br>
+        .youpi2 {font-size: 30px;}     (<strong>font-size</strong> = Taille du texte) 
+        (Rm: pr une img c'est <stronvg>width:</strong>)</p>
+          <div class="fit-content"> width: fit-content (adapte la largeur de l'élément à son contenu)</div> 
+          
+        <p>L'utiliser (donc du CSS, mais partie HTML)<br>
+        &lt;body&gt;
+    &lt;h1&gt;Titre principal&lt;/h1&gt;
+    &lt;p&gt;Ceci est le contenu de mon premier paragraphe&lt;/p&gt;
+    &lt;p class="youpi youpi2"&gt;Ceci est le contenu de mon deuxième
+    paragraphe&lt;/p&gt;
+    &lt;h2 class="youpi2"&gt;Voilà mon sous-titre h2&lt;/h2&gt;
+    &lt;/body&gt;</p>
+        <p>Attribut pour certains <u>mots</u> (Balises universelles) : <br>
+   <strong>&lt;span&gt; &lt;/span&gt;</strong> (pour quelques mots 
+   Ex:"vrai" en rouge <span class="vérité">encore vrai</span>)
+<!--Faire une class avec "span"-->   
+   On doit faire <u>html</u> : &lt; <mark>span class=</mark>"vérité"&gt;encore vrai&lt;/span&gt;
+   et <u>css</u> : .vérité{color:brown;} <br> 
+
+   <div class="mon-bloc">et <strong>&lt;div&gt; &lt;/div&gt;</strong> (pour un bloc de texte Ex:
+    1 Déclarer le style... en violet).
+   On doit faire <u>html</u> : &lt;div class="mon-bloc"&gt;...on englobe tt le texte...&lt;/div&gt;
+   et <u>css</u> : .mon-bloc{color:purple;} </div></p> 
+<!--Faire une class en bloc avec "div" -->
+          <h4>Changer l'apparence du texte (essai avec <span class="changer-apparence">h1</span>, on met une <mark>;</mark> entre chaque paramètre).</h4>
+                <p>Type police: <strong>font-family</strong> (Sans shérif plus lisible, "google fonts" libre de droit d'ou le link ), pas plus de 3 polices différentes (conseil)</p>
+                <p>Taille police: <strong>font-size</strong> (<strong>em</strong> d'adapte à ts les écrans, <strong>px</strong>: 16 pixels(=1 em) taille standard) </p>
+                <P>Style police: <strong>font-style</strong> (italique...), <stong>font-weigh</stong> (épaisseur, 400 graisse d'un texte normal)</P>
+                <p>Alignement textes:<strong>text-align</strong> (justify pr homogénéiser). <strong>Margin</strong> souvent plus adapté. </p>
+                <span class="EssaiAlignement">On décale avec <strong>text-align</strong> mais si on veux juste une partie de phrase ce sera margin</span>
+                <span class="EssaiAlignementMargin">Avec <strong>margin</strong>, c'est plus simple.</span>
+ </div>
+<!-- Je ferme la class="couleur-fond-haut". Une même classe peut être utilisée plrs fois une fois nommée -->
+ <div class="contenu-beige">
+          <p><span class="titre-couleur">Ajouter couleur et un fond</span>  span puis 
+                .titre-couleur{<strong>background</strong>-color: aquamarine;} </p>
+                <p><div class="banniere"><em>Couleur de texte</em>: <strong>color:</strong> avec balises comme
+                 "p" ou "span" avant (HEX avec # rouge-vert-bleu,RGB mieux). rgb<strong>a</strong> pour opacité
+                  (4e chiffre)</p>
+                <p><em>Couleur arrière-plan</em>: <strong>body {background-color : beige;}</strong> On met un 
+                body dans le style mais sans &lt;&gt; .</p>
+                <p><em>Images de fond</em>: <strong>background-image</strong>   
+                .banniere{background-image: url('nuage.png'); color:rgb(28, 2, 87);}<br>
+                <p></p>
+                Modifier le comportement de l'image de fond : 
+                <strong>background-attachment</strong> (rendre image de fond fixe lorsqu'on déroule la page web), 
+                <strong>background-size</strong> (s'adapte à la taille de l'élément qui la contient),
+                 <strong>background-position</strong> (indique où doit se trouver l'image de fond).
+                </p></div>
+                <p><em><span class="degrade">Dégradé</span> de couleur</em>: <strong>:linear-gradient</strong>
+                (mais il existe de nombreuses autres façons de réaliser des 
+                dégradés). Pour la transparence on utilise <strong>opacity:</strong> (1 opaque, 0 transparent). </p>
+                <p>(Ex: .degrade{background: linear-gradient(#317fbf, #BEAEE2);})</p>
+          <p><span class="ombre">Bordure et ombre</span> : <strong>border-</strong> (va jusqu'à 3 valeurs: largeur, couleur, type)
+                (Ex:  .ombre{border:2px solid green;})</p>
+              <p></p>
+                On peut combiner <strong>border-top-width</strong>  (pour modifier l'épaisseur de la <span class="ombre2">bordure du haut</span>).  
+              <p></p>
+                On peut arrondir ses angles avec <strong>border-radius</strong>. Outils de visualisation : <u>Fancy Border Radius</u>.
+               <p></p>
+                On peut ajouter une ombre portée avec  <strong>box-shadow</strong>. Exemples sur <u>CSS Scan</u>.<br>
+                (Ex: .ombre2{border:2px solid green; border-top-width:10px; border-radius:10px; box-shadow: 5px 5px 10px grey;})
+                <p></p>
+                Ombre à un texte <strong>text-shadow</strong>.
+          <p></p>
+          <p>Créez des apparences dynamiques : Des éléments change de forme une fois page chargée. <br>
+             <span class="apparition"> Pseudo-classes</span> : .<strong>a</strong>pparition<strong>:hover</strong> {}     (Survol souris) ; <strong>:active</strong> (Au moment du clic) ; <strong>:focus</strong> (Applique un style lorsque un élément est sélectionné) ;<br>
+              <strong>:visited</strong> (Stylisez un lien hypertexte déjà consulté, svt que la couleur) ;<br>
+               www.caniuse.com (Propose des tables de compatibilité des fonctionnalités de HTML et CSS) ;<br>
+               <strong>*{}</strong> (sélectionne toutes les balises sans exception) ; <br>
+               <strong>h3 em {}</strong> (Les txtes en italique ds h3, <mark>pas de "<strong>,</strong>"</mark> , l'élément principal en 1er) ; <strong>h3 + p {}</strong> (Permet de sélectionner la première balise &lt;p&gt; située après un titre &lt;h3&gt;&lt;/h3&gt;) ;<br>
+               <strong>a[title] {}</strong> (liens hypertexte &lt;a&gt; possèdant un attribut "title")         <u>Ex code HTML associé</u> : <strong>&lt;a href=</strong>"http://site.com" <strong>title=</strong>"Infobulle"&gt;&lt;/a&gt; ;<br> 
+               <strong>a[attribut="Valeur"]</strong> (Variante, plus précis encore). Liste de selecteurs sur <u>site du W3C</u>.
+          </p>
+
+        <h2 id="mep">Mises en page (HTML + CSS)</h2> 
+        <h3>Squelette du site web (convention structure)</h3>
+        <p><u>Dans</u> &lt;body&gt; :</p>
+        <p>En-tête <strong>&lt;header&gt;</strong> (Attention, différent de "head", dans début de "body", il 
+        peux y avoir plrs "header" ds une même page (pr chaque "section")) : logo, banniere ou titre (pas le
+        surcharger car présent sur ttes les pages du site).</p>
+        <p>Navigation <strong>&lt;nav&gt;</strong> : <strong>menu</strong> (tjrs au même endroit sur toutes 
+        les pages) svt situé en haut à l'horizontale ou à gauche à la verticale</p>
+        <p>Contenu (principal) <strong>&lt;main&gt;</strong> avec des Section &lt;section&gt; : Coeur de la page,
+         on regroupe à partir des h2 (voire même h1 ici) dans &lt;main&gt; (veut dire principale) suivit 
+         directement de &lt;section&gt; (pour <strong>chaque</strong> h2 ou "gros chapitre"). </p>
+         <aside>
+        <p>Contenu (complémentaire) <strong>&lt;aside&gt;</strong> : liens vers d'autres sites.
+         <a href="https://openclassrooms.com/fr/courses/1603881-creez-votre-site-web-avec-html5-et-css3"
+         target="_blank">
+            Cours HTML/CSS OpenClassrooms
+        </a>
+        </p>
+        </aside>
+        <p><strong>Pied de page &lt;footer&gt;</strong> : lien de contact, nom de l'auteur, politique de confidentialité .</p>
+        
+        <h3>Modele des boîtes (block et inline)</h3>
+        <p>Balises <u>Block</u> : html, header, main, <u>div</u>, p . Entraîne un retour à la ligne avant et
+         après . Les propriétés de largeur et de hauteur sont modifiables .</p>
+        <p>Balises <u>Inline</u> : a, <u>span</u>, strong . Obligatoirement à l'intérieur d'une balise block et 
+        seront sur la même ligne . Pas de largeur et de hauteur</p>
+        <p>Autres "balises" (minoritaires): <strong>table-cell</strong> (cellules de tableaux), 
+        <strong>list-item</strong> (puces) . </p>
+        <p>Propriétés pour les <mark>blocs</mark> : <strong>width:;</strong>(largeur), <strong>heigt</strong>(hauteur),
+         <strong>margin</strong>(marge extérieure au bloc). <strong>:auto</strong> (va centrer automatiquement) .</strong> <strong>padding</strong> ou : (marge intérieur au bloc)</p>
+        
+         <h3>Flexbox (conteneurs flexibles)</h3>
+        <p>Pour "ranger" correctement dans le "contenu" . On peut en avoir plrs sur une même page . conteneur est
+         <strong>="youpi"</strong> ou ici <strong>="conteneur"</strong></strong> (fait avec des &lt;div&gt;). </p>
+
+        <div class="conteneur"><p><em>Propriétés du conteneur</em> : .conteneur{<strong><u>display</u>:flex</strong>;
+         flex-direction:row (positionné sur l'axe horizontale).<mark>"flex" met les 5 "enfants" &lt;p&gt; de
+         conteneur déjà à l'horizontale</mark>.</p>
+               <p><strong><u>justify-content</u></strong>: space-around (éléments étirés sur tout l'axe principale avec un peu d'espace 
+                sur les extrémités);</p>
+                <p><strong><u>align-items</u></strong> (pour agir ensuite sur "axe secondaire" (en vertical si le 1er était horizontale)):
+                 center (pr placer le conteneur et son contenu au centre de la page web);</p>
+                <p><strong><u>flex-wrap</u></strong> (pr activer ou désactiver un retour à la ligne automatique des éléments):wrap
+                 (les éléments vont à la ligne lorsqu'il n'y a plus la place) ;</p>
+                <p><strong><u>gap</u></strong> (espaces entre chacun des éléments):20px;} <mark>fait respirer</mark>.</p>
+        </div>
+        <p>Si j'utilise le même conteneur pour la suite...</p>
+         <div class="conteneur"><p><em>Précisions</em> : <u>Flex-wrap</u> :nowrap (pas de retour à la ligne 
+                (par défaut))<br>:wrap-reverse (les éléments vont à la ligne, lorsqu'il n'y a plus la place,
+                 en sens inverse)<br><u>Justify-content</u> : flex-start (alignés au début (par défaut))<br>
+                flex-end (alignés à la fin)</p>
+                <p>center (alignés au centre)<br>space-between (les éléments sont étirés sur tout l'axe (il y a 
+                de l'espace entre eux))<br>space-around (idem, les éléments sont étirés sur tout l'axe, mais ils
+                 laissent aussi de l'espace sur les extrémités)</p>
+                 <p><u>Align-items</u> : stretch (les éléments sont étirés sur tout l'axe (valeur par défaut))<br>
+                flex-start (alignés au début)<br>flex-end (alignés à la fin)<br>center (alignés au centre)<br>
+                baseline (alignés sur la ligne de base (semblable à  flex-start))</p>
+                 <p><em>Rm</em> : Le centrage (vertical et horizontal) peut être obtenu encore plus facilement :
+                 <strong>.container {display: flex;} .element {margin: auto;}</strong><br><u>Align-content</u> (aucun effet s'il 
+                 n'y a qu'une seule ligne dans la Flexbox): stretch  ((par défaut) les éléments s'étirent pour 
+                 occuper tout l'espace)</p>
+                <p>Flex-start (les éléments sont placés au début)<br>Flex-end (les éléments sont placés à la 
+                fin)<br>Center (les éléments sont placés au centre)<br>Space-between (les éléments sont séparés 
+                avec de l'espace entre eux)<br>Space-around (idem, mais il y a aussi de l'espace au début et à la fin)</p>
+           </div>     
+                <p><um>Propriétés d'un élément</um> (une seule boite): D'abord distinguer les éléments ( Ex : one,two,three) <br>
+        .one{order:2 (ordre dans lequel il apparaitra ds l'élément);}<br>
+        .two{order:1;}<br>
+        .three{order:3; flex:1 (aura les mêmes propriétés que ".one")}<br>
+        </p>
+
+        <h3>CSS Grids (complémentaire à Flexbox car permet mise en page plus complexes, unité fr)</h3>
+        <p>Si Flexbox organise surtout sur un axe (ligne ou colonne), Grid pratique pour organiser 
+        <strong>sur deux axes</strong> : colonnes + lignes.</p>
+        <p>&lt;div class="grille"&gt;&lt;div&gt;Case 1&lt;/div&gt;&lt;div&gt;Case 2&lt;/div&gt;...&lt;/div&gt;                
+        </p>
+        <div class="grillegrids">
+                <div>Case 1 :<h4>Propriétés du conteneur</h4>
+       <p>.conteneur{<strong>display:grid;</strong>} puis <u>grid-template-columns</u> (pour le nombre de 
+        colonnes, et la largeur de chacune d'entre elles)<br>&lt;div class="conteneur"&gt;&lt;/div&gt; &lt;div
+         class="<strong>box</strong>"&gt;&lt;/div&gt;... (box ajoute un peu de style aux éléments, on fait un 
+         div ds div)<br><u>grid-template-rows</u> (pour le nombre de rangées, et la hauteur de chacune d'entre
+          elles)<br>Supprimer la hauteur fixe qu'on avait associée à la classe.<u>gap:</u> (aérez contenu).</p>
+                </div>
+                <div>Case 2 :<h4>Propriété d'un élément</h4>        
+        <p>On aura besoin de : grid-column-start (indique la ligne verticale de départ de l'élément), 
+        grid-column-end (indique la ligne verticale d'arrivée de l'élément), grid-row-start (indique la ligne 
+        horizontale de départ de l'élément), grid-row-end (indique la ligne horizontale d'arrivée de l'élément)
+        <br>On peut même écrire start et end en une seule ligne avec grid-column (1/4 par exemple (on compte +1 
+        avec cette technique)).</p>
+                </div>
+                <div class="case3">Case 3 : <p><strong>fr</strong>= Fraction de l'espace disponible (1fr 1fr = 50% 50%).</p></div>
+                <div class="case4">Case 4 : </div></div>
+
+<h3>Autres techniques de mise en page (display:)</h3>
+<h4>Transformer des éléments</h4>
+<p>Forcer un lien inline à devenir un bloc pr lui imposer des dimensions display:block; (ou l'inverse)<br>
+   Propriété qui combine inline et block : <strong>display:inline-block;</strong></p>
+<h4>Cacher des éléments</h4>
+<p>display:<strong>none;</strong></p>
+<h4>Autres propriétés puissantes (comme display)</h4>
+<p><strong>position:</strong> Le positionnement <u>relative;</u> permet de décaler l'élément par rapport à sa position normale. <br>
+                              Le positionnement <u>absolute;</u> permet de placer un élément n'importe où sur la page (en haut à gauche, en bas à droite, tout au centre, etc.).<br>
+                              D'autres types de positionnements comme "fixed" ou "sticky" (rend élément adhérent) ont des comportements semblables.</p>
+                              <p><strong>z-index</strong>: (pour gérer le chevauchement)</p>
+<h2>Propriétés avancées</h2>
+<h3>Ajouter des tableaux</h3>
+<p><mark>&lt;table&gt;&lt;tr&gt;&lt;th&gt;</mark> puis <mark>&lt;td&gt;</mark> au lieu &lt;th&gt;</p>
+<table class="tableaux">
+        <tr><th>Titres en HTML<br> &lt;table&gt; puis &lt;caption&gt;</th>  
+             <th>Lignes et colonnes en HTML</th>
+             <th>Bordures en CSS</th> </tr>
+        <tr><th>Explications des exemples</th>
+             <td><strong>&lt;table&gt;</strong> puis <strong>&lt;tr&gt;</strong> (début et fin de la ligne) 
+                avec <strong>&lt;th&gt;</strong> (pour mettre les titres) puis <strong>&lt;td&gt;</strong> 
+                (cellule) et on referme ds l'ordre.<br><em>Rm</em>: Dans un &lt;tr&gt;, on ne peut pas mettre
+                 du texte ou des balises comme &lt;p&gt;. On doit y mettre &lt;th&gt; et/ou &lt;td&gt;<br>
+                 &lt;tr&gt;=une ligne (table row), &lt;th&gt;=cellule d’en-tête (table header), &lt;td&gt; = 
+                 une cellule normale (table data).<br><em>Rm</em>: On a entré "table", "tr", "1)th" ( puis le
+                 2eme "tr" avant "4)th" ).
+            </td>
+                 
+             <td>Dans le CSS il faut mettre des {} après "table" mais aussi "td" et "th"<br>(même si on a ajouté
+                 une class à "table". Ds ce dernier cas il faudrait quand même : <strong>.tableau, .tableau th, .tableau
+                 td {...}</strong>) avt de remplir les {}.<br>Attention, tableau devient table du coup...Et nous devons 
+                 remplir séparemment .tableau (=.table){...} en plus.<br>td{<strong>border:</strong>;} puis
+                 table{<strong>border-collapse:collapse</strong>;} (pour avoir 1 seul trait)<br><strong>padding;
+                 </strong> (pour ajouter des marges).<br>
+                 On peut divisez un tableau avec les balises HTML &lt;thead&gt; (en-tête du tableau (en haut)),
+                 tbody (corps du tableau (au centre)) et tfoot (pied du tableau (en bas))<br>
+                 On peut fusionner des cellules du tableau avec les attributs colspan (fusionner des colonnes)
+                 et rowspan (fusionner des lignes).</td> </tr>
+            <tr><th>Exemples</th>  
+            <td><table class="tableau-sans-css">
+                <tr><th>1)th</th>  
+                <th>2)th</th>
+                <th>3)th</th> </tr>
+                <tr><th>4)th</th>
+                <td>5)td</td>
+                <td>6)td</td> </tr>
+                <tr><th>7)th</th>  
+                <td>8)td</td> 
+                <td>9)td</td></tr>
+                </table>
+            </td> 
+            <td><table class="tableaux">
+                 <tr><th>1)th</th>  
+                 <th>2)th</th>
+                 <th>3)th</th> </tr>
+                 <tr><th>4)th</th>
+                 <td>5)td</td>
+                 <td>6)td</td> </tr>
+                 <tr><th>7)th</th>  
+                 <td>8)td</td> 
+                 <td>9)td</td></tr>
+                </table>
+          </td>
+        </tr>
+</table>
+        <h3>Créer formulaires</h3>
+        <p>&lt;form&gt; &lt;/form&gt; (pour indiquer début et fin formulaire)<br>
+        <strong>&lt;form action="</strong><u>où</u><strong>" method="get</strong> ou <strong>post</strong>
+        (<u>comment?</u>)<strong>"</strong> <br>
+        &lt;label&gt;Courrier SPT :&lt;/label&gt; (label=étiquette donnée au champs)<br>
+        <strong>&lt;input type="text"</strong> name="Bastien"&gt;<br>
+        <strong>&lt;input type="submit" value="Envoyer"&gt;</strong></p>
+
+<form action="dans ma boîte maîl" method="get">
+        <label>Courrier SPT :</label>
+        <input type="text" name="Bastien">
+        <input type="submit" value="Envoyer">
+</form>
+        <p>
+         Pour faire le lien,
+         on ajoutera 2 attribut id= (ds input) et for= (ds label) </p>
+         <p>&lt;textarea&gt; (zone de texte multiligne) </p>
+         <p>&lt;input type="radio"&gt; (bouton radio pr que visiteur fasse 1 seul choix)</p>
+         <p>&lt;select&gt;  et  &lt;option&gt; (pour une liste déroulante)</p>
+         <p><strong>Bouton d'envoi (envoyer)</strong>: &lt;fieldset&gt; puis &lt;legend&gt; (pr donner un nom à 
+         ces sections). Attribut : autofocus required </p>
+<h3>Responsive design (avec les Media Queries (règles CSS))</h3>
+<h4>Syntaxe d'une media queries</h4>
+<p>@media screen and (max-width: 1200px) {p{color: pink;}} <br>
+car on doit définir une taille d'écran.</p>
+<h4>Principales media queries</h4>
+<p>{overflow: scroll;} permet que texte dépasse pas (menu déroulant)</p>
+<p><u>Rm</u>: On peut tester en réduisant écran navigateur (écran devient rose). Ok pour tels mobils.</p>
+<h3>Conseils</h3>
+<p>Apprendre <strong>Javascript</strong> (pour plus d'inter-activité), pour modifier des propriétés HTML et CSS sans avoir à recharger la page . <br>
+C'est aussi un langage Frontend donc avec juste Node.js, on est déjà un peu Full-Stack.</p>
+<p><strong>PHP</strong> (pour dynamisme), &lt;form&gt; sert à créer des formulaire mais aussi à récupérer des informations avec php.</p>
+<p>Mais à choisir une spécialité Backend, je préfère</p>
+<p><strong>Python</strong> (pour cybersécurité, IA, statistiques... Et puis j'ai surtout fait SPTerrain avec Django, moi.)</p>
+</div>
+</section>
+</main>
+<footer>   
+        Contact:<br>
+        Bastien Sabouret<br>
+        Politique de confidentialité: 
+</footer>
+ </body>
+</html>
+
+

@@ -1,0 +1,279 @@
+<!Doctype html>
+<html lang="fr">
+<head>
+     <meta charset="UTF-8">
+        <title="Securite"></title>
+        <link href="cours4.css" rel="stylesheet">
+</head>
+<body>
+    <header></header>
+    <main>
+        <h1 id="debut">Sécurité
+            <span class="raccourci">
+                <a href="cours4.html"><a href="#linux">Linux</a>
+                <a href="cours4.html"><a href="#intrusion">Test d'intrusion</a>
+            </span>
+        </h1>
+        <p><div class="vert">
+            <strong>pentester web</strong> (= hacker éthique web = testeur d’intrusion web):
+            </div> 
+        professionnel cybersécurité 
+        spécialisé ds recherche failles de sécurité sur sites et applications web.<br>
+        Son objectif est de détecter vulnérabilités avant que des pirates informatiques ne les
+        exploitent.<br>
+        <span class="vert">
+        <u>Compétences</u>:
+        </span>
+         Maîtriser HTML-CSS-JavaScript (comprendre fonctionnement des sites),<br> 
+HTTP/HTTPS (communications entre navigateur et serveur),<br> 
+Linux (utiliser le terminal),<br>
+Python (automatiser certains tests),<br>
+SQL (comprendre les bases de données),<br> 
+OWASP Top 10 (connaître grandes catégories de risques de sécurité web),<br>
+Burp Suite (analyser et modifier les requêtes HTTP).<br>
+<span class="vert">
+      <u>Outils</u>:</span> Burp Suite	(intercepter et analyser les requêtes HTTP), 
+Nmap (découvrir les ports et services exposés),
+SQLmap (tester les injections SQL),<br>
+OWASP ZAP (analyser la sécurité des applications web),
+ffuf (découvrir des chemins et ressources web),
+Nuclei (détecter certaines vulnérabilités connues).
+        </p>
+<h2>Réseau TCP/IP
+    <span class="coursici">
+    <a href="https://openclassrooms.com/fr/courses/6944606-concevez-votre-reseau-tcp-ip" target="_blank">Cours ici</a>
+    </span>
+</h2>
+<p><strong>Réseaux</strong>: Pr que machines communiquent (internet, streaming, mails, cloud...)
+    disquettes (ancêtre qui transmettait entre les 1ers ordis)<br>
+    Un réseau peut être composé de réseaux plus petits<br>
+3 catégories: <u><strong>LAN</strong></u> (réseaux locaux maison ou entreprise), <u>MAN</u> (échelle ville), 
+<u>WAN</u> (les plus gros comme internet)<br>
+Schémas (pr les faire): "Physique" (câblages) et "logique" (comprendre l'organisation)<br><br>
+Structure (sch logique):<br> (PC,serveur et tel) <mark><-></mark> (<u>Switchs</u> 
+(= commutateur. Pr connecter plus de 2 machines entre elles) et <u>routeurs</u> 
+(= passerelle. Pr connecter réseau à autres réseaux))<br>
+ <mark><-></mark> (ordi portable, tel et 
+imprimante)<br><br>
+(équipements terminaux) <-supports de communication (câbles)-> équipements d’interconnexion 
+    <->(eq term) </p>
+ <h3>Outil de simulation (= simulateur. Logiciel qui permet créer maquette virtuelle du réseau)</h3>
+ <p>2 outils de simulation réseau les plus connus: <strong>GNS3</strong> (open source et plus 
+    complet ms plus complexe) <br>et <strong>Packet Tracer</strong> (réseau le plus utilisé 
+    en entreprise <a href="https://www.netacad.com/courses/getting-started-cisco-packet-tracer?courseLang=en-US"target="_blank">Télécharger sur Cisco</a>)
+</p>
+<p>Un ordi contient une <u>carte réseau</u> "<strong>ncpa.cpl</strong>" (pr transformer les données 
+    binaires à envoyer, en électricité, lumière ou ondes électromagnétiques).<br>
+    Elle reçoit une "<strong>adresse MAC</strong>" unique en sortie d'usine. 
+    Les faire communiquer grace à des "<strong>paquets</strong>" 
+    (nécessite attribuer <strong>adresse IP</strong>)<br>
+<em>Rm</em>: Norme régissant les réseaux LAN et MAN porte nom de <strong>IEEE 802</strong><br>
+(contient un ensemble de sous-normes; IEEE 802.3 (=Ethernet) pr réseaux câblés, 
+IEEE 802.11 pour les réseaux sans fil (WLAN)).</p>
+<p>Problème majeur des communications sans fil est la sécurité (clé de chiffrement type WPA).</p>
+<h3>Adresse IP</h3>
+<p>Un paquet contient tjrs adresses de la "source"(A) et du "destinataire"(B) du message.
+ Pr courrier postal, seule adresse "destinataire" est obligatoire.<br>
+<u>Plan d'adressage IP</u> (pr choisir une adresse IP -> car à nous de la définir, 
+contrairement à adresse MAC)<br>
+172.16.254.1<mark>/8 (Masque)</mark> (adresse IPv4)<br>  A) identifie le "réseau locale" (ici 172) tjrs identique pr un même réseau,<br>
+ B) identifie la machine (le reste)</p>
+ <p>Nx format d'adresse définit "IPv6" car trop d'adresse pr un même réseau (avt "IPv4" tjrs 
+    utilisées ds les réseaux locaux).<br>
+<em>Rm</em>: Essentiel de savoir <u>convertir les nombres décimaux en "binaire"</u> 
+(car machines ne parlent qu’en binaire).<br>
+Adresse IP permet identifier localisation géographique des machines (ou au moins de savoir à quel
+ réseau elles appartiennent, contrairement à l’adresse MAC).<br>
+On peut souvent localiser les émetteurs et récepteurs des messages qui transitent dans un réseau.<br>
+Adresse IP est tjrs associée à un "masque" (pr savoir où est limite entre identifiant du réseau et
+identifiant de la machine).<br>
+<u>Masque</u> (de sous-réseau = subnet mask): Sert à déterminer quelle partie d'une adresse IP
+correspond au réseau et quelle partie correspond aux appareils. 
+</p>
+<h3>Routeur</h3>
+<p>Il doit avoir autant d'adresses IP que de réseaux auxquels il est connecté.<br>
+<u>Table de routage</u> (tableau): Ds la mémoire interne du routeur. Activer interfaces
+ (port physique, RJ45 par exemple).<br> Configurer une adresse IP à chacune des interfaces
+  activées.<br> Par convention, on a tendance à affecter au routeur une adresse en fin de plage IP.<br>
+  Renseigner passerelle par défaut sur équipements terminaux.
+  </p>
+  <p><u>Modèle OSI</u>: Propose de classer les règles d'uniformisation en 7 couches<br>
+7- application, 6- présentation, 5- session, 4- transport (pare-feu, ordinateur)<br>
+3- "réseau" (routeur)<br>
+2- liaison de données (switch, carte réseau)<br>
+1- physique (répéteurs, câbles/connecteurs, hub)<br>
+</p>
+<p><u>modèle <mark>TCP/IP</mark></u>: Moins détaillé, 4 couches<br>
+4- application<br>
+3- transport (protocole <strong>TCP</strong>: "protocole de contrôle de transmission", équivalent
+couche 4 modèle OSI)<br>
+2- "internet" (Protocole <strong>IP</strong>: équivalent couche 3 modèle OSI)<br>
+1- Accès au réseau<br>
+</p>
+<p>TCP (Transmission Control Protocol): Etablir règles permettant transporter un message de 
+source à destination 
+(s’assurant que rien n’ait été perdu en route).<br>
+Règle: numéroter chaque paquet (qd un message est trop long pr être envoyé en un seul paquet,
+il est découpé en plsrs parties, mises ds differents paquets à numéroter).<br>
+<u>Mécanisme d’encapsulation</u>: Règles ou consignes nécessaires pr communiquer message 
+sur un réseau doivent être envoyées ds un paquet.<br>
+Paquet constitué: message à envoyer + consignes nécessaires, classées par couches.
+</p>
+<img src="ImagesCours4/TCP.png" id="tcp">
+<p>Chaque “élément intermédiaire” du réseau (routeur, switch, application destinataire), 
+    piochera ds ce paquet consignes qui lui sont destinées.</p>
+<p>Exemple: HTTP -> protocole de niveau 7 (sur modèle OSI)</p>
+<h3>DHCP (automatisation adresse IP)</h3>
+<p>Adresses IP doit être récupérée automatiquement pr pas avoir besoin de la configurer 
+    à chaque fois.<br>
+    <u>Protocole DHCP</u>: Machine va y lire message pr ensuite communiquer.<br>
+     Centralise les adresses IP (évite doublons et permet connaître adresses IP délà attribuées).<br>
+     Il a besoin machine(s) et d'un "serveur".<br>
+    <u>Serveur <mark>DNS</mark></u>: facilite identification machines qui hébergent sites Internet ou
+    autres services réseau. DNS (Système de Noms de Domaine).<br>
+    Permet associer une adresse IP à "nom(s) d’hôte" ou à "nom(s) de domaine".<br>
+<u>Table d’allocation</u> d’adresses IP: Tableau qui permet répertorier adresses IP attribuées
+ aux différents appareils d'un réseau.<br> Sert à organiser adresses IP et à éviter que deux appareils
+utilisent même adresse (chaque adresse est associée à adresse Mac et une "date de fin de bail").<br>
+<u>Différence serveur DHCP et serveur DNS</u>: Un serveur peut faire les 2 ms ce sont 2 "services" différents.<br>
+DHCP → attribue automatiquement une adresse IP à un appareil.<br>
+DNS → permet de retrouver l'adresse IP correspondant à un nom de domaine ou à un nom d'hôte.<br>
+<u>URL</u>(adresse web): Associez un nom à une adresse IP.<br>
+C'est ni un nom d'hôte ni un nom de domaine (mais elle peut contenir les deux).<br>
+Intervient après le DHCP et avec l'aide du DNS.</p>
+    <h2>Applications et réseaux TCP/IP
+    <span class="coursici">
+    <a href="https://openclassrooms.com/fr/courses/2340511-maitrisez-vos-applications-et-reseaux-tcp-ip" target="_blank">Cours ici</a>
+    </span>
+</h2>
+<p></p>
+
+
+
+    <h2 id="linux">Linux 
+    <span class="coursici">
+    <a href="https://openclassrooms.com/fr/courses/7170491-initiez-vous-a-linux" target="_blank">Cours ici</a>
+    </span>
+</h2>
+<p><u>Système d'exploitation</u>: Programme à installer sur ordi et qui va agir comme chef d'orchestre 
+(super logiciel interface entre ns et ordi).<br>
+ "Unix" (créé par Richard Stallman ) est l'ancêtre de Linux (créé par Linus Torvalds).<br>
+Permet de reprendre contrôle de son ordinateur.<br>
+Il est <u>monolithique</u> ("noyau" avec blocs de code unique) 
+et <u>modulaire</u> (ce noyau est 
+organisé sous forme de "modules" (blocs de code qui n'impacte pas le système)).<br>
+Il est diffusé sous "licence GPL" donc gratuit (= "<mark>open-source</mark>).<br>
+Pr télécharger ce noyau (avec code incompréhensible), existe des progammes <br>
+<u>packages</u> qui sont compatibles entre eux. 
+Un ensemble de package est appelé "<mark>distribution</mark>" (certaines sont orientées 
+serveur, sécurité, multimédias ou <strong>poste de travail</strong>).</p>
+<div class="enligne"><div>
+<p><u>Ubuntu</u> (distribution orientée poste de travail):<br> 
+    <mark>Attention</mark> à ce que je fais !!!<br> 
+    Virtualisation (simuler un ordi ds un ordi): Outil "<mark>VirtualBox</mark>"+++ (le moins risqué)<br>
+    <a href="https://www.virtualbox.org/"target="_blank">Télécharger VirtualBox ici</a><br>
+    <br>
+    ISO (fichier contenant notamment les éléments nécessaires pour installer Ubuntu).<br>
+    Je peux le mettre sur une clée USB.<br><br>
+     ou<br>
+    </div>
+    <div><p><span class="petit">Clicker son raccourci pr commencer<br>
+         ds son installation virtualisée</span></p>
+        <img src="ImagesCours4/lancerlinux.png" id="ouvrirlinux"></div></div>
+    WSL2 (fonctionnalité Windows permettant d'exécuter Linux sans installer un deuxième système 
+    d'exploitation directement sur disque (pas besoin ISO))<br>
+<a href="https://ubuntu.com/download/desktop" target="_blank">Télécharger Ubuntu</a></p>
+<p><em>Rm</em>: Sur téléphone, plus facile d'installer Linux sur Android que sur Apple.</p>
+<h3>Bureau Linux (interface graphique)</h3>
+<p>Je dois le configurer moi même (pas comme Windows ou Mac préinstallé).</p>
+<p><u><strong>Gnome</strong></u> (Livré par défaut avec la distribution Ubuntu; Moderne mais demande bcp de ressources).<br>
+    Autres bureaux Linux:<br>
+     <u>KDE</u> (plus proche de l'ambiance de Windows).<br>
+     <u>XFCE</u> (minimaliste, idéal pr ordi obsolette car consomme très peu de ressources). 
+    </p>
+    <h3>Ubuntu installé (via VirtualBox)</h3>
+    <div class="enligne">
+        <div>
+    <p>Il possède un "store" <strong>App Center</strong> (comme Play Store de Samsung)<br>
+    Mais on utilise plutôt son "terminal".</p>
+    <p>Faire une "capture d'écran": <br>
+        Pr récupérer l'image sur "Linux" : Appuyer sur touche "Impécr" <br>
+        Pr récupérer l'image sur "Windows": Utiliser VirtualBox (écran, capturer écran)
+        </p>
+        <p>Mettre à jour les "logiciels" (icones comme ds le bureau windows) si besoin:<br>
+            connexion internet, le "A barré" (surtt les mises à jr automatique de sécurité)...
+    </p></div><div>
+    <img src="ImagesCours4/VirtualBoxUbuntuBaba.png" id="tcp">
+    </div></div>
+    <p>Utilisation avec les <u>"icones"</u> Clicker sur celle en bas à gauche (ouvre plus le menu)</p>
+    <p>Utilisation avec le <u>terminal</u>: taper terminal ds la barre de recherche proposée (après 
+        avoir clické sur même icone en bas à gauche)
+    </p>
+    <p><u>lignes de commande</u>:<br>
+         $ sudo apt-get update (pr voir quels logiciels veulent mises à jour)<br>
+         $ sudo apt-get <mark>upgrade</mark> (pr mettre à jour la distribution) puis appuyer sur "oui"<br>
+         <em>Rm</em>: Commande "<u>sudo</u>" permet d’obtenir droits d’administration 
+         (pr tâches qui les nécessite) = <u>élévation de privilège</u>.<br>
+         $ apt<mark>-cache</mark> search <em>nomdulogiciel</em> (aller chercher lociciel qu'on veut)<br>
+         $ sudo apt-get install <em>nomdulogiciel</em> (pr installer ce logiciel)<br> 
+         <em>Rm</em>: On fait "tab"(touche avec 2 flèches inversées) pr acceder à "ok" ou "yes" 
+         si un autre écran s'ouvre par dessus le terminal.<br>
+         $ df -h (lister appareils qui sont branchés à ordi)<br>
+         $ lsblk (manière dont ces appareils sont connectés)<br>
+         $ ip a (pr voir differentes cartes réseau et leurs configurations)<br>
+         $ ss -tuln (affiche les ports réseau en écoute)
+     </p>
+     <p>Les meilleurs navigateurs pr <u>respecter vie privée</u>: <mark>Firefox</mark>, Edge, Brave (le lion)<br>
+        <em>Rm</em>: GoogleChrome est le plus mauvais (mais ok pour déboguer des sites).<br>
+         Important de passer en revue ttes options de protection de la vie privée et de la sécurité,
+        que propose "Firefox" par exemple.<br>
+        Eviter de garder les "historiques" sur les appareils.
+     </p>
+     <p><u>Messagerie</u>: Linus utilise "Thunderbird"(fourni),"Evolution"(le plus ancien),
+        "Geary"(minimaliste),"ProtonMail"(très sécurisé)...</p>
+    <p><u>Éditeur de documents</u>: Microsoft Office (avec Word, Excel...) est payant sous Windows.<br>
+    Equivalents Linux: "Open Office"(1ere suite historique), "<strong>LibreOffice</strong>
+    "(suite de référence ss Linux, plus svt mise à jour).<br>
+    LibreOffice -> Writer(ttt de txte), Calc(tableur), Impress(outil de présentation), 
+    Base(outil de BDD).<br>
+    Extension standardisée ouverte: <mark>¡ Format.odf</mark> (format interopérable -> existera tjrs).<br>
+ </p>
+ <p><u>Périphériques de stockage</u> (clée USB, disque dur externe...) : 
+    Mettre un "driver" (pilote) si pas reconnu.<br>
+    Partage de connexion (pr tel): Avec "Network Manager" (gestionnaire de réseau), une icone.</p>
+<p>Adobe 1ere Pro en gratuit:<br>
+    <u>Création graphique</u>: Gimp (retouche d'images comme Photoshop),<br> Krita 
+    (pr dessin (mais sur KDE)), Inkscape (redimensionner images sans perte de qualité (comme SVG)), <br>
+    <u>Audiovisuel</u>: VLC, MPlayer (lecteurs vidéo), Pitivi et KDENLIVE (montage vidéo), LMMS (musique)<br>
+<em>Rm</em>: Lightworks (logiciel "propriétaire" de montage vidéo) </p>
+<p><u>Développer</u> sous Linux: <br>
+Environnements de devpmt (IDE): Kate, Geany, Eclipse, Atom  
+(top ms arrêté en 2022), <strong>VS Code</strong> (n'est qu'un "éditeur de code" mais complet) <br>
+Environnements des languages: Java, Python <br>
+Dev web: Architecture <strong>Lamp</strong> (Linux, Apache, MariaDB (anciennement MySQL), Php (marche aussi pr Perl ou Python)),<br> 
+avec <strong>XAMPP</strong> (Application qui regroupe directement composants  
+ (WAMP (pr Windows) et MAMP(pr macOS))). </p>
+ <p><u>Format disque dur</u>: <strong>exFAT</strong> (compatible avec les 3 systèmes windows, 
+mac et linux (Fat32 compatible aussi ms limité à 4 Go))</p>
+    <h2>Administration Linux
+    <span class="coursici">
+    <a href="https://openclassrooms.com/fr/courses/7274161-administrez-un-systeme-linux" target="_blank">Cours ici</a>
+    </span>
+</h2>
+
+
+
+
+    <h2>Environnement de travail
+    <span class="coursici">
+    <a href="https://openclassrooms.com/fr/courses/2035806-virtualisez-vos-environnements-de-travail" target="_blank">Cours ici</a>
+    </span>
+</h2>
+    <h2 id="intrusion">Test d'intrusion web
+    <span class="coursici">
+    <a href="https://openclassrooms.com/fr/courses/7727176-realisez-un-test-d-intrusion-web" target="_blank">Cours ici</a>
+    </span>
+</h2>
+
+
+        

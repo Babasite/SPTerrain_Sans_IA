@@ -1,0 +1,114 @@
+<!Doctype html>
+<html lang="fr">
+<head>
+     <meta charset="UTF-8">
+        <title="AnalyseDonnées"></title>
+        <link href="cours3.css" rel="stylesheet">
+</head>
+<body>
+    <header></header>
+    <main>
+        <h1 id="debut">Analyse de données</h1>
+    <p><strong>Data Analyst</strong> (= Analyste de données) : Collecte, nettoie, analyse et interprète des
+     données pour aider une entreprise à prendre de meilleures décisions.</p>
+     <p><strong>Outils</strong>: SQL, Excel, Power BI, Tableau, Python</p>
+    <section>
+        <h2>SQL
+        <span class="sql">
+        <a href="https://openclassrooms.com/fr/courses/6971126-implementez-vos-bases-de-donnees-relationnelles-avec-sql"
+target="_blank">Cours SQL </a>
+        </span>
+        </h2>
+        <h3>SGBD (système de gestion de bdd)
+            <span class="sql">
+            <a href="../ComprendreWeb.pdf" target="_blank">Prérequis Commandes ds terminal</a>
+            </span>
+        </h3>
+        <p>Pr faire une requête SQL, il faut un logiciel "SGBD" (<strong>MySQL</strong>) ->
+         <strong>MariaDB</strong> (“copie” open-source de MySQL). 
+         Installer MySQL sur ordi <a href="https://dev.mysql.com/downloads/installer/" target="_blank">Ici</a></p>
+            <p><u>Ds la ligne de commande</u>: -u (pr donner utilisateur), -p (pr rentrer le MP), 
+                create database (pr créer la BDD), show database (pr vérifier), use.</p>
+               <p> On utilisera CRUB (voire Cours 2), On ajoute objet à une table avec
+                 commande <strong>INSERT INTO</strong>.
+                 <br> Objets se lisent avec commande <strong>SELECT FROM</strong>.<br>
+                Mettre à jour objets d’une table avec <strong>UPDATE</strong>
+(on mentionne quelles sont colonnes qu’on souhaite mettre à jour avec <strong>SET</strong>).<br>
+ Pour spécifier objets qu'on souhaite modifier, on ajoute
+  condition WHERE (si on filtre pas avec WHERE, on risque mettre à jour
+ts les objets de la table).<br>
+ On supprime objets d’une table avec <strong>DELETE</strong>.
+(si on filtre pas avec WHERE, on risque supprimer ts les objets de la table).<br>
+On peut supprimer une table ou une base de donnée avec <strong>DROP TABLE</strong> ou
+<strong>DROP DATABASE</strong>.
+</p>
+<p>Pour filtrer sur des données numériques on utilise le mot clé <strong>WHERE</strong>.<br> 
+S'utilise invariablement avec  SELECT , UDPATE , DELETE.
+Supporte tous les opérateurs de comparaison comme = , <, <=, > ou >= .<br>
+Pour les données textuelles, on utilise <strong>LIKE</strong>.<br>
+Utiliser pourcentage (%) pr affiner recherche<br> (%gmail.com -> txte se terminant 
+par gmail.com, gmail.com% -> txtes commencant par gmail.com, %gmail.com% -> texte contenant 
+gmail.com au début ou à la fin).<br>
+Ordonner les résultats d’une requête SQL avec la commande <strong>ORDER BY</strong>.
+</p>
+<p>Possible compter nbre de lignes d'une requête grâce à fonction <strong>COUNT</strong>.<br>
+Pour identifier doublons, utiliser fonct COUNT combinée à fonct <strong>DISTINCT</strong>.<br>
+Utiliser des "alias" grâce au mot clé <strong>AS</strong> (pr renommer variables ou colonnes).<br>
+SQL propose une très grande variété de foncts pr nbres, txtes ou dates:<br>
+<strong>AVG</strong>: Donne moyenne colonne sur la sélection ;<br>
+<strong>SUM</strong>: Donne somme colonne;<br>
+<strong>MAX</strong>: Donne le maximum de la colonne sur la sélection;<br>
+<strong>MIN</strong>: Donne minimum colonne.</p>
+<p>Sauvegarder des requêtes complexes, longues ou utilisées svt.<br>
+Concept de "vue" crée grâce à <strong>CREATE VIEW</strong> 
+(commande peut être longue, pas hésiter pas à sauter des lignes, mettre des parenthèses 
+et des indentations pour la rendre lisible).<br>
+Par convention on note ces vues avec "<strong>_vw</strong>" à la fin (pr les différencier des
+"vraies" tables).
+Une fois créée, une vue s'utilise comme une table "normale". </p>
+<p>Pour effectuer jointure entre deux tables, mots clés <strong>JOIN</strong> et <strong>ON</strong> .<br>
+On peut utiliser opérateur <strong>*</strong> ou spécifier colonnes que nous souhaitons 
+sélectionner.<br>
+La requête fonctionne comme une requête normale, on peut rajouter des conditions avec WHERE , 
+trier avec ORDER BY ou créer des alias avec AS.<br>
+Pour relation one-to-many, jointure se fait en spécifiant les deux colonnes 
+à faire correspondre (passer par une table d'association qui lie les deux tables entre elles).<br>
+Pr faire requête many-to-many, on fait donc double jointure de table initiale
+ à table de liaison, puis de table de liaison à table cible.
+</p>
+<p>Tte modification structure d’un objet s’effectue avec <strong>ALTER TABLE</strong>.<br>
+Pr ajouter un champ à un objet, utiliser le mot clé <strong>ADD</strong>.
+Pr supprimer un champ, le mot clé est <strong>DROP</strong>.
+Pour modifier un champ, le mot clé est <strong>MODIFY</strong> pr en modifier la structure, 
+<strong>CHANGE</strong> pr le renommer.
+Attention qd on utilise la commande ALTER TABLE , bien réfléchir aux 
+conséquences des modifications.</p>
+<p>Ajouter une table est relativement facile, mais la lier à d'autres plus de travail.<br>
+Créer nvelle table (et ajouter des objets dedans), 
+créer ce qui se qui sera la clé de jointure ds table initiale, <br>
+préciser à MySQL "lien" entre clé étrangère (de table initiale) et  
+nvelle table.<br>
+Attention à l'attribut <strong>ON DELETE</strong> (qui précise quoi faire sur table initiale) 
+ si on supprime un objet de table de destination.<br>
+Mettre à jour valeurs table initiale (afin pouvoir faire requêtes en joignant les deux tables).<br>
+Pour modéliser une relation plsrs à plusieurs, besoin créer une table d'association.
+(qui contient deux <strong>FOREIGN KEY</strong> qui sont des <strong>PRIMARY KEY</strong> ds
+ leurs tables respectives).<br>
+Ces deux FOREIGN KEY st la PRIMARY KEY de table d'association.
+Être attentif au paramètre <strong>ON UPDATE</strong> qui doit être cohérent avec les paramètres 
+ON DELETE des tables concernées.</p>
+                 <h2>Excel</h2>
+                 <h2>Power BI</h2>
+                 <h2>Tableau</h2>
+                 
+
+
+
+
+
+
+    </section>
+    </main>
+    <footer></footer>
+</body>
+</html>

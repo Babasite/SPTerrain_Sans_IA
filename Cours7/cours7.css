@@ -1,0 +1,11 @@
+body{background:#FFD43B;
+    font-family: Arial, Helvetica, sans-serif;
+    color:black}
+h1{color:rgb(23, 23, 145);font-family:'lobster',cursive;
+        font-size: 2em ;}
+.sql{font-size: 15px; display: inline-flex;
+    gap: 20px; }
+h2{color:green}
+h3{color:rgb(152, 114, 43)}
+h4{color:rgb(212, 170, 92)}
+h5{color: orange;}

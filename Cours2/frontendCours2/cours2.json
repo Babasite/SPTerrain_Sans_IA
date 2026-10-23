@@ -1,0 +1,30 @@
+{
+  "message": "Je suis un txte écrit ds le fichier .json . A partir du moment où mon cours utilise \"fetch()\" et mon fichier json, je dois ouvrir ma page avec localhost plutôt qu'avec file:///... Mais je sert pas vraiment à écrire du texte, je sert surtout à stocker et organiser des données pour qu'un programme puisse les récupérer facilement. Dans la \"Console\", je suis des \"Object\" à ouvrir avec petite flèche. ",
+  "notions":
+[
+  {
+    "notion": "JavaScript",
+    "categorie": "Frontend",
+    "compris": true,
+    "description": "JavaScript permet de rendre ma page interactive."
+  },
+  {
+    "notion": "DOM",
+    "categorie": "Frontend",
+    "compris": true,
+    "description": "Le DOM permet à mon JavaScript de manipuler les éléments de ma page HTML."
+  },
+  {
+    "notion": "JSON",
+    "categorie": "Données",
+    "compris": false,
+    "description": "JSON me permet de stocker des données structurées que JavaScript peut récupérer."
+  },
+  {
+    "notion": "API",
+    "categorie": "Communication",
+    "compris": false,
+    "description": "Une API permettra ensuite à mon frontend de communiquer avec d'autres données ou avec mon backend."
+  }
+]
+}

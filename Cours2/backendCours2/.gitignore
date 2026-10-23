@@ -1,0 +1,4 @@
+# J'en ai 1 à la racine pour ts les .env, même ceux d'ici... Celui-là sert règles spécifiques que
+# je veux ds ce dossier backendCours2 sans que ça ne bloque des informations d'ailleurs ds projet.
+# Un .gitignore n'annule pas un autre : leurs règles se cumulent (donc le 1er à la racine reste ok) 
+node_modules
