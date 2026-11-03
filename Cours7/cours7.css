@@ -9,3 +9,22 @@ h2{color:green}
 h3{color:rgb(152, 114, 43)}
 h4{color:rgb(212, 170, 92)}
 h5{color: orange;}
+.raccourci{font-size: 15px; display: inline-flex;
+    gap: 20px; 
+           }
+.enligne{display: flex;
+         gap: 20px;}
+.important{display: inline-block;
+    border:5px solid rgb(7, 79, 23);
+    padding: 5px;}
+.petit{font-size: 10px;}
+
+.tableau {
+    border-collapse: collapse;
+    border-spacing: 10px;
+}
+.tableau th,
+.tableau td {
+    border: 1px solid black;
+    padding: 10px;
+}

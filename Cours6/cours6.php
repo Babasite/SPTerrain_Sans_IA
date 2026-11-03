@@ -334,6 +334,216 @@ pr qu'elle sache sur quoi travailler.
         $isEnabled = false;}<br>
     return $isEnabled;}
 </div>
-<p><u>Si script plante</u>:
+<p><u>Si script plante</u>:<br>
+<mark>Parse error</mark> (instruction mal formulée)<br>
+<mark>Undefined function</mark> (fct non reconnue)<br>
+<mark>Wrong parameter count</mark> (si nombre incorrect de paramètres pour une fct)
 </p>
-
+<p><u>Organisation</u>:<br>
+Une page PHP peut inclure une autre page (ou un morceau de page) grâce à l'instruction 
+<mark>require_once</mark> (sera remplacée par le contenu de la page demandée).<br>
+Permet placer menus de son site dans un fichier <mark>header.php</mark> 
+(que l'on inclura dans toutes les pages). </p>
+<h3> URL (Faire transiter informations de page en page)</h3>
+<div class="enligne">
+<img src="url.png" id="url"><br>
+<p>URL = Adresse web.
+Commence généralement par http:// .<br>
+Qd on fait un lien vers une page, possible d'ajouter paramètres:<br> 
+bonjour.php<mark>?</mark>nom=Spt<mark>&</mark>prenom=Bastien (qui seront transmis à la page).<br>
+Page de réception recoit ces paramètres dans un "array"(tableau) nommé <mark>$_GET</mark><br> 
+(pr transmettre des valeurs à une page).<br>
+<mark>isset()</mark> permet vérifier si une variable est définie ou non.<br>
+<mark>filter_var()</mark> , <mark>trim()</mark> ou <mark>empty()</mark> 
+peuvent être utilisées pour validation des champs.</p> 
+</div>
+<p><u>Formulaires</u>: Les données rentrées par visiteurs sont exploitables (pas comme html)<br>
+Attention car visiteurs peuvent agir via nos formulaire ! (On ne doit pas plus faire confiance 
+aux formulaires (données via <mark>$_POST</mark>) qu'aux URL (données via $_GET)) <br>
+Les <strong>sécuriser</strong>: Pr éviter faille <mark>XSS</mark>, suffit appliquer fct 
+<mark>htmlspecialchars</mark> ou <mark>strip_tags</mark> sur ts les textes envoyés par visiteurs.<br>
+Ajouter attribut <mark>enctype="multipart/form-data"</mark> à la balise  <mark>&lt;form&gt;</mark>.<br>
+Informations sur les fichiers envoyés ds un array <mark>$_FILES</mark>.</p>
+<p><u>Protégez le "contenu d'une page" par un MP</u> :<br></p>
+<div class="enligne">
+<div>
+<mark>login.php</mark> (contient le formulaire)
+<div class="important">
+&lt;?php<br>
+$postData = $_POST; <strong>// Validation du formulaire</strong><br>
+if (isset($postData['email']) &&  isset($postData['password'])) {<br>
+    if (!filter_var($postData['email'], FILTER_VALIDATE_EMAIL)) {<br>
+        $errorMessage = 'Il faut un email valide pour soumettre le formulaire.';<br>
+    } else {<br>
+        foreach ($users as $user) {<br>
+            if (<br>
+                $user['email'] === $postData['email'] &&<br>
+                $user['password'] === $postData['password']<br>
+            ) {<br>
+                $loggedUser = [<br>
+                    'email' => $user['email'],<br>
+                ];}}<br>
+        if (!isset($loggedUser)) {<br>
+            $errorMessage = sprintf(<br>
+                'Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',<br>
+                $postData['email'],<br>
+                strip_tags($postData['password'])<br>
+            );}}}<br>
+?&gt;<br>
+<strong>&lt;!--Si utilisateur/trice est non identifié(e), on affiche le formulaire--&gt;</strong><br>
+&lt;?php if (!isset($loggedUser)) : ?&gt;<br>
+    &lt;form action="index.php" method="POST"&gt; <br>
+<strong>&lt;!-- si message d'erreur on l'affiche --&gt;</strong><br>
+        &lt;?php if (isset($errorMessage)) : ?&gt;<br>
+            &lt;div class="alert alert-danger" role="alert"&gt;<br>
+                &lt;?php echo $errorMessage; ?&gt;<br>
+            &lt;/div&gt;<br>
+        &lt;?php endif; ?&gt;<br>
+        &lt;div class="mb-3"&gt;<br>
+            &lt;label for="email" class="form-label"&gt;Email&lt;/label&gt;<br>
+&lt;input type="email" class="form-control" <br>
+id="email" name="email" aria-describedby="email-help" 
+placeholder="you@exemple.com"&lt;<br>
+&lt;div id="email-help" class="form-text">L'email utilisé lors de la création de 
+compte.&lt;/div&gt;<br>
+&lt;/div&gt;<br>
+&lt;div class="mb-3"&gt;<br>
+&lt;label for="password" class="form-label"&gt;Mot de passe&lt;/label&gt;<br>
+&lt;input type="password" class="form-control" id="password" name="password"&gt;<br>
+&lt;/div&gt;<br>
+&lt;button type="submit" class="btn btn-primary">Envoyer&lt;/button&gt;<br>
+&lt;/form&gt;<br>
+<strong>&lt;!-- Si utilisateur/trice bien connectée on affiche un message de succès --&gt;</strong><br>
+&lt;?php else : ?&gt;<br>
+&lt;div class="alert alert-success" role="alert"&gt;<br>
+Bonjour &lt;?php echo $loggedUser['email']; ?&gt; et bienvenue sur le site !<br>
+&lt;/div&gt;<br>
+&lt;?php endif; ?&gt;
+</div> 
+</div>
+<div>
+<mark>index.php</mark> (2eme fichier qui doit inclure un formulaire de connexion<br>
+ et une condition sur l'affichage du 1er formulaire (login.php))
+<div class="important">
+<strong>&lt;!-- inclusion des variables et fonctions --&gt;</strong><br>
+&lt;?php<br>
+require_once(__DIR__ . '/variables.php');<br>
+require_once(__DIR__ . '/functions.php');<br>
+?&gt;<br>
+&lt;!DOCTYPE html&gt;<br>
+&lt;html&gt;<br>
+&lt;head&gt;<br>
+&lt;meta charset="UTF-8"&gt;<br>
+&lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;<br>
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+&lt;title&gt;Site de recettes - Page d'accueil&lt;/title&gt;<br>
+&lt;link<br>
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"<br>
+            rel="stylesheet"<br>
+&gt;<br>
+&lt;/head&gt;<br>
+&lt;body class="d-flex flex-column min-vh-100"&gt;<br>
+&lt;div class="container"&gt;<br>
+<strong>&lt;!-- inclusion de l'entête du site --&gt;</strong><br>
+&lt;?php require_once(__DIR__ . '/header.php'); ?&gt;<br>
+&lt;h1&gt;Site de recettes&lt;/h1&gt;<br>
+        &lt;!-- Formulaire de connexion --&gt;<br>
+&lt;?php require_once(__DIR__ . '/login.php'); ?&gt;<br>
+        &lt;?php if (isset($loggedUser)) : ?&gt;<br>
+        &lt;?php foreach (getRecipes($recipes) as $recipe) : ?&gt;<br>
+        &lt;article&gt;<br>
+&lt;h3&gt;&lt;?php echo $recipe['title']; ?&gt;&lt;/h3&gt;<br>
+&lt;div&gt;&lt;?php echo $recipe['recipe']; ?&gt;&lt;/div&gt;<br>
+&lt;i&gt;&lt;?php echo displayAuthor($recipe['author'], $users); ?&gt;&lt;/i&gt;<br>
+&lt;/article&gt;<br>
+&lt;?php endforeach ?&gt;<br>
+&lt;?php endif; ?&gt;<br>
+&lt;/div&gt;<br>
+<strong>&lt;!-- inclusion du bas de page du site --&gt;</strong><br>
+&lt;?php require_once(__DIR__ . '/footer.php'); ?&gt;<br>
+&lt;/body&gt;<br>
+&lt;/html&gt;
+</div>
+</div>
+</div>
+<p><u>Cookies (conserver données)</u>:<br>
+Faire des "sessions": Besoin d'un numéro d'identifiant (= "ID de session" = PHPSESSID)<br>
+Une fois session générée, on y créer variables de session pour nos besoins (ex: $_SESSION['nom']).<br>
+Il faut appeler session_start() sur chacune des pages AVANT d'écrire le moindre code HTML ou PHP 
+(avant même la balise  <!DOCTYPE>). 
+Si on oublie de lancer session_start(), on ne peut pas accéder à la variable superglobale 
+$_SESSION.</p>
+<p>Les cookies retiennent des informations ms ne sont pas dangereux pr un ordinateur.<br>
+Fct PHP <mark>setcookie</mark> (Placer un cookie) avc 3 paramètres:<br> 
+nom du cookie (ex: LOGGED_USER), valeur du cookie (ex: utilisateur@exemple.com), 
+date d'expiration du cookie (sous forme de "timestamp" (ex: 1090521508) avec time()).</p>
+<p>Sécurisez un cookie avec propriétés <mark>httpOnly</mark> et <mark>secure</mark></p>
+<h3>BDD</h3>
+<p>Pr <u>enregistrer</u> les données de façon organisée et hiérarchisée.</p>
+<h4>SGBD avec MySQL</h4>
+<p>On créé des "tables" mais on utilisera un "outil" pr s'y retrouver.</p>
+<h5>Langage SQL (utilisé pr tte les SGBD)</h5>
+<div class="important">
+<mark>SELECT</mark> id, auteur, message, datemsg <mark>FROM</mark> livreor 
+<mark>ORDER BY</mark> datemsg <mark>DESC</mark>
+</div>
+<h5>phpMyAdmin</h5>
+<p>Outil pr manipuler la base de donnée mysql avec php<br>
+Permet de visualiser rapidement l'état de la BDD et de la modifier 
+(sans avoir à écrire de requêtes SQL).<br>
+On crée généralement un champ nommé id (sert à numéroter entrées d'une table). 
+Ce champ doit avoir un index PRIMARY (on dit qu'on crée une clé primaire) <br>
+et l'option AUTO_INCREMENT qui permet de laisser MySQL gérer la numérotation.<br>
+MySQL gère différents types de données pour ses champs, à la manière de PHP. 
+On trouve des types adaptés au stockage de nombres, de textes, de dates, etc.<br>
+phpMyAdmin possède un outil d'importation et d'exportation des tables qui permettra 
+notamment d'envoyer BDD sur Internet ou d'en conserver une copie.
+</p>
+<p>Pour se connecter à une base de données MySQL, utiliser une extension PHP 
+appelée <mark>PDO</mark> ("PHP Data Objects"). Donc activer l'extension.<br>
+Utiliser mots-clés ds l'ordre: WHERE, ORDER BY, LIMIT, sinon MySQL ne comprendra pas requête.<br>
+<em>Rm</em>: On ne concatène JAMAIS une requête SQL pour passer des variables (risque de créer 
+des injections SQL !). </p>
+<p>INSERT INTO (ajout d'une entrée), UPDATE (modification d'une ou plusieurs entrées),
+DELETE (suppression d'une ou plusieurs entrées).<br>
+Comme pr sélection données, requêtes préparées pour personnaliser requêtes en fct de variables.<br>
+Qd on utilise UPDATE  ou DELETE , filtrer avec un WHERE, 
+sinon toute la table sera affectée par l'opération.</p>
+<p>Les BDD permettent d'associer plusieurs tables entre elles.<br>
+Une table peut contenir les id d'une autre table (permet de faire liaison entre les deux).
+Pr rassembler informations au moment requête, on effectue des jointures.<br>
+On réalise des jointures entre les tables à l'aide du mot-clé JOIN.<br>
+On distingue les jointures internes (retournent des données uniquement si correspondance entre 
+les deux tables), et les jointures externes (retournent ttes les données, même si pas de 
+correspondance).</p>
+<p> MySQL permet d'exécuter certaines fonctions lui-même, sans avoir à passer par PHP;<br>
+fcts SQL -> 2 catégories :<br>
+Les fctions <mark>scalaires</mark>: Agissent sur chaque entrée. 
+(ex: Transformer en majuscules la valeur de chacune des entrées d'un champ).<br>
+Les fctions <mark>d'agrégat</mark>: Des calculs sont faits sur ensemble de la table pr 
+retourner une valeur (ex: Calculer moyenne des prix retourne une valeur : le prix moyen).<br>
+On peut donner un autre nom aux chps modifiés par les fcts, en créant des "alias" 
+à l'aide du mot-clé <mark>AS</mark>.<br>
+Qd on utilise une fct d'agrégat, possible de regrouper des données avec <mark>GROUP BY</mark>.<br>
+Après un groupement de données, on peut filtrer résultat avec <mark>HAVING</mark> 
+(pas le confondre avec "WHERE" qui filtre avant le groupement des données).
+</p>
+<h2>Architecture MVC (Modèle Vue Contrôleur) en PHP (pr mieux organiser code)
+        <span class="sql">
+        <a href="https://openclassrooms.com/fr/courses/4670706-adoptez-une-architecture-mvc-en-php"
+target="_blank">Cours ici</a>
+        </span>
+</h2>
+<p></p>
+<h2>POO (programmation orientée objet)
+        <span class="sql">
+        <a href="https://openclassrooms.com/fr/courses/1665806-programmez-en-oriente-objet-en-php"
+target="_blank">Cours ici</a>
+        </span>
+</h2>
+<h2>Symfony (framework PHP)
+        <span class="sql">
+        <a href="https://openclassrooms.com/fr/courses/8264046-construisez-un-site-web-a-l-aide-du-framework-symfony-7"
+target="_blank">Cours ici</a>
+        </span>
+</h2>

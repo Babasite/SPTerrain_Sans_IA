@@ -8,4 +8,1037 @@
 <body>
     <header></header>
     <main>
-        <h1 id="debut">Python</h1>
+        <h1 id="debut">Python
+              <span class="raccourci">
+                <a href="cours7.html"><a href="#env">Environnement Python</a>
+                <a href="cours7.html"><a href="#prog">Programmation orientée Objet</a>
+                <a href="cours7.html"><a href="#data">Data Science</a>
+              </span>
+            </h1>
+        <h2>Base du langage
+        <span class="petit">
+            <a href="https://openclassrooms.com/fr/courses/7168871-apprenez-les-bases-du-langage-python" target="_blank">Cours ici</a>
+        </span>
+        </h2>
+<span class="raccourci">
+                <u>Prérequis</u>: 
+                <a href="ComprendreWeb.pdf"target="_blank">Première fiche 
+                    (en lisant tout "Apprenez les bases du langage Python" compris)
+                </a>
+                puis la suite du cours de ce PDF peut reprendre à 
+                <a href="cours7.html"><a href="#reprise">ETL (plus bas ds cette page)</a>
+</span>
+
+        <p>Python facile pour débutant <br>
+            Installer VSCode puis extension Python (intégrée). Télécharger Python sur ordi 
+            (avec "Add to path") 
+        <a href="https://www.python.org/downloads/"target="_blank">ici</a> .<br>
+        Taper "python" ds terminal de commande pr ouvrir les chevrons <mark>&gt;&gt;&gt;</mark> 
+        et commencer.<br>
+        Créer un fichier <mark>.py</mark>.
+    </p>
+        <h3>Pour le HTML et CSS</h3>
+        <p>On ne peut pas mettre directement du HTML dans un fichier .py comme ds un fichier 
+        .php. <br>
+        Python fonctionne davantage comme <mark>Node.js</mark> que comme PHP traditionnel lorsqu'on 
+        développe un site web.</p>
+        <h4>PyScrip</h4>
+        <p>
+        On ne peut pas non plus intégrer directement du Python dans une page HTML avec une balise 
+        &lt;script&gt;, contrairement à JavaScript.<br>
+        <em>Avec PyScript chargé</em>: <mark>&lt;script type="py"&gt;</mark>&lt;/script&gt; (mais 
+        ce n'est pas du Python exécuté nativement par le navigateur)
+        </p>
+        <p>Créer un site web avec Python côté serveur: Flask ou Django <br>
+        Faire comme PHP avec du HTML dynamique: Flask + Jinja2</p>
+        <h4>Flask (framework léger qui permet notamment de créer un serveur HTTP et de définir 
+            les pages de mon site)</h4>
+        <p>Pour écouter comme avec PHP sur adresse http://localhost:8000/cours6.php 
+            (export PATH= ..., cd Cours6 , <strong>php -S localhost:8000</strong>) <br>
+            python -m pip install flask (on l'installe qu'une fois par environnement Python),<br> 
+            Créer cours7.py et y mettre 
+            <div class="important">from flask import Flask<br>
+            app = Flask(__name__) <strong>(crée mon application web)</strong><br>
+            @app.route("/cours7")<br>
+            def cours7():<br>
+            return "&lt;h1&gt;Bonjour depuis Python !&lt;/h1&gt;"
+            </div><br>
+            Puis <strong>python -m flask --app cours6 run --port 8000 --debug</strong> 
+            (ds le terminal)<br>
+            Puis nav <strong>http://localhost:8000/cours7</strong> (Je vois "Bonjour depuis Python!)
+        </p>
+        <h4>Mais c'est préférable de le séparer</h4>
+        <p>
+            Cours7/<br>
+├── cours7.py<br>
+├── templates/ ── cours7.html<br>
+└── static/ ── style.css<br>
+<div class="enligne">
+    <div class="important">
+    <u>Ds cours7<mark>.py</mark></u><br>
+    from flask import Flask, <strong>render_template</strong><br>
+    app = Flask(__name__)<br>
+    @app.route("/cours7")<br>
+    def cours7():<br>
+    return render_template("<strong>cours7.html</strong>")
+    </div>
+    <div class="important">
+     <u>Ds templates/cours7<mark>.html</mark></u><br>
+     &lt;!DOCTYPE html&gt;<br>
+      &lt;html lang="fr"&gt;<br>
+      &lt;head&gt;<br>
+      &lt;meta charset="UTF-8"&gt;<br>
+     &lt;title>Mon cours Python &lt;/title&gt;<br>
+     &lt;link rel="stylesheet"<br>
+          href="{{ url_for('static', filename='<strong>style.css</strong>') }}"&gt;<br>
+ &lt;/head&gt;<br>
+ &lt;body&gt;<br>
+     &lt;h1&gt;Bienvenue sur mon cours Python&lt;/h1&gt;<br>
+     &lt;p&gt;Cette page est affichée grâce à Flask.&lt;/p&gt;<br>
+ &lt;/body&gt;<br>
+ &lt;/html&gt;<br>   
+    </div>
+</div>
+        </p>
+        <h3>Différence avec autres langages (ici PHP)</h3>
+<h4>Variables et Types</h4>
+<table class="tableau">  
+        <tr>
+            <td>Exécuter un fichier</td>
+            <td><code>python fichier.py</code></td>
+            <td><code>php fichier.php</code></td>
+            <td>❌ Non</td>
+            <td>Les deux langages peuvent être exécutés depuis un terminal.</td>
+        </tr>
+
+        <tr>
+            <td>Afficher du contenu</td>
+            <td><code><mark>print</mark>("Bonjour")</code></td>
+            <td><code>echo "Bonjour";</code></td>
+            <td>⚠️ Différent</td>
+            <td>Python utilise principalement print() pour afficher une valeur.</td>
+        </tr>
+
+        <tr>
+            <td>Déclarer une variable, fin d'instruction </td>
+            <td><code>age = 25</code></td>
+            <td><code>$age = 25;</code></td>
+            <td>⚠️ Différent</td>
+            <td>Pas de $ devant les variables Python.<br> 
+                Le point-virgule n'est généralement pas nécessaire en Python.<br>
+                Type int dans les deux langages.
+            </td>
+        </tr>
+        <tr>
+            <td>Commentaire</td>
+            <td><code># commentaire</code></td>
+            <td><code>// commentaire (ou # aussi)</code></td>
+            <td>❌ Non</td>
+            <td>Python utilise #. PHP accepte aussi #.</td>
+        </tr>
+        <tr>
+            <td>Chaîne de caractères</td>
+            <td><code>nom = "Paul"</code></td>
+            <td><code>$nom = "Paul";</code></td>
+            <td>❌ Non</td>
+            <td>Le texte est placé entre guillemets.</td>
+        </tr>
+        <tr>
+            <td>Booléen vrai,faux</td>
+            <td><code>True, False</code></td>
+            <td><code>true, false</code></td>
+            <td>⚠️ Différent</td>
+            <td>Python impose une majuscule.</td>
+        </tr>
+        <tr>
+            <td>Absence de valeur</td>
+            <td><code>None</code></td>
+            <td><code>null</code></td>
+            <td>⚠️ Différent</td>
+            <td>None représente l'absence de valeur en Python.</td>
+        </tr>
+        <tr>
+            <td>Connaître le type</td>
+            <td><code>type(age)</code></td>
+            <td><code>gettype($age)</code></td>
+            <td>❌ Non</td>
+            <td>Permet d'identifier le type d'une valeur.</td>
+        </tr>
+        <tr>
+            <td>Convertir</td>
+            <td><code>int("25"), float("3.5"), str(25)</code></td>
+            <td><code>(int) "25", (float) "3.5",<br> (string) 25</code></td>
+            <td>❌ Non</td>
+            <td>Transforme ou convertit une valeur compatible.</td>
+        </tr>
+        <tr>
+            <td>Opérations (Addition, Soustraction, Multiplication, Division)</td>
+            <td><code>a + b</code></td>
+            <td><code>$a + $b</code></td>
+            <td>❌ Non</td>
+            <td>Même opérateur.</td>
+        </tr>
+        <tr>
+            <td>Division entière</td>
+            <td><code>a // b</code></td>
+            <td><code>intdiv($a, $b)</code></td>
+            <td>⚠️ Différent</td>
+            <td>Python arrondit vers le bas ; PHP tronque vers zéro.</td>
+        </tr>
+        <tr>
+            <td>Modulo</td>
+            <td><code>a % b</code></td>
+            <td><code>$a % $b</code></td>
+            <td>❌ Non</td>
+            <td>Calcule le reste d'une division. Le signe peut différer pour les nombres négatifs.</td>
+        </tr>
+        <tr>
+            <td>Puissance</td>
+            <td><code>2 ** 3</code></td>
+            <td><code>2 ** 3</code></td>
+            <td>❌ Non</td>
+            <td>Calcule 2 puissance 3, soit 8.</td>
+        </tr>
+        <tr>
+            <td>Concaténation</td>
+            <td><code>"Bon" + "jour"</code></td>
+            <td><code>"Bon" . "jour"</code></td>
+            <td>⚠️ Différent</td>
+            <td>Python utilise + pour assembler deux chaînes.</td>
+        </tr>
+        <tr>
+            <td>Insérer une variable dans du texte</td>
+            <td><code>f"Bonjour {nom}"</code></td>
+            <td><code>"Bonjour $nom"</code></td>
+            <td>⚠️ Différent</td>
+            <td>Les f-strings permettent d'insérer des expressions dans une chaîne Python.</td>
+        </tr>
+        </table>
+<h4>Listes et Tuples (Pareil mais une liste peut être modifiée, un tuple ne peut pas être modifié 
+    après sa création)</h4>
+<table class="tableau">  
+        <tr>
+            <td>Créer une liste</td>
+            <td><code>liste = [1, 2, 3]</code></td>
+            <td><code>$liste = [1, 2, 3];</code></td>
+            <td>❌ Non</td>
+            <td>Une liste Python ressemble à un tableau indexé PHP.</td>
+        </tr>
+        <tr>
+            <td>Liste avec plusieurs types</td>
+            <td><code>[1, "Paul", True]</code></td>
+            <td><code>[1, "Paul", true]</code></td>
+            <td>❌ Non</td>
+            <td>Les listes Python peuvent contenir différents types.</td>
+        </tr>
+        <tr>
+            <td>Accéder à un élément</td>
+            <td><code>liste[0]</code></td>
+            <td><code>$liste[0]</code></td>
+            <td>❌ Non</td>
+            <td>Le premier élément possède l'indice 0.</td>
+        </tr>
+        <tr>
+            <td>Modifier un élément</td>
+            <td><code>liste[0] = 5</code></td>
+            <td><code>$liste[0] = 5;</code></td>
+            <td>❌ Non</td>
+            <td>Remplace la valeur à l'indice indiqué.</td>
+        </tr>
+        <tr>
+            <td>Dernier élément</td>
+            <td><code>liste[-1]</code></td>
+            <td><code>$liste[array_key_last($liste)]</code></td>
+            <td>⚠️ Différent</td>
+            <td>Python permet d'utiliser directement un indice négatif.</td>
+        </tr>
+        <tr>
+            <td>Avant-dernier élément</td>
+            <td><code>liste[-2]</code></td>
+            <td><code>$liste[count($liste)-2]</code></td>
+            <td>⚠️ Différent</td>
+            <td>L'exemple PHP suppose des indices numériques consécutifs commençant à zéro.</td>
+        </tr>
+        <tr>
+            <td>Ajouter un élément</td>
+            <td><code>liste.append(4)</code></td>
+            <td><code>$liste[] = 4;</code></td>
+            <td>❌ Non</td>
+            <td>Ajoute une valeur à la fin de la liste.</td>
+        </tr>
+        <tr>
+            <td>Ajouter plusieurs éléments</td>
+            <td><code>liste.extend([4, 5])</code></td>
+            <td><code>array_push($liste, 4, 5);</code></td>
+            <td>❌ Non</td>
+            <td>Ajoute plusieurs valeurs à la liste existante.</td>
+        </tr>
+        <tr>
+            <td>Insérer un élément</td>
+            <td><code>liste.insert(1, 10)</code></td>
+            <td><code>array_splice($liste, 1, 0, [10]);</code></td>
+            <td>❌ Non</td>
+            <td>Insère une valeur à une position précise.</td>
+        </tr>
+        <tr>
+            <td>Supprimer par valeur</td>
+            <td><code>liste.remove(2)</code></td>
+            <td><code>array_search() + unset()</code></td>
+            <td>⚠️ Différent</td>
+            <td>Python supprime la première occurrence. En PHP, il faut rechercher et vérifier la clé avant de supprimer.</td>
+        </tr>
+        <tr>
+            <td>Supprimer le dernier élément</td>
+            <td><code>liste.pop()</code></td>
+            <td><code>array_pop($liste)</code></td>
+            <td>❌ Non</td>
+            <td>Supprime et renvoie le dernier élément.</td>
+        </tr>
+        <tr>
+            <td>Supprimer à un indice</td>
+            <td><code>liste.pop(1)</code></td>
+            <td><code>array_splice($liste, 1, 1)</code></td>
+            <td>❌ Non</td>
+            <td>Supprime l'élément à la position indiquée.</td>
+        </tr>
+        <tr>
+            <td>Supprimer avec del</td>
+            <td><code>del liste[0]</code></td>
+            <td><code>unset($liste[0]);</code></td>
+            <td>⚠️ Différent</td>
+            <td>Python décale les indices suivants ; unset() ne réindexe pas automatiquement.</td>
+        </tr>
+        <tr>
+            <td>Compter les éléments</td>
+            <td><code>len(liste)</code></td>
+            <td><code>count($liste)</code></td>
+            <td>❌ Non</td>
+            <td>Renvoie le nombre d'éléments.</td>
+        </tr>
+        <tr>
+            <td>Trier une liste</td>
+            <td><code>liste.sort()</code></td>
+            <td><code>sort($liste);</code></td>
+            <td>❌ Non</td>
+            <td>Trie directement la collection.</td>
+        </tr>
+        <tr>
+            <td>Inverser une liste</td>
+            <td><code>liste.reverse()</code></td>
+            <td><code>$liste = array_reverse($liste);</code></td>
+            <td>⚠️ Différent</td>
+            <td>reverse() modifie la liste Python ; array_reverse() renvoie un nouveau tableau PHP.</td>
+        </tr>
+        <tr>
+            <td>Rechercher un indice</td>
+            <td><code>liste.index(3)</code></td>
+            <td><code>array_search(3, $liste)</code></td>
+            <td>❌ Non</td>
+            <td>Recherche la première occurrence. Python lève une erreur si elle est absente.</td>
+        </tr>
+        <tr>
+            <td>Compter les occurrences</td>
+            <td><code>liste.count(3)</code></td>
+            <td><code>array_count_values($liste)[3] ?? 0</code></td>
+            <td>❌ Non</td>
+            <td>Compte les valeurs égales à 3. L'exemple PHP convient aux valeurs entières.</td>
+        </tr>
+        <tr>
+            <td>Vérifier une présence</td>
+            <td><code>3 in liste</code></td>
+            <td><code>in_array(3, $liste)</code></td>
+            <td>❌ Non</td>
+            <td>Renvoie un booléen. Les règles de comparaison diffèrent selon le langage.</td>
+        </tr>
+        <tr>
+            <td>Extraire une partie de liste</td>
+            <td><code>liste[1:3]</code></td>
+            <td><code>array_slice($liste, 1, 2)</code></td>
+            <td>⚠️ Différent</td>
+            <td>Le slicing Python exclut l'indice de fin.</td>
+        </tr>
+        <tr>
+            <td>Créer un tuple</td>
+            <td><code>coord = (10, 20)</code></td>
+            <td>Pas de type tuple natif</td>
+            <td>✅ Oui</td>
+            <td>Un tuple est une séquence immuable.</td>
+        </tr>
+        <tr>
+            <td>Accéder à un tuple</td>
+            <td><code>coord[0]</code></td>
+            <td><code>$coord[0]</code></td>
+            <td>❌ Non</td>
+            <td>L'accès ressemble à celui d'un tableau indexé.</td>
+        </tr>
+        <tr>
+            <td>Modifier un tuple</td>
+            <td>Impossible directement</td>
+            <td>Tableau PHP modifiable</td>
+            <td>✅ Oui</td>
+            <td>Un tuple ne permet pas de remplacer ses éléments.</td>
+        </tr>
+ </table>
+<h4>Dictionnaires</h4>
+<table class="tableau"> 
+        <tr>
+            <td>Créer un dictionnaire</td>
+            <td><code>d = {"nom": "Paul"}</code></td>
+            <td><code>$d = ["nom" => "Paul"];</code></td>
+            <td>⚠️ Différent</td>
+            <td>Un dictionnaire Python ressemble à un tableau associatif PHP.</td>
+        </tr>
+        <tr>
+            <td>Dictionnaire vide</td>
+            <td><code>d = {}</code></td>
+            <td><code>$d = [];</code></td>
+            <td>⚠️ Différent</td>
+            <td>Python utilise des accolades pour créer un dictionnaire vide.</td>
+        </tr>
+        <tr>
+            <td>Accéder à une valeur</td>
+            <td><code>d["nom"]</code></td>
+            <td><code>$d["nom"]</code></td>
+            <td>❌ Non</td>
+            <td>On récupère la valeur grâce à sa clé.</td>
+        </tr>
+        <tr>
+            <td>Ajouter une clé</td>
+            <td><code>d["age"] = 25</code></td>
+            <td><code>$d["age"] = 25;</code></td>
+            <td>❌ Non</td>
+            <td>Ajoute une paire clé-valeur.</td>
+        </tr>
+        <tr>
+            <td>Modifier une valeur</td>
+            <td><code>d["age"] = 30</code></td>
+            <td><code>$d["age"] = 30;</code></td>
+            <td>❌ Non</td>
+            <td>Remplace la valeur associée à une clé existante.</td>
+        </tr>
+        <tr>
+            <td>Supprimer une clé</td>
+            <td><code>del d["age"]</code></td>
+            <td><code>unset($d["age"]);</code></td>
+            <td>❌ Non</td>
+            <td>Supprime la paire clé-valeur.</td>
+        </tr>
+        <tr>
+            <td>Récupérer les clés</td>
+            <td><code>d.keys()</code></td>
+            <td><code>array_keys($d)</code></td>
+            <td>❌ Non</td>
+            <td>Python renvoie une vue dynamique, PHP un tableau.</td>
+        </tr>
+        <tr>
+            <td>Récupérer les valeurs</td>
+            <td><code>d.values()</code></td>
+            <td><code>array_values($d)</code></td>
+            <td>❌ Non</td>
+            <td>Permet de parcourir les valeurs.</td>
+        </tr>
+        <tr>
+            <td>Récupérer clés et valeurs</td>
+            <td><code>d.items()</code></td>
+            <td><code>foreach ($d as $k => $v)</code></td>
+            <td>⚠️ Différent</td>
+            <td>items() fournit les couples clé-valeur.</td>
+        </tr>
+        <tr>
+            <td>Lire une clé sans erreur</td>
+            <td><code>d.<mark>get</mark>("nom")</code></td>
+            <td><code>$d["nom"] ?? null</code></td>
+            <td>⚠️ Différent</td>
+            <td>get() renvoie None par défaut si la clé n'existe pas.</td>
+        </tr>
+        <tr>
+            <td>Supprimer et récupérer</td>
+            <td><code>d.pop("nom")</code></td>
+            <td><code>$v = $d["nom"]; unset($d["nom"]);</code></td>
+            <td>⚠️ Différent</td>
+            <td>pop() renvoie la valeur supprimée. La clé doit exister dans cet exemple.</td>
+        </tr>
+        <tr>
+            <td>Vider un dictionnaire</td>
+            <td><code>d.clear()</code></td>
+            <td><code>$d = [];</code></td>
+            <td>❌ Non</td>
+            <td>Supprime toutes les paires clé-valeur.</td>
+        </tr>
+        <tr>
+            <td>Vérifier une clé</td>
+            <td><code>"nom" in d</code></td>
+            <td><code>array_key_exists("nom", $d)</code></td>
+            <td>❌ Non</td>
+            <td>Vérifie l'existence de la clé, même si sa valeur est null ou None.</td>
+        </tr>
+ </table>
+<h4>Conditions</h4>
+<table class="tableau"> 
+        <tr>
+            <td>Condition if</td>
+            <td><code>if age >= 18:</code></td>
+            <td><code>if ($age >= 18) { ... }</code></td>
+            <td>⚠️ Différent</td>
+            <td>Python utilise : et l'indentation au lieu des accolades.</td>
+        </tr>
+        <tr>
+            <td>Sinon</td>
+            <td><code>else:</code></td>
+            <td><code>else { ... }</code></td>
+            <td>⚠️ Différent</td>
+            <td>Même principe, syntaxe différente.</td>
+        </tr>
+        <tr>
+            <td>Sinon si</td>
+            <td><code>elif age == 18:</code></td>
+            <td><code>elseif ($age == 18) { ... }</code></td>
+            <td>⚠️ Différent</td>
+            <td>Python utilise elif.</td>
+        </tr>
+        <tr>
+            <td>Égalité</td>
+            <td><code>a == b</code></td>
+            <td><code>$a == $b</code></td>
+            <td>⚠️ Différent</td>
+            <td>La syntaxe est identique, mais PHP peut convertir les types.</td>
+        </tr>
+        <tr>
+            <td>Différence</td>
+            <td><code>a != b</code></td>
+            <td><code>$a != $b</code></td>
+            <td>⚠️ Différent</td>
+            <td>Même symbole, règles de comparaison parfois différentes.</td>
+        </tr>
+        <tr>
+            <td>Supérieur</td>
+            <td><code>a > b</code></td>
+            <td><code>$a > $b</code></td>
+            <td>❌ Non</td>
+            <td>Compare deux valeurs compatibles.</td>
+        </tr>
+        <tr>
+            <td>Inférieur</td>
+            <td><code>a < b</code></td>
+            <td><code>$a < $b</code></td>
+            <td>❌ Non</td>
+            <td>Compare deux valeurs compatibles.</td>
+        </tr>
+        <tr>
+            <td>ET logique</td>
+            <td><code>a and b</code></td>
+            <td><code>$a && $b</code></td>
+            <td>⚠️ Différent</td>
+            <td>Python utilise le mot and.</td>
+        </tr>
+        <tr>
+            <td>OU logique</td>
+            <td><code>a or b</code></td>
+            <td><code>$a || $b</code></td>
+            <td>⚠️ Différent</td>
+            <td>Python utilise le mot or.</td>
+        </tr>
+        <tr>
+            <td>NON logique</td>
+            <td><code>not a</code></td>
+            <td><code>!$a</code></td>
+            <td>⚠️ Différent</td>
+            <td>Python utilise not pour inverser une condition.</td>
+        </tr>
+        <tr>
+            <td>Indentation</td>
+            <td>4 espaces recommandés</td>
+            <td>Accolades pour délimiter les blocs</td>
+            <td>✅ Oui</td>
+            <td>L'indentation fait partie de la syntaxe Python.</td>
+        </tr>
+ </table>
+<h4>Boucles</h4>
+<table class="tableau"> 
+        <tr>
+            <td>Boucle for</td>
+            <td><code>for x in liste:</code></td>
+            <td><code>foreach ($liste as $x) { ... }</code></td>
+            <td>⚠️ Différent</td>
+            <td>Le for Python ressemble souvent au foreach PHP.</td>
+        </tr>
+        <tr>
+            <td>Boucle avec range</td>
+            <td><code>for i in range(5):</code></td>
+            <td><code>for ($i=0; $i&lt;5; $i++) { ... }</code></td>
+            <td>⚠️ Différent</td>
+            <td>range(5) produit les entiers de 0 à 4.</td>
+        </tr>
+        <tr>
+            <td>Boucle while</td>
+            <td><code>while x &lt; 10:</code></td>
+            <td><code>while ($x &lt; 10) { ... }</code></td>
+            <td>⚠️ Différent</td>
+            <td>Répète un bloc tant que la condition est vraie.</td>
+        </tr>
+        <tr>
+            <td>Arrêter une boucle</td>
+            <td><code>break</code></td>
+            <td><code>break;</code></td>
+            <td>❌ Non</td>
+            <td>Interrompt immédiatement la boucle.</td>
+        </tr>
+        <tr>
+            <td>Passer à l'itération suivante</td>
+            <td><code>continue</code></td>
+            <td><code>continue;</code></td>
+            <td>❌ Non</td>
+            <td>Ignore le reste de l'itération en cours.</td>
+        </tr>
+        <tr>
+            <td>Parcourir avec les indices</td>
+            <td><code>enumerate(liste)</code></td>
+            <td><code>foreach ($liste as $i => $v)</code></td>
+            <td>⚠️ Différent</td>
+            <td>enumerate() produit un indice et une valeur.</td>
+        </tr>
+ </table>
+<h4>Fonctions</h4>
+<table class="tableau"> 
+        <tr>
+            <td>Déclarer une fonction</td>
+            <td><code>def bonjour():</code></td>
+            <td><code>function bonjour() { ... }</code></td>
+            <td>⚠️ Différent</td>
+            <td>Python utilise def.</td>
+        </tr>
+        <tr>
+            <td>Appeler une fonction</td>
+            <td><code>bonjour()</code></td>
+            <td><code>bonjour();</code></td>
+            <td>❌ Non</td>
+            <td>Même principe.</td>
+        </tr>
+        <tr>
+            <td>Paramètre</td>
+            <td><code>def bonjour(nom):</code></td>
+            <td><code>function bonjour($nom) { ... }</code></td>
+            <td>⚠️ Différent</td>
+            <td>Les paramètres Python ne commencent pas par $.</td>
+        </tr>
+        <tr>
+            <td>Retourner une valeur</td>
+            <td><code>return resultat</code></td>
+            <td><code>return $resultat;</code></td>
+            <td>❌ Non</td>
+            <td>Renvoie le résultat d'une fonction.</td>
+        </tr>
+        <tr>
+            <td>Paramètre par défaut</td>
+            <td><code>def f(x=10):</code></td>
+            <td><code>function f($x=10) { ... }</code></td>
+            <td>❌ Non</td>
+            <td>Une valeur est utilisée si l'argument est omis.</td>
+        </tr>
+        <tr>
+            <td>Plusieurs valeurs de retour</td>
+            <td><code>return a, b</code></td>
+            <td><code>return [$a, $b];</code></td>
+            <td>⚠️ Différent</td>
+            <td>Python renvoie ici un tuple.</td>
+        </tr>
+        <tr>
+            <td>Fonction anonyme</td>
+            <td><code>lambda x: x * 2</code></td>
+            <td><code>fn($x) => $x * 2</code></td>
+            <td>⚠️ Différent</td>
+            <td>Permet de définir une petite fonction sans nom.</td>
+        </tr>
+ </table>
+<h4>Erreurs</h4>
+<table class="tableau"> 
+        <tr>
+            <td>Gérer une exception</td>
+            <td><code>try:</code></td>
+            <td><code>try { ... }</code></td>
+            <td>⚠️ Différent</td>
+            <td>Permet de surveiller un bloc susceptible de provoquer une erreur.</td>
+        </tr>
+        <tr>
+            <td>Intercepter une exception</td>
+            <td><code>except ValueError:</code></td>
+            <td><code>catch (ValueError $e) { ... }</code></td>
+            <td>⚠️ Différent</td>
+            <td>Python utilise except. ValueError est une exception Python, pas une classe PHP standard.</td>
+        </tr>
+        <tr>
+            <td>Bloc finally</td>
+            <td><code>finally:</code></td>
+            <td><code>finally { ... }</code></td>
+            <td>❌ Non</td>
+            <td>Exécute un bloc de nettoyage après try.</td>
+        </tr>
+        <tr>
+            <td>Déclencher une exception</td>
+            <td><code>raise ValueError("Erreur")</code></td>
+            <td><code>throw new Exception("Erreur");</code></td>
+            <td>⚠️ Différent</td>
+            <td>Python utilise raise, PHP utilise throw.</td>
+        </tr>
+        <tr>
+            <td>Erreur de syntaxe</td>
+            <td><code>SyntaxError</code></td>
+            <td><code>ParseError</code></td>
+            <td>❌ Non</td>
+            <td>Signale une erreur de syntaxe dans le programme.</td>
+        </tr>
+        <tr>
+            <td>Variable inconnue</td>
+            <td><code>NameError</code></td>
+            <td>Variable indéfinie : avertissement</td>
+            <td>⚠️ Différent</td>
+            <td>Python lève notamment NameError pour un nom non défini.</td>
+        </tr>
+        <tr>
+            <td>Indice inexistant</td>
+            <td><code>IndexError</code></td>
+            <td>Avertissement pour clé inexistante</td>
+            <td>⚠️ Différent</td>
+            <td>Python lève une exception lors d'un accès hors limites.</td>
+        </tr>
+ </table>
+<h3>Créer un package</h3>
+<p>Les modules (fichiers) et packages (dossiers) st du code déjà écrit (donc pr gagner du tps)<br>
+    <em>Rm</em>: <u>from</u> mon_module import <mark>*</mark> importe tt le module (à éviter car mauvaise pratique 
+    de tt importer)<br>
+    <div class="important">
+<mark>Déclarations d'importation en début de fichier Python, 
+avant toute autre instruction.<br>
+Ds "main.py":</mark><br>
+import mon_module<br>
+resultat = mon_module.ma_fonction()<br>
+<mark>ou juste une partie du module :</mark><br>
+<u>from</u> mon_module import ma_fonction<br>
+resultat = ma_fonction()</div>
+    <div class="important">
+<mark>Importer un package (d'abord créer un dossier) <br>
+avec un fichier "__init__py" qui peut rester vide (montre que c'est un package)<br>
+et un fichier "main.py" où on va importer : </mark><br>
+import mon_package.mon_module<br>
+resultat = mon_package.mon_module.ma_fonction()<br>
+<mark>Que éléments spécifiques du module d'un package:</mark><br>
+from mon_package.mon_module import ma_fonction
+    </div>
+</p>
+<p><em>Packages populaires :</em> 
+<a href="https://pypi.org/"target="_blank">PyPI (dépôts en ligne)</a> à installer avec aide de  
+<mark>gestionnaire de packages</mark> tel que "pip" (pip déjà installé ds python).<br>
+<div class="important">
+    pip install &lt;nom-du-package&gt;<br>
+    pip freeze (pr voir packages déjà installés (=dépendances))
+</div><br>
+<a href="https://fr.python-requests.org/en/latest/"targer="_blank">Requests</a> 
+(package HTTP élégant et simple pour Python. 
+Fréquemment utilisé pour les appels d’interface REST)<br>
+<a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/"targer="_blank">BeautifulSoup</a> 
+(pr récupérer des données de fichiers HTML et XML)<br>
+<a href="https://pandas.pydata.org/"targer="_blank">Pandas</a> 
+(pour analyse et manipulation de données)<br>
+<em>Rm</em>: Des milliers de packages Python sont disponibles.
+</p>
+<h4>Modules et Packages</h4>
+<table class="tableau"> 
+        <tr>
+            <td>Importer un module</td>
+            <td><code>import math</code></td>
+            <td><code>require "fichier.php";</code></td>
+            <td>⚠️ Différent</td>
+            <td>import charge un module Python ; require inclut et exécute un fichier PHP.</td>
+        </tr>
+        <tr>
+            <td>Importer une fonction</td>
+            <td><code>from math import sqrt</code></td>
+            <td>Pas de syntaxe directement équivalente</td>
+            <td>⚠️ Différent</td>
+            <td>Python peut importer un nom précis depuis un module.</td>
+        </tr>
+        <tr>
+            <td>Alias d'importation</td>
+            <td><code>import math as m</code></td>
+            <td><code>use Exemple\Classe as C;</code></td>
+            <td>⚠️ Différent</td>
+            <td>Les alias existent dans les deux langages, mais leur fonctionnement diffère.</td>
+        </tr>
+        <tr>
+            <td>Gestionnaire de packages</td>
+            <td><code>pip</code></td>
+            <td><code>Composer</code></td>
+            <td>⚠️ Différent</td>
+            <td>pip installe des packages Python ; Composer gère les dépendances PHP.</td>
+        </tr>
+        <tr>
+            <td>Installer un package</td>
+            <td><code>python -m pip install requests</code></td>
+            <td><code>composer require fournisseur/package</code></td>
+            <td>⚠️ Différent</td>
+            <td>Installe une dépendance externe.</td>
+        </tr>
+        <tr>
+            <td>Environnement virtuel</td>
+            <td><code>python -m venv .venv</code></td>
+            <td>Pas d'équivalent natif direct</td>
+            <td>✅ Oui</td>
+            <td>Isole les dépendances Python d'un projet.</td>
+        </tr>
+ </table>
+ <h3 id="reprise">ETL (Extraction, Transformation, Chargement)</h3>
+ <p>Avec Python, on peut écrire des petits programmes qui vont chercher informations à notre place,
+    et les enregistrer dans un fichier CSV <br>
+    (évite les copier-coller manuels dans un tableur).<br>
+    <em>Rm</em>: Connaître HTML et CSS (d'où mon retour aux bases après le PDF et la reprise du 
+    cours ici ensuite)<br>
+    Pr voir le code d'une page web : clic droit, "Voir la page source" 
+    (ou "Afficher le code source"). Voir le DOM (Document Object Model).<br>
+    <em>Rm</em>: Pr rendre compréhensible (indenté) le code html, on copie colle celui du site ds 
+    un <mark>formatter html</mark> (on en trouve un en tapant "formatter html" sur google).</p>
+    <h4>Package Requests (Pr extraire des données à partir d’un site web)</h4>
+    <div class="important">
+import requests<br>
+url = "https://www.gov.uk/search/news-and-communications"<br>
+page = requests.get(url)<br>
+# Voir le code html source<br>
+print(page.content)<br>
+    </div>
+    <h4>Package Beautiful Soup (Pr "<mark>parser</mark>")</h4>
+    <p><u>Parser</u>: Parcourir contenu d'un texte ou d'un fichier en l'analysant pour vérifier sa 
+    syntaxe ou en extraire des éléments.<br>
+    On parse le HTML avec les attributs HTML <mark>class</mark> et <mark>id</mark>.
+    </p>
+    <div class="important">
+pip install beautifulsoup4<br>
+import requests<br>
+from bs4 import BeautifulSoup<br>
+with open("index.html", "r") as file:<br>
+soup = BeautifulSoup(file.read(), 'html.parser')<br>
+with open("index.html", 'r') as file: <mark>Pr lire le contenu du fichier 
+"index.html par exemple</mark><br>
+····soup = BeautifulSoup(file, 'html.parser') <mark>Ces 4 points sont juste 4 espaces nécéssaire 
+    à l'indentation en Python.
+</mark>
+    </div>
+<h4>Extraction de données web</h4>
+<table class="tableau"> 
+        <tr>
+            <td>Effectuer une requête HTTP. <mark>fct get pr recupérer un contenu</mark></td>
+            <td><code>requests.<mark>get</mark>(url)</code></td>
+            <td><code>curl_exec($ch)</code></td>
+            <td>⚠️ Différent</td>
+            <td>Requests est une bibliothèque Python ; cURL est une extension PHP.</td>
+        </tr>
+        <tr>
+            <td>Lire le code HTTP</td>
+            <td><code>reponse.status_code</code></td>
+            <td><code>curl_getinfo($ch, CURLINFO_HTTP_CODE)</code></td>
+            <td>⚠️ Différent</td>
+            <td>Permet de vérifier le code de réponse du serveur.</td>
+        </tr>
+        <tr>
+            <td>Lire le HTML reçu</td>
+            <td><code>reponse.text</code></td>
+            <td><code>curl_exec($ch)</code></td>
+            <td>⚠️ Différent</td>
+            <td>Requests permet de récupérer le contenu textuel d'une réponse.</td>
+        </tr>
+        <tr>
+            <td>Analyser du HTML</td>
+            <td><code>BeautifulSoup(html, "html.parser")</code></td>
+            <td><code>new DOMDocument()</code></td>
+            <td>⚠️ Différent</td>
+            <td>Beautiful Soup facilite l'analyse et la navigation dans du HTML.</td>
+        </tr>
+        <tr>
+            <td>Trouver une balise</td>
+            <td><code>soup.find("h1")</code></td>
+            <td><code>$dom->getElementsByTagName("h1")->item(0)</code></td>
+            <td>⚠️ Différent</td>
+            <td>Recherche la première balise h1.</td>
+        </tr>
+        <tr>
+            <td>Trouver plusieurs balises</td>
+            <td><code>soup.find_all("p")</code></td>
+            <td><code>$dom->getElementsByTagName("p")</code></td>
+            <td>⚠️ Différent</td>
+            <td>Récupère les éléments correspondant à une balise.</td>
+        </tr>
+        <tr>
+            <td>Sélecteur CSS</td>
+            <td><code>soup.select(".article")</code></td>
+            <td><code>DOMXPath</code></td>
+            <td>⚠️ Différent</td>
+            <td>Beautiful Soup accepte directement les sélecteurs CSS.</td>
+        </tr>
+        <tr>
+            <td>Récupérer le texte</td>
+            <td><code>element.get_text()</code></td>
+            <td><code>$element->textContent</code></td>
+            <td>⚠️ Différent</td>
+            <td>Extrait le texte d'un élément HTML.</td>
+        </tr>
+        <tr>
+            <td>Lire un attribut HTML</td>
+            <td><code>element.get("href")</code></td>
+            <td><code>$element->getAttribute("href")</code></td>
+            <td>⚠️ Différent</td>
+            <td>Permet de récupérer une adresse de lien, par exemple.</td>
+        </tr>
+        <tr>
+            <td>Ouvrir un fichier</td>
+            <td><code>open("data.txt", "r")</code></td>
+            <td><code>fopen("data.txt", "r")</code></td>
+            <td>❌ Non</td>
+            <td>Ouvre un fichier en lecture.</td>
+        </tr>
+        <tr>
+            <td>Lire un fichier</td>
+            <td><code>f.read()</code></td>
+            <td><code>fread($f, filesize("data.txt"))</code></td>
+            <td>⚠️ Différent</td>
+            <td>Lit le contenu d'un fichier ouvert.</td>
+        </tr>
+        <tr>
+            <td>Écrire dans un fichier</td>
+            <td><code>f.write("Bonjour")</code></td>
+            <td><code>fwrite($f, "Bonjour");</code></td>
+            <td>❌ Non</td>
+            <td>Écrit du texte dans un fichier ouvert en mode écriture.</td>
+        </tr>
+        <tr>
+            <td>Fermer un fichier</td>
+            <td><code>f.close()</code></td>
+            <td><code>fclose($f);</code></td>
+            <td>❌ Non</td>
+            <td>Ferme le fichier.</td>
+        </tr>
+        <tr>
+            <td>Gestion automatique d'un fichier</td>
+            <td><code>with open("data.txt") as f:</code></td>
+            <td><code>try / finally</code></td>
+            <td>⚠️ Différent</td>
+            <td>with permet de fermer automatiquement le fichier à la sortie du bloc.</td>
+        </tr>
+        <tr>
+            <td>Lire un CSV</td>
+            <td><code>csv.reader(f)</code></td>
+            <td><code>fgetcsv($f)</code></td>
+            <td>❌ Non</td>
+            <td>Lit les données d'un fichier CSV.</td>
+        </tr>
+        <tr>
+            <td>Écrire un CSV</td>
+            <td><code>csv.writer(f)</code></td>
+            <td><code>fputcsv($f, $ligne)</code></td>
+            <td>❌ Non</td>
+            <td>Permet d'écrire des lignes au format CSV.</td>
+        </tr>
+        <tr>
+            <td>Lire du JSON</td>
+            <td><code>json.loads(texte)</code></td>
+            <td><code>json_decode($texte, true)</code></td>
+            <td>❌ Non</td>
+            <td>Transforme du texte JSON en données exploitables.</td>
+        </tr>
+        <tr>
+            <td>Créer du JSON</td>
+            <td><code>json.dumps(d)</code></td>
+            <td><code>json_encode($d)</code></td>
+            <td>❌ Non</td>
+            <td>Convertit des données en texte JSON.</td>
+        </tr>
+</table>
+<h3>Sauvegarder données du web (après les avoir extraites et transformées)</h3>
+<p>Soit ds une autre bdd, soit ds un fichier CSV (pr y avoir accès plus tard).<br>
+Pr <u>charger</u> des données: Fct intégrée <mark>open()</mark> (requiert deux paramètres: 
+nom du fichier et mode). <br>
+<u>mode</u>: Lire <mark>"r"</mark>, Écrire (écraser) <mark>"w"</mark>, Continuer d’écrire (ajout)
+<mark>"a"</mark>, Lire et écrire (sans écraser) <mark>"r+"</mark>.</p>
+<div class="important">
+<mark>Exemple: Créer un nouveau fichier appelé « hello.txt » et y écrire « Hello, world! »</mark><br>
+fichier = open("hello.txt", "<mark>w</mark>")<br>
+fichier.write("Hello, world!")<br>
+fichier.close()<br>
+<mark>ou "with"  pour fermer automatiquement fichier à la fin du bloc<br>
+<em>Rm</em>: Mode d’ouverture par défaut est "r" (donc "<strong>, mode='r'</strong> " 
+pas nécessaire ici)</mark><br>
+with open("file.txt" <strong>, mode='r'</strong>) as fichier:<br>
+for ligne in fichier:<br>
+# faire quelque chose avec une ligne<br>
+print(ligne)
+</div>
+<h4>Package CSV (utile pr lire des "Excel")</h4>
+<p>Méthode "open()"peut lire et écrire sur fichiers .txt et .csv, mais on peut aussi utiliser 
+"package CSV de Python" pour lire et écrire dans les fichiers CSV.<br>
+Ce package offre plus de fonctionnalités.
+<a href="https://docs.python.org/fr/3/library/csv.html"target="_blank">Documentation</a>.<br>
+Utiliser <mark>reader()</mark> ou <mark>writer()</mark> sur le fichier (pour le lire ou y écrire).
+On crée un <mark>data.csv</mark> avec les données.</p>
+<h5>Lire des fichiers externes</h5>
+<div class="important">
+import csv<br>
+with open('couleurs_preferees.csv') as fichier_csv:<br>
+<mark>reader</mark> = csv.<mark>reader</mark>(fichier_csv, delimiter=',')<br>
+for ligne in reader:<br>
+print(ligne)<br>
+<mark>méthode "DictReader()" (sait que la première ligne est un en-tête, sauvegarde les autres 
+lignes en tant que dictionnaires).<br>
+<em>Rm</em>: Chaque clé est un nom de colonne, la valeur est celle de colonne</mark><br>
+import csv<br>
+with open('couleurs_preferees.csv') as fichier_csv:<br>
+reader = csv.<mark>DictReader(</mark>, delimiter=',')<br>
+for ligne in reader:<br>
+print(ligne['nom'] + " travaille en tant que " + ligne['metier'] + " et sa couleur préférée est " + ligne['couleur_preferee'])
+</div>
+<h5>Écrire ds des fichiers externes</h5>
+<p>Pr ".writer()" on utilise "<mark>.writerow()</mark>".<br>
+<em>Rm</em>: Pas équivalent DictReader. Correspondances seraient : reader() ↔ writer() et 
+<mark>DictReader() ↔ DictWriter()</mark></p>
+<div class="enligne">
+<div class="important">
+<mark>Créer fichier CSV avec Python :</mark><br>
+# Créer une liste pour les en-têtes<br>
+en_tete = ["titre", "description"]<br>
+# Créer un nouveau fichier pour écrire dans le fichier appelé « data.csv »<br>
+with open('data.csv', '<mark>w</mark>') as fichier_csv:<br>
+# Créer un objet writer (écriture) avec ce fichier<br>
+<mark>writer</mark> = csv.writer(fichier_csv, <mark>delimiter</mark>=',')<br>
+writer.<mark>writerow</mark>(en_tete)<br>
+# Parcourir les titres et descriptions - zip permet d'itérer sur deux listes ou plus à la fois<br>
+for titre, description <mark>in zip</mark>(titres, descriptions):<br>
+# Créer une nouvelle ligne avec le titre et la description à ce moment de la boucle<br>
+ligne = [titre, description]<br>
+writer.writerow(ligne) 
+</div>
+<div class="important">
+<mark>Puis éxécuter ce script ds terminal</mark><br>
+$ python csv_creation.py<br>
+$ls <mark>Donne bien data.csv</mark><br>
+<mark>Puis on ouvre tableur Excel (et on y retrouve le nx Excel modifié)</mark>
+</div>
+</div>
+<h4>Éthiques de l’extraction de données web</h4>
+<p>Certains sites web sont extractibles, d'autres non. Vérifier ses "conditions générales"
+( svt disponible sur leurs fichiers 
+<a href="https://robots-txt.com/"target="_blank">robots.txt</a>) .<br> On peut ajouter 
+"<mark> /robots.txt</mark>" après l’URL du site pour voir s’ils en ont un.<br>
+Utilisez une interface publique si possible et si disponible 
+<a href="https://openclassrooms.com/fr/courses/6573181-adoptez-les-api-rest-pour-vos-projets-web"target="_blank">Cours "API REST"</a>.<br>
+</p>
+<h2 id="env">Environnement Python
+        <span class="petit">
+            <a href="https://openclassrooms.com/fr/courses/6951236-mettez-en-place-votre-environnement-python" target="_blank">Cours ici</a>
+        </span>
+        </h2>
+<h2 id="prog">Programmation orientée Objet
+     <span class="petit">
+            <a href="https://openclassrooms.com/fr/courses/7150616-apprenez-la-programmation-orientee-objet-avec-python" target="_blank">Cours ici</a>
+        </span>
+</h2>
+<h2 id="data">Data Science (Librairies Python)
+     <span class="petit">
+            <a href="https://openclassrooms.com/fr/courses/7771531-decouvrez-les-librairies-python-pour-la-data-science" target="_blank">Cours ici</a>
+        </span>
+</h2>

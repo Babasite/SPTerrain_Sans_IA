@@ -104,11 +104,13 @@ correspond au réseau et quelle partie correspond aux appareils.
 1- physique (répéteurs, câbles/connecteurs, hub)<br>
 </p>
 <p><u>modèle <mark>TCP/IP</mark></u>: Moins détaillé, 4 couches<br>
+    <div class="important">
 4- application<br>
 3- transport (protocole <strong>TCP</strong>: "protocole de contrôle de transmission", équivalent
 couche 4 modèle OSI)<br>
 2- "internet" (Protocole <strong>IP</strong>: équivalent couche 3 modèle OSI)<br>
-1- Accès au réseau<br>
+1- Accès au réseau
+</div>
 </p>
 <p>TCP (Transmission Control Protocol): Etablir règles permettant transporter un message de 
 source à destination 
@@ -146,10 +148,101 @@ Intervient après le DHCP et avec l'aide du DNS.</p>
     <a href="https://openclassrooms.com/fr/courses/2340511-maitrisez-vos-applications-et-reseaux-tcp-ip" target="_blank">Cours ici</a>
     </span>
 </h2>
-<p></p>
-
-
-
+<p><u>Prérequis</u> : voir les base de Linux
+     <span class="coursici">
+    <a href="#linux">plus bas ds cette page</a>
+    </span>
+    et de PHP 
+    <span class="coursici">
+    <a href="../Cours6/cours6.html" target="_blank">ici</a>
+    </span>
+</p>
+<h3>En-tête IP</h3>
+<p><u>Fragmenter</u> (pr s'affranchir des limites de stockage): Découper un datagramme en plsrs paquets.<br>
+Chacun de ces paquet sera transporté par la trame de couche 2 et seront réassemblés sur machine destinatrice
+pr reformer le datagramme initial.<br>
+ La fragmentation est donc un rôle secondaire de la couche 3.<br> Il faut 
+limiter taille et nombre de paquets pr éviter erreurs (la taille minimum ns sera donné par la 
+<mark>MTU</mark> imposée par la couche 2)<br>
+On a besoin que de 3 fragments de l'en-tête pr réaliser la fragmentation 
+(IPID, Flags, Fragment Offset (=FO) )
+</p>
+<p><mark>Scan de ports</mark>: Le "port" est un concept de couche 4 qui représente l'"adresse" d'une 
+application sur machine.<br>
+ Qd application réseau est démarrée, port ouvert(pr communiquer)<br>
+Pr protocole TCP, il y a 2 types de ports ouverts (en état "listen" et en état "established").<br>
+Qd 1 port est ouvert -> recoit une demande de connection avec segment "<mark>syn</mark>" 
+-> répond avec un segment "<mark>syn ack</mark>" (et si fermé avec un segment 
+"<mark>RST (=reset)</mark>") <br>
+En UDP (autre protocole de transport, comme TCP), même principe (ms pas de SYN SYN-ACK).<br>
+TCP : « On établit une connexion avant de communiquer. »<br>
+UDP : « On envoie les données sans établir de connexion préalable. »</p>
+<p>
+<em>Rm</em>: Linux <span class="important">ss-antp</span> (pr voir ts les ports ouvert).<br>
+Piratage à effectuer sous "Linux Debian", en tant que <mark>root</mark> (mais attention à légalité)<br>
+<span class="important"># netstat -an</span> (pr voir si port ouvert)<br>
+<span class="important"># netstat -anpe</span> (avec détails sur le PID, 
+utilisateur et le processus)<br>
+<span class="important"># netstat -antp</span> (pr ports TCP seulement)
+</p>
+<p><mark>Nmap</mark> (outil qui permet de scanner de façon automatique toute une plage)</p>
+<p><mark>L’idle scan</mark>: Technique qui permet de scanner une machine en se faisant passer pr 
+    quelqu’un d’autre.</p>
+<h3>En-tête TCP</h3>
+<p>Il fait 20 octets (comme l’en-tête IP) ms il comporte svt des options.<br>
+ </p>
+ <p>premier numéro de séquence ne vaut pas réellement 0, il vaut une valeur aléatoire 
+    <mark>ISN</mark> (Initial Sequence Number)<br>
+<em>Rm</em>: L’ISN n’a pas tjrs été aléatoire et cela a causé de grosses failles de sécurité</p>
+<p>En cas de segment TCP perdu, chaque machine s’en rendra compte et sera réémis.<br> 
+    C’est ce qui permet à TCP d’être qualifié de "protocole fiable sans perte de paquets" 
+(et même sans perte d’octets)<br> à l’inverse du protocole UDP (qui ne garantit aucune perte 
+de paquet). La contrepartie à payer est la lenteur de ce protocole par rapport à UDP.</p>
+<p>L'<mark>attaque de Noël</mark>: Se faire passer pr une autre machine 
+    vis à vis d'un serveur sur internet (<mark>IP Spoofing</mark>).<br>
+<mark>Flooding</mark>: Submerger une machine pr l'empêcher d'être capable de répondre 
+(avec de multiples SYN).</p>
+<h3>Messagerie</h3>
+<p>Elle s'appuie sur 2 protocoles (<mark>SMTP</mark> (envoyer et recevoir mail sur serveur)
+     et <mark>IMAP</mark> (récupérer mail sur serveur pr les lire)) 
+    <em>Rm</em>: Sous Linux</p>
+<p><u>Installer serveur SMTP</u>: <span class="important"># apt-get install postfix</span>, # ls etc/postfix, 
+# telnet localhost 25, Hello Toto.com, mail from: Toto@Toto.com, rcpt to: root@mondomaine.cocal, 
+data, Subject: Salut les amis!, C'est cool d'écrire des mails manuellement, . , quit. </p>
+<p><u>Configurer Postfix</u>: 
+<a href="https://postfix.traduc.org/"target="_blank">Documentation</a><br>
+~# ls /etc/postfix , dynamicmaps.cf main.cf makedefs.out master.cf.proto postfix-files.d post-install,<br>
+dynamicmaps.cf.d main.cf.proto master.cf postfix-files postfix-script sasl</p>
+<p>Fichier <mark>main.cf</mark> contient ts les paramètres de configuration 
+que nous voulons indiquer au serveur (modifier ceux qui ns intéressent).<br>
+Voir ts ces paramètres avec commande "postconf".<br>
+Le port par défaut du protocole SMTP est le port 25 (se connecter dessus avec <mark>telnet</mark>).</p>
+<p>Créez utilisateurs virtuels en ligne de commande<br>
+Méthode 1: Dans le fichier main.cf, faire boîtes aux lettres virtuelles.<br>
+<em>Rm</em>: <mark>/</mark> (à la fin commande) important. Indique recevoir mails ds un 
+répertoire (et non dans un fichier). Ts nos mails seront ds des fichiers séparés ds ce répertoire.<br>
+Compiler ensuite le fichier <mark>vmailbox</mark>.<br>
+Méthode 2: Via une bdd SQL<br>
+Installer package MariaDB, se connecter à MySQL, créé database Messagerie <mark>;</mark>, créer user,<br>
+commande "flush privileges" (pr que les droits soient pris en compte), quit.<br>
+Puis créer messagerie.sql, la remplir. Puis installer les "packages". </p>
+<p><u>Installer serveur IMAP</u>: On choisira <mark>Dovecot</mark> (plus sécurisé, robuste, 
+    avec bcp de fonctionnalités). configurer port d'écoute (le 143), modifier 
+    mail_location. <br>
+    Puis on ajoute "packages".<br>
+    Testez la configuration serveur IMAP (avec Telnet).
+</p>
+<p><u>Interface</u> pr lire mails: <strong>client de messagerie</strong> 
+    (Outlook, Mail ou Thunderbird...) ou <br>
+<strong>webmail</strong> (site web installé svt directement sur serveur 
+de messagerie. Permet de consulter ses mails en ligne, comme Gmail, Yahoo ou Outlook.com).</p>
+<p>Installer serveur web <mark>Ngninx</mark> (si on veut webmail) + package Nginx<br>
+Vérifier port écoute, après avoir modifié et redemarré le serveur (#systemctl restart nginx) tester 
+que php est bien interprété par Nginx (créer une page php)</p>
+<p>Installation du webmail: <mark>Rainloop</mark> avec 2 packages <mark>php-curl</mark> 
+et <mark>php-xml</mark>, créer un dossier "rainloop" (avc mkdir), puis modifier interieur rainloop 
+sur navigateur (en y mettant l'adresse) </p>
+<p> Puis créer une interface web pr communiquer avec Linux (pr configurer services installés).</p>
     <h2 id="linux">Linux 
     <span class="coursici">
     <a href="https://openclassrooms.com/fr/courses/7170491-initiez-vous-a-linux" target="_blank">Cours ici</a>
@@ -260,20 +353,396 @@ mac et linux (Fat32 compatible aussi ms limité à 4 Go))</p>
     <a href="https://openclassrooms.com/fr/courses/7274161-administrez-un-systeme-linux" target="_blank">Cours ici</a>
     </span>
 </h2>
+<p><u>Terminal</u>: Aujourd'hui ce sont des "émulateur de terminal"(= terminal virtuel. Car plus besoin 
+de l'avoir à part)<br>
+<strong>PuTTY</strong> (sous Windows), <strong>Terminal</strong> (sous macOS), 
+<strong>xterm</strong> (sous Linux).<br>
+<em>Avantages</em>: Se connecter à distance et lancer plrs émulateurs de terminal en même tps.<br>
+Linux propose 7 terminaux "<mark>physique</mark>" (en face du serveur, pas à distance) ctrl alt F1 (F2...F7)<br>
+et qd on sera à distance, "<mark>émulateur</mark> de terminal" (terminal à lancer sur poste de travail)<br>
+On travaille donc sur <mark>2</mark> terminaux (ne pas les confondre. Copier-coller entre les 2 
+fonctionnent pas).<br>
+<em>Rm</em>: Console = terminal<br>
+Passer par un "logiciel" pour émuler (ou simuler) l'équipement terminal physique et ttes ses 
+fonctionnalités:<br> protocole <mark>VNC</mark> (Virtual Network Computing), 
+<mark>RDP</mark> (Remote Desktop Protocol)
+</p>
+<p>Autres "émulateurs" sous Linux (que xterm): GNOME Terminal, Konsole (de KDE), xfce-terminal, 
+    urxvt
+</p>
+<h3>Shell (interpréteur de commandes)</h3>
+<p>Il sert à exécuter ce qu'on écrit ds un terminal (peut fonctionner à l'intérieur des deux 
+    sortes de terminaux)<br>
+    Lancé juste après l'authentification sur un terminal. Pr saisir des commandes et afficher 
+    leurs résultats.<br> Dépend du système d'exploitation (<mark>Bash</mark> (linux), 
+Bourne Shell, Kornshell, C-Shell)</p>
+<p><u>Bash</u> avantages: Auto-complétion (TAB), Gestion des signaux (CTRL+C), Terminaison des 
+commandes (donne les codes de sortie <mark>0</mark> ok, <mark>1</mark> problème!)<br>
+ <mark>basti@nom_machine : ~$</mark> (=prompt) :<br>
+<mark>~</mark> (pr dire qu'on est ds répertoire personnel de l'utilisateur)<br>
+<mark>$</mark> (pr dire utilisateur non privilégié) <em>Rm</em>: Avec le compte root, le caractère 
+serait un <mark>#</mark><br>
+<mark>/w</mark> (indique le repertoire ds lequel on se situe)<br>
+Elle est stockée ds un fichier ds une variable gérée par le shell Bash (cette variable est 
+nommée <mark>$PS1</mark>.)<br>
+<em>Rm</em>: On utilise <mark>echo</mark> aussi bien en Bash (shell) qu'en PHP pour afficher du 
+texte.<br>
+<mark>ls</mark>: permet de lister le contenu d’un répertoire. <mark>ls -l</mark> (plus développé)
+<mark>-t</mark> (les plus récent), <mark>-t-r</mark> (= -ltr, les plus anciens), <mark>-lRt</mark> 
+(tt le contenu), <mark>-h</mark> (par taille)<br>
+On a les "<strong>options</strong>" (le premier bloc de lettre) puis les 
+"<strong>arguments</strong>" (2eme bloc) <em>Ex</em>: $ ls-lrth  <mark>rep1</mark>.<br>
+<mark>type</mark> (récupérer des informations concernant une commande)<br>
+<mark>file /</mark> (pr récupérer des information sur un fichier), <mark>*</mark> (ensemble du 
+répertoire)<br>
+<mark>cd</mark> (changer de répertoire), <mark>&&</mark> (et), <mark>id</mark> (information sur 
+compte utilisateur), <mark>PATH</mark> (le répertoire courant de Shell), <br>
+<mark>help</mark> (liste 
+des commandes interne), <mark>id --help</mark> (appel en externe), <mark>man</mark> (manuel plus 
+complet)<br>
+<mark>history</mark> (affiche historique de commande. <em>Rm</em>: On peut la rappeller ensuite par 
+son numéro <mark>!</mark>numero), <mark>message (avec ctrl r)</mark> (pr retrouver un ancien 
+message ds mes commandes)<br>
+<em>Rm</em>: Un <mark>alias</mark> est un raccourcit pr les commandes svt utilisés 
+</p>
+<h3>Arborescence (fichiers)</h3>
+<p>Norme <mark>FHS</mark><br>
+Répertoires FHS: <mark>/boot</mark> (noyau linux), <mark>/bin</mark> (commandes), 
+<mark>/etc</mark> (fichiers de configuration)<br>
+<strong>/Root</strong>: Compte super utilisateur pr tâches d'administration (n'en fait pas partie pr sécurité)
+donc ne pas créer de repertoir Root. <strong>/home</strong> non plus (fichiers personnels)<br>
+/proc /sys (vitrines virtuelles qui n'existent pas sur disque dur)<br>
+<mark>$ cat</mark> (pr afficher contenu, flux d'un fichier)<br>
+<mark>$ less</mark> (lire un fichier page par page)<br>
+</p>
+<p>Canaux: stdin, stdout, stderr (utiliser &gt; et &lt; ,ou &gt;&gt; et &lt;&lt;) 
+   Ils permettent de rediriger la sortie d'une commande vers un fichier.
+</p>
+<p>
+Le fichier <u>/etc/pam.d/login</u> permet de gérer le processus d'authentification sous Linux<br>
+Le fichier <u>/var/log/messages</u> contient les traces du système Linux<br>
+Les commandes <u>grep,sed et awk</u> permettent de filtrer les flux de données<br> 
+Le fichier <u>/etc/os-release</u> contient les informations sur la distribution Linux<br>
+Le <u>pipe</u> de Linux permet de chaîner les commandes Linux grâce à la redirection des canaux<br>
+Les commandes <u>sort et cut</u> permettent de manipuler des flux de données sous Linux<br>
+</p>
+<p>
+<u>vi</u> est l'éditeur de texte en mode terminal de référence sous Linux<br>
+<u>emacs</u> intègre des extensions en langage lips donc plus d'un simple éditeur de texte <br>
+<u>nano</u> est un éditeur pr faire la transition depuis le monde Windows<br>
+Les fichiers sont représentés dans le noyau Linux par des structures nommées <u>inode</u><br>
+Les opérations classiques de Copie/Déplacement/Suppression de fichier sous Linux sont exécutées 
+sur les inodes avec les commandes <u>cp/mv/rm</u><br>
+Les <u>liens</u> durs/symboliques sous Linux représentent des pointeurs entre inodes et sont gérés avec 
+la commande <u>ln</u>
+</p>
+<h3>Droits sur les fichiers</h3>
+<p>Sont considérés comme <mark>fichiers</mark> sous linux: périphériques et représentation des 
+processus (en plus des données).
+"Sous Linux, tout est fichier."<br>
+ Donc le droit des fichiers concerne plus que juste des "fichiers".<br>
+ <mark>DAC</mark> (Discretionary Access Control): Gestion des droits qui sont la propriété soit d'
+ un compte utilisateur (compte propriétaire), soit d'un groupe propriétaire,<br>
+  soit des comptes utilisateurs et systèmes (plus large).<br>
+ La commande utilisée est: <mark>chmod</mark> (pr la gestion des droits) 
+ </p>
+ <p>
+Le contrôle d'accès sous Linux est discrétionnaire (<u>DAC</u>)<br>
+Les droits d'accès sont donc définis pour 3 entités : le <u>propriétaire</u> de l'objet,<br> 
+le <u>groupe propriétaire</u> et tous <u>les autres</u> comptes utilisateurs et/ou système.<br>
+Les droits d'accès sont également définis avec 3 bits : <u>READ, WRITE et EXECUTE</u><br>
+Au total, il faut <u>9 bits</u> (READ, WRITE et EXECUTE x 3 entités) pr définir les droits 
+d'accès d'un objet sous Linux<br>
+Ces droits sont exprimés en puissance de 2 avec les valeurs <u>0, 1, 2 et 4</u> offrant une 
+combinaison unique, par exemple 755<br>
+Les commandes <u>chown/chgrp</u> ("change owner"/"change group") permettent de changer le 
+propriétaire et le groupe propriétaire d'un objet<br>
+<u>SetUID</u> est un droit spécial permettant d'exécuter un fichier avec les droits de son 
+propriétaire<br> 
+<u>Sticky Bit</u> est un droit spécial permettant de gérer des espaces partagés
+ </p>
+ <h3>Configurer cartes réseaux</h3>
+ <p>Chaque machine Linux possède un nom d'hôte (hostname) qui permet de l'identifier sur un réseau.<br>
+Commandes: <mark>hostname</mark> (Afficher le nom de la machine), <mark>hostnamectl</mark> (
+    Afficher les informations du nom d'hôte),<br> <mark>sudo hostnamectl set-hostname serveur1</mark> 
+(modifier nom machine), <mark>cat /etc/hostname</mark> (consulter nom enregistré)<br>
+Le hostname permet d'identifier facilement un serveur.
+Le fichier /etc/hostname contient le nom utilisé au démarrage.
+Chaque serveur doit idéalement avoir un nom distinct.
+</p>
+<h4>Détecter les cartes réseau</h4>
+<p>Avant de configurer le réseau, il faut vérifier que Linux reconnaît les interfaces réseau.<br>
+Une interface réseau permet à un ordinateur de communiquer avec d'autres équipements.</p>
+<p>
+Commandes: <mark>ip link show</mark> (Afficher les interfaces réseau), <mark>ip a</mark> (
+Afficher les interfaces et leurs adresses IP), <mark>dmesg</mark> (Consulter les messages du noyau),<br> 
+<mark>ls /sys/class/net</mark> (Lister les interfaces réseau détectées)<br>
+<em>Rm</em>: Linux doit reconnaître la carte réseau avant de pouvoir la configurer.<br>
+La commande ip permet de gérer les interfaces réseau (remplace progressivement "ifconfig").<br>
+<mark>ip addr</mark> (afficher adresses IP), <mark>sudo ip addr add 192.168.1.10/24 dev ens33</mark> 
+(ajouter une adresse IP), <mark>sudo ip link set ens33 up</mark> (activer une interface),<br> 
+<mark>sudo ip link set ens33 down</mark> (désactiver une interface)<br>
+Important : Les modifications réalisées avec ip sont temporaires et disparaissent généralement au redémarrage.<br>
+Pour conserver une configuration réseau après un redémarrage, il faut utiliser une configuration persistante :<br>
+Soit distribution "Debian et ses dérivés" soit "Red Hat et ses dérivés".<br>
+Configurer les routes et les passerelles, les DNS (pr traduire un nom de domaine en adresse IP, 
+noms plus simple).<br>
+La commande ping est un complément pratique pour vérifier la connectivité.<br>
+</p>
+ <h3>SSH pr se connecter à distance</h3>
+ <p>SSH (Secure Shell) est un protocole permettant de se connecter <mark>à distance</mark> 
+    à un serveur de 
+    manière sécurisée 
+    (permet administrer un serveur Linux à distance, exécuter des commandes sur un serveur,
+chiffrer les communications, authentifier les utilisateurs).<br>
+Grâce à SSH, on peut accéder à son terminal sans être physiquement devant lui.<br>
+SSH utilise généralement le port TCP 22 et chiffre les communications entre le client et le serveur.<br>
+Sous Linux, le logiciel OpenSSH permet d'utiliser le protocole SSH.<br>
+SSH permet de s'authentifier sans saisir le mot de passe du compte à chaque connexion 
+(clé publique et clé privée. La clé privée reste sur le client, tandis que la clé publique est 
+installée sur le serveur.).</p>
+<p>Commandes:<br>
+ssh utilisateur@192.168.1.10 (Se connecter à un serveur)<br>
+ssh-keygen -t ed25519 (Générer des clés SSH)<br>
+ssh-copy-id utilisateur@192.168.1.10 (Copier la clé publique sur le serveur)<br>
+sudo systemctl status ssh (Vérifier le fonctionnement du serveur SSH)
+</p>
 
-
-
-
-    <h2>Environnement de travail
+ <p>...</p>
+    <h2>Environnement de travail (Virtualisation)
     <span class="coursici">
     <a href="https://openclassrooms.com/fr/courses/2035806-virtualisez-vos-environnements-de-travail" target="_blank">Cours ici</a>
     </span>
 </h2>
-    <h2 id="intrusion">Test d'intrusion web
+<p><mark>VM</mark> (machine virtuelle): Pr éviter d'avoir à acheter un MAC si on est sur PC par
+     exemple. (J'ai utilisé VirtualBox pr Linux plus haut)<br>
+ Besoin que de 4 ressources: Processeur, Memoire vive, Espace de stockage disque, Accès réseau<br>
+Il faut un <mark>hyperviseur</mark> sur une machine "hôte". Hyperviseurs de type 1 
+(= natif. Pr grosses architectures réseaux d'entreprises. On "reformate" le PC + svt licence entreprise)<br> 
+et de type 2 
+(besoin que de quelques machines. <em>Ex</em>: VirtualBox)
+</p>
+<div class="enligne">
+<p>
+<mark>virtualisation</mark> : Créer un ordinateur virtuel à l'intérieur d'un ordinateur physique.
+Fonctionne grâce à un <u>hyperviseur</u><br>
+<mark>émulation</mark> : Reproduire le fonctionnement d'un autre matériel ou système informatique 
+(grace à un émulateur)<br>
+<mark>conteneurisation</mark> : Consiste à isoler une application et ses dépendances dans un 
+environnement appelé conteneur.<br>
+<a href="https://openclassrooms.com/fr/courses/8431896-optimisez-votre-deploiement-en-creant-des-conteneurs-avec-docker"target="_blank">En savoir plus sur la conteneurisation (avec "Docker") ici</a><br>
+<br>
+Par simplification de langage, la virtualisation, l’émulation et la conteneurisation sont très 
+souvent regroupées sous le terme unique de <u>virtualisation</u> (car fait plus ou moins les 3).
+</p>
+<img src="ImagesCours4/emulation.png"id="tcp">
+</div>
+<p>On peut créer plusieurs VM sur le même hyperviseur.</p>
+<p>Insaller Mac sur VirtualBox pas forcément possible.<br> 
+La virtualisation ne signifie pas qu'on peut installer n'importe quel système d'exploitation 
+sur n'importe quel ordinateur.<br> Il faut tenir compte de la compatibilité matérielle et 
+des licences.</p>
+    <h2 id="intrusion">Test d'intrusion (pentest) web
     <span class="coursici">
     <a href="https://openclassrooms.com/fr/courses/7727176-realisez-un-test-d-intrusion-web" target="_blank">Cours ici</a>
     </span>
 </h2>
+<p>Plateforme d'entraînement en Hacking et sécurité de l'information : <mark>Root Me</mark> 
+<a href="https://www.root-me.org/" target="_blank"> ici</a><br>
+Podcast à écouter : Hack'n Speak (sur la cybersécurité) de Martial mpgn (en francais). 
+<a href="https://creators.spotify.com/pod/profile/hacknspeak/"target="_blank">Source d'inspiration ici</a>.<br>
+À suivre : 
+<a href="https://defcon.org/"target="_blank">Def Con</a> , 
+<a href="https://blackhat.com/"target="_blank">Black Hat</a> , 
+<a href="https://www.sstic.org/2027/news/"target="_blank">SSTIC (en francais)</a> , 
+<a href="https://hackinparis.com/"target="_blank">Hack in Paris (en francais)</a> .
+</p>
+<p>Audit de sécurité appartenant à la famille de la "sécurité offensive" (= offsec).<br>
+Tester techniquement ds un tps défini tt ou partie d’un système d’information pr en relever 
+maximum de vulnérabilités <br>(afin que celles-ci puissent être corrigées avt d’être exploitées 
+par un attaquant).</p>
+<p>3 différents types de tests d’intrusion (le pentester se met ds la peau de...):<br>
+<mark>Boîte noire</mark> (black box) -> Attaquant externe (peu de connaissance de l'application) 
+<em>Une simple URL, l'adresse IP du serveur cible, le site vitrine de l'entreprise.</em><br>
+Boîte <mark>grise</mark> (grey box) -> Utilisateur malveillant 
+(connaissances partielles de l'application) <br>
+<em>vulnérabilité dans la partie authentifiée, voire dans la partie réservée aux administrateurs</em><br>
+Boîte <mark>blanche</mark> (white box) -> Développeur (connaissances approfondies de l'application)
+<em>être le plus exhaustif possible</em>
+</p>
+<p><mark>bug bounty</mark> -> Pentester payé au tps passé.<br>
+<mark>red team</mark> -> Entrer sans se faire repérer (plus complexe). But : 
+Tester la réponse de l’entreprise face à une attaque avancée.</p>
+<p>Qualification <mark>PASSI</mark> : Obligatoire pour réaliser des tests d’intrusion sur les 
+systèmes d’information d’importance vitale (SIIV) (pas pour les autres systèmes et applications).<br>
+<mark>ANSSI</mark> : Organisation donnant recommandations de bonnes pratiques.
+</p>
+<p><h3>1) <u><mark>Cadrer</mark> son intervention à partir des objectifs du test</u></h3>  
+    Réunion avec commanditaire (présentation, planning, budget, 
+    si on peut travailler à distance via un compte <mark>VPN SSL</mark>). </p>
+<p><h3>2) <u>Préparez environnement de travail</u></h3>  Outils de test d’intrusion 
+    (ne sont que des "accélérateurs")
+->
+    <a href="https://www.kali.org/"target="_blank">kali</a> , 
+    <a href="https://www.parrotsec.org/"target="_blank">Parrot OS</a> , 
+    <a href="https://github.com/mandiant/commando-vm"target="_blank">Commando VM</a> , 
+    <a href="https://github.com/ThePorgs/Exegol"target="_blank">Exegol</a>  
+.</p>
+<p>Installer "Kali" ds VM (ex: Virtualbox) sur notre hyperviseur. 
+    <a href="https://www.kali.org/docs/virtualization/install-virtualbox-guest-vm/"target="_blank">Doc installation</a><br>
+(puis c'est comme un système Linux standard, avec les mêmes commandes de base (cat, ls…))<br>
+<em>Rm</em>: On peut développer ses propres outils<br>
+<span class="important">Faudra documenter tt ce qu'on fait</span> 
+(prendre des notes (word, powerpoint, fichiers Markdown...) et des captures d'écran)</p>
+<p><h3>3)<u>Repérage (récupération d'informations sur la cible)</u></h3>  Moteur de recherche "Google"</p>
+<p>
+<h4>a)<em>Reconnaissance passive</em></h4>  Google Dorks (= Google hacking) 
+<span class="important">site:spterrain.fr ext:pdf “pass”</span>, <mark>OSINT</mark> 
+<a href="https://github.com/laramies/theHarvester"target="_blank">theHarvester</a> ,
+<a href="https://github.com/lanmaster53/recon-ng"target="_blank">Recon-ng</a> 
+(informations publiques).<br>
+<mark>dark web</mark> (espace accessible avec VPN spécifique). <br>
+<mark>deep web</mark> (tt ce qui n’est pas indexé par moteurs de recherche, 
+notamment car un compte est nécessaire pour accéder aux données).<br>
+Ex : identifiants encore valides ds des bdd qui ont fuitées ou ds dépots de code publiques...</p>
+<p>
+<h4>b)<em>Reconnaissance active</em></h4>  Avec des outils comme <mark>Amas</mark> et via l'analyse des 
+enregistrements DNS et des certificats TLS...</p>
+<p>Rechercher si il y a des cibles connexes (plutôt que cible principale). 
+    (Poubelles, porte à porte, conversations entre employés...)<br>
+Faire <u>énumération</u> de noms de domaine et de sous-domaine, à partir d’une liste que j'ai définie,<br>
+<u>scraping</u> (= extraction automatisée de données) de la cible principale, pour trouver des 
+références à des sous-domaines dans le contenu de la cible<br> 
+voir <a href="https://owasp.org/"target="_blank">OWASP</a> et 
+<a href="https://github.com/owasp-amass/amass"target="_blank">Outil AMASS</a> 
+(disponible dans Kali par défaut),<br>
+<u>lecture des certificats TLS</u> (Transport Layer Security), qui sont parfois utilisés pr 
+plusieurs sites,<br>
+registres <u>whois</u> (= Qui est ? Protocole permettant de consulter des informations 
+d'enregistrement concernant un nom de domaine ou une adresse IP),<br>
+<u>historique DNS</u> <br>
+Parfois il faudra changer le "scope" (élargir le périmetre de recherche, serveurs à analyser en plus).
+ En discuter avec le commanditaire (et avoir autorisation écrite).
+</p>
+<p>
+<h4>c)<em>Scan de port</em></h4>  (fenêtres ouvertes?) Services d'administration 
+(comme SSH ou Tomcat)<br>
+On va chercher ds SMB ,HTTP ,HTTPS <br>
+avec 
+<a href="https://nmap.org/" target="_blank">Nmap</a> (le plus connu) ou 
+<a href="https://github.com/projectdiscovery/naabu"target="_blank">naabu</a> , 
+<a href="https://github.com/robertdavidgraham/masscan"target="_blank">Masscan</a> .
+</p>
+<p>
+<h5><em>Scan de vulnérabilité</em></h5>  Trouver les failles derrière chaque service 
+(version d'un serveur obsolète, possibilité d'administrer sans saisir de MP).<br>
+<u>Scanners de vulnérabilités</u> (pr faire gagner du temps, mais svt cher) : 
+<a href="https://www.openvas.org/" target="_blank">OpenVAS (de Greenbone)</a> (Open Source), 
+<a href="https://fr.tenable.com/products/nessus?utm_campaign=gs-%7B11596512479%7D-%7B110256808302%7D-%7B537515898656%7D_00023779_fy22&utm_promoter=tenable-hv-brand-00023779&utm_source=google&utm_term=nessus&utm_medium=cpc&utm_geo=apac&gclid=EAIaIQobChMIx5SGubTi9wIVlx0rCh353AcIEAAYASABEgIA0vD_BwE" target="_blank">Nessus</a> , 
+<a href="https://www.qualys.com/apps/vulnerability-management-detection-response" target="_blank">Qualys VM</a> , 
+<a href="https://www.rapid7.com/products/nexpose/" target="_blank">Nexpose (de Rapid7)</a> . <br>
+<em>Rm</em>: Un <mark>exploit</mark> est un code malveillant envoyé au service pour exploiter 
+la vulnérabilité,<br> et gagner par exemple des droits supplémentaires ou simplement un accès au 
+service.<br>
+<h4>d) Recul et interprétation des résultats</h4>
+<em>Rm</em>: Attention! Plus on est agressif sur un scan (plus on envoie de paquets), 
+plus on risque de fausser les résultats.<br>
+Tester les vulnérabilités authentifiées (pr vérifier que serveur est réellement vulnérable. 
+Ce sont parfois des faux positifs).
+</p>
+<h3>4) Vérifiez la présence et la qualité du chiffrement des échanges</h3>
+<p>Chiffrement de bonne qualité : <u>Qualité du certificat</u> (correspond au badge de l'agent d'acceuil 
+    de la banque), <br>
+    <u>protocoles supportés</u> (manière dont agent d'acceuil se comporte qd un client se présente à lui),<br>
+    <u>suites de chiffrement autorisées</u> par le serveur (laxisme de l'agent d'acceuil qd le client 
+    (ou un intru) tente de négocier une prise en charge moins sécurisée)<br>
+    <mark>Décryptage</mark> (Qd on ne connaît pas la clé de déchiffrement et qu’on doit la 
+    retrouver, sinon <mark>déchiffrement</mark>).<br>
+    Pr contrôles de cryptographie : outils 
+    <a href="https://www.ssllabs.com/ssltest/"target="_blank">SSLlabs</a> , 
+    <a href="https://github.com/rbsec/sslscan"target="_blank">SSLscan</a> , 
+    <a href="https://github.com/testssl/testssl.sh"target="_blank">testssl.sh</a>  
+    ou les scanners de vulnérabilités (ci-dessus).<br>
+    On appelle protocoles de chiffrement les différents protocoles qui permettent de sécuriser 
+    les flux (par exemple <mark>HTTPS</mark>).<br>Ces protocoles sont : 
+    SSL v2 ; SSL v3 ; TLS v1.0 ; TLS v1.1 ; <mark>TLS v1.2 ; TLS v1.3</mark> . <br>
+    Les 2 derniers sont vulnérables à 
+    <a href="https://drownattack.com/"target="_blank">Drown</a> et
+    <a href="https://cert.cyber.gouv.fr/alerte/CERTFR-2014-ALE-007/"target="_blank">Poodle</a> 
+    (qui permettent de décrypter communications interceptées).<br>
+</p>
+<h3>5) Proxis d'interception (on entre ds la banque)</h3>
+<p>Se familiariser avec l'application à attaquer (30 min à 1h en fct de sa complexité)<br>
+Que ferait l'attaquant (regarder les URL/URI pour se donner des idées)<br>
+Noter les champs et fonctionnalités qui nous paraissent intéressants.<br>
+<mark>F12</mark> pr voir données échangés entre appli et nous.<br>
+Pour aller plus vite -> proxy d'interception web : 
+<a href="https://portswigger.net/burp" target="_blank">Burp Suite</a> 
+(version gratuite "community") et 
+<a href="https://www.zaproxy.org/"target="_blank">ZAP (de la fondation OWASP)</a> .<br>
+<div class="important">sudo apt update<br>
+sudo apt install burpsuite -y</div><br>
+On peut utiliser une extension de navigateur 
+<a href="https://addons.mozilla.org/fr/firefox/addon/switchyomega/"target="_blank">Proxy Switchy Omega</a> .<br>
+Le "proxy" va générer, pr chaque site en HTTPS que nous visitons, 
+un <mark>certificat SSL</mark> à lui (le configurer pour, avant).<br>
+<mark>Intruder</mark> permet automatiser tâches, notamment des attaques par <u>force brute</u> 
+(trouver clé ou MP) <br>ou 
+des attaques par <u>dictionnaire</u> (trouver MP avec noms et chiffres courants) 
+<a href="https://github.com/danielmiessler/SecLists"target="_blank">Pr attaque par dictionnaire</a> .<br>
+Autres outils : 
+<a href="https://github.com/ffuf/ffuf"target="_blank">ffuf</a> , 
+<a href="https://www.kali.org/tools/dirbuster/"target="_blank">dirbuster</a> .<br>
+On peut trouver des pages ou endpoints d’API cachés<br> 
+(en cartographiant l’application cible avec un outil de crawling ou spidering, puis
+ en complétant cette cartographie avec une énumération à partir d’une liste prédéfinie).<br>
+Pr les trouver, avoir outil pour automatiser énumération, et une liste adaptée à la 
+cible (une liste PHP pour une application PHP, et pas une liste Java, par exemple 🤦‍♂️).
+</p>
+<h3>6) Attaque</h3>
+<p>On a déjà tous les outils en main. Plus qu'à dérouler et tester ttes les requêtes qui 
+    nous semblent pertinentes.<br>
+Principales vulnérabilités sur une application web (les plus fréquemment identifiées) 
+<a href="https://top10.owasp.org/2025/"target="_blank">Top 10 actualisé</a> .<br>
+<a href="https://openclassrooms.com/fr/courses/9092406-securisez-vos-applications-web-avec-le-top-10-owasp"target="_blank">Cours pr neutraliser les 10 principales</a>
+</p>
+<h4>injections XSS</h4>
+<p>Vont avoir un impact sur le client de l’application<br>
+<mark>ingénierie sociale</mark> (="social engineering") rassemble techniques de manipulation 
+psychologiques<br> (utilisées pour obtenir des informations ou faire faire quelque chose à une cible
+comme cliquer sur un lien). Hameçonnage (="phishing") par exemple.<br>
+3 types d'injections XSS : XSS réfléchies, stockées (ou persistantes), DOM-based.<br>
+Une XSS permet d’injecter du code HTML et JavaScript <br>(Un paramètre est vulnérable aux injections 
+XSS dès lors que l’application renvoie tel quel le contenu qui lui a été envoyé).<br>
+Préconiser la mise en place d’un <mark>WAF</mark> (Web Application Firewall)</p>
+<h4>Injections SQL</h4>
+<p>Permettent récupérer bdd (avec id, MP, hashs (= empreinte numérique)) <br>et même 
+prendre le contrôle du serveur (via une Remote Code Execution, ou "RCE" 
+(exécution de code arbitraire à distance))<br>
+Principe de l’injection SQL consiste à modifier la requête SQL qui va être envoyée 
+(en injectant des caractères spéciaux SQL).<br>
+3 types : Error-based, Boolean based, Time-based.<br>
+</p>
+<h4>Prise du contrôle du serveur</h4>
+<p>Lecture de fichiers arbitraires sur le serveur : Path Traversal (Directory Traversal),
+Local File Inclusion (LFI).<br>
+RCE (prend le contrôle à distance. grave++)<br>
+<u>Se protéger</u>: accepter que les types MIME de fichiers dont nous avons besoin dans cadre de 
+la fonctionnalité, et de faire cette vérification côté serveur;<br>
+Effectuer une analyse antivirus sur les fichiers déposés ;<br>
+Restreindre le contexte d'exécution de l’application et donc de dépôt des fichiers (chroot).
+</p>
+<h4>Robustesse de l’"authentification"</h4>
+<p>Fait de vérifier que quelqu’un est bien celui qu’il prétend être.
+Qd un facteur secret entre en jeu (comme un MP). Sinon, on parle d’identification.<br>
+Habilitation, c’est le fait de vérifier que quelqu’un a bien le droit de faire ce qu’il demande.<br>
+Types: bypass d’authentification, credential guessing , vol de sessions.<br>
+Un "cookie" peut être : forgé ; volé ; 
+utilisé à votre insu, dans le cadre d’attaques CSRF (​​cross site request forgery).<br>
+Attaques <mark>CSRF</mark>: "forger" une requête (créer une requête valide avec tous les bons 
+éléments), et utiliser ce mécanisme pour piéger un utilisateur et lui faire faire des actions 
+à son insu.
+</p>
 
 
         
