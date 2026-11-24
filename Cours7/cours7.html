@@ -10,6 +10,7 @@
     <main>
         <h1 id="debut">Python
               <span class="raccourci">
+                <a href="cours7.html"><a href="#analyse">Analyse de données</a>
                 <a href="cours7.html"><a href="#env">Environnement Python</a>
                 <a href="cours7.html"><a href="#prog">Programmation orientée Objet</a>
                 <a href="cours7.html"><a href="#data">Data Science</a>
@@ -1027,16 +1028,158 @@ $ls <mark>Donne bien data.csv</mark><br>
 Utilisez une interface publique si possible et si disponible 
 <a href="https://openclassrooms.com/fr/courses/6573181-adoptez-les-api-rest-pour-vos-projets-web"target="_blank">Cours "API REST"</a>.<br>
 </p>
+<h2 id="analyse">Analyse de données avec Python
+        <span class="petit">
+            <a href="https://openclassrooms.com/fr/courses/6204541-initiez-vous-a-python-pour-l-analyse-de-donnees" target="_blank">Cours ici</a>
+        </span>
+        </h2>
+        <p><mark>Jupyter Notebook</mark>: Permet un partage simplifié de documents<br>
+        On utilise des variables (differents types) avec leurs valeurs.<br>
+        Type numérique: <mark>int()</mark> (pr les entiers), <mark>float()</mark> (pr les 
+        décimaux).<br>
+        <mark>Initialisation</mark> : Lorsqu'on rentre le nom des variables la 1ere fois<br>
+        Concaténation: Plrs variables à la suite (avec +). = addition ds type numérique.<br>
+        "Caster" variable numérique en string via fct <mark>str()</mark>.<br>
+        Fct: Permettent regrouper plsrs instructions dans un bloc qui sera appelé grâce à un nom.<br>
+        -> <mark>len()</mark> (longueur d'un element), <mark>type()</mark> (affiche type d'une variable), 
+        <mark>pow(a, b)</mark> (=a**b, permet de calculer a puissance b), <mark>abs()</mark> 
+        (retourne valeur absolue d’un nombre).<br>
+        -> Pour créer sa <u>propre fct</u> : On utilise <mark>Def</mark> 
+        <span class="important">def nomFonction():</span>
+        <div class="enligne">
+        <div class="important">def afficherPerimetre():</p>
+    cote1 = 6<br>
+    cote2 = 4<br>
+    cote3 = 3<br>
+    perimetre = cote1 + cote2 + cote3<br>
+    print(perimetre)<br>
+afficherPerimetre() # => 13
+</div>
+<div class="important"><mark>Plus propre et plus rapide en écrivant sous forme de "paramètres"</mark><br>
+    def afficherPerimetre(cote1, cote2, cote3):<br>
+    perimetre = cote1 + cote2 + cote3<br>
+    print(perimetre)
+</div>
+</div>
+<p>Puis une fois qu'on a cette fct on peut l' "appeller" (<mark>return nom_fct, 
+    print(nom_fct), help(nom_fct), pow(nom_fct)</mark> ...)<br>
+<u>Objet</u>: Variable d'une classe (= instance de classe). Une "<mark>classe</mark>" 
+est un modèle d'objet. <br>
+    -> Méthode : Type d'objet accessible qu'aux instances d'une classe donnée<br>
+    <em>Rm</em>: En Python, tt est Objet !
+ </p>
+ <p><u>Tableau</u>: Pr stocker les variables. De type "liste" (Avec <mark>0</mark>) 
+    ou "dictionnaire" (Association "Clé" et "Valeur").<br>
+    méthode <mark>append</mark>: Pr créer une liste vide en Python et ensuite 
+    ajouter les éléments un à un.</p>
+    <div class="important">
+        liste = [ ]<br>
+        liste.append(7)<br>
+        liste.append(5)<br>
+        print(liste) # => [7, 5]
+    </div>
+    <p>Utiliser les "tuples", conditions "if/else" avec booléen, boucles (pr répéter) for ou 
+        wile (si condition).<br>
+        <em>Rm</em>: Les cycles de la boucle peuvent être interrompus via la commande 
+        <mark>break</mark>. 
+    </p>
+    <p>Utiliser "modules" (bibliothèques de code avc des fcts, classes, variables) et 
+        "librairies" (=packages. Ensemble de modules).</p>
+        <p>module <mark>Random</mark> : permet manipuler nombres aléatoires.</p>
 <h2 id="env">Environnement Python
         <span class="petit">
             <a href="https://openclassrooms.com/fr/courses/6951236-mettez-en-place-votre-environnement-python" target="_blank">Cours ici</a>
         </span>
         </h2>
-<h2 id="prog">Programmation orientée Objet
+        <div class="enligne">
+            <div>
+        <p>PIP: installateur de "paquets" Python (avec index PyPI).<br>
+        <em>Rm</em>: Utiliser librairies mise à jour +++</p>
+         <p>Utiliser un éditeur de texte comme <mark>Sublime text</mark> (j'ai déjà VsCode dc pas 
+            besoin).</p>
+        <div class="important">
+            <mark>Vérifier installation est ok sur terminal</mark><br>
+            $python --version<br>
+            $pip --version<br>
+            <mark>télécharger "paquet" sur site PyPI</mark><br>
+            $pip install le_package
+        </div>
+        <p><mark>matplotlib</mark> (pr dessiner des graphiques)<br>
+        Créer un fichier appelé "generate_graph.py" par exemple et écrire :</p>
+        </div>
+        <div class="important">
+<mark>sur fichier.py</mark><br>
+import matplotlib.pyplot as plt<br>
+plt.figure()<br>
+plt.plot([1, 2, 3, 4, 5])<br>
+plt.show()<br>
+<mark>puis sur terminal</mark><br>
+$mkdir Cours7 <mark>si dossier pas créé</mark><br>
+$cd Cours7<br>
+Cours7$touch fichier.py <mark>pr créer fichier (qui utilisera package) ds dossier</mark><br>
+$ls <mark>pr verifier que fichier bien créé</mark><br>
+$cat fichier.py <mark>voir contenu du fichier</mark><br>
+$$ pip install matplotlib<br>
+$python generate_graph.py<br>
+<mark>Pr vérifier installation des paquets</mark><br>
+$pip list<br>
+$pip freeze<br>
+$pip show
+        </div>
+        </div>
+<h3>Versions des paquets</h3>
+<p>On a des documents texte (.doc). Comme pour les documents texte, les paquets Python sont 
+"versionnés" pour faciliter le suivi des versions de chacun.<br>
+Les numéros de version d'un package change. Il faut les "actualiser" ($<mark>pip</mark> install request 
+<mark>==</mark> numero-de-version).<br> On peut aussi prendre la "derniere" version avec 
+<mark>~=</mark>.<br>
+<em>Rm</em>: Pr désinstaller un paquet <mark>$pip <u>uninstall</u> requests</mark>.
+ </p>
+ <h3>Environnements virtuels</h3>
+ <p>Pr séparer les différentes configuration d'un même projet (travail en équipe++).<br>
+Module Python <mark>venv</mark> pr créer et gérer des environnements virtuels.</p>
+<div class="important">
+$ python -m venv --help <mark>m  signifie "module"</mark><br>
+$ python -m venv env <mark>pr créer environnement (contenant fichier.py)</mark><br>
+$ source env/bin/activate <mark>activer l'environnement virtuel (il y a un dossier "bin" 
+    et un script shell "activate" à l'intérieur)
+</mark>
+</div>
+<h4>Plusieurs env virtuels</h4>
+<p>En créer plsrs puis, pr naviguer entre les différents, on peut desactiver celui sur lequel on 
+    travaille <mark>$ deactivate</mark>.<br>
+    <em>Rm</em>: Pas obligatoire de desactiver, en activer un nx prévaut.
+</p>
+<p>Fichier <mark>requirements.txt</mark> permet de gerer les env virtuels (sert pr collègues).</p>
+<h4>Supprimer un env virtuel</h4>
+<p>Il suffit de supprimer son répertoire :</p>
+<div class="important">
+$ cd projects/demo-app<br>
+$ ls<br>
+demo.py env<br>
+$ <mark>rm -r</mark> env/<br>
+$ ls<br>
+demo
+</div>
+<h3>Editeur</h3>
+<p>J'ai VsCode mais existe IDE comme <mark>PyCharm</mark> (y a aussi "Sublime Text" ou "Atom").</p>
+<h2 id="prog">Programmation orientée Objet (POO)
      <span class="petit">
             <a href="https://openclassrooms.com/fr/courses/7150616-apprenez-la-programmation-orientee-objet-avec-python" target="_blank">Cours ici</a>
         </span>
 </h2>
+<p><u>Programmation procédurale</u> (on écrit des fcts, on créer des variables, on accomplit des tâches 
+    en appelant ces fcts et en modifiant ses variables).<br>
+    <em>Rm</em>: Ce que j'ai fait jusqu'à présent.<br>
+   <u>Programmation orientée objet</u>: On considère tt en tant que relation entre "objets".<br>
+Les objet sont appelés à partir de <mark>class</mark> qui constitues des plans ou des recettes.<br>
+Il faut concocter des plats (que l'on appellera des objets) avec des recettes (que l'on 
+appellera des classes). </p>
+<h3>Les classes</h3>
+<p>Une classe contient un état et un comportement.</p>
+
+
+
 <h2 id="data">Data Science (Librairies Python)
      <span class="petit">
             <a href="https://openclassrooms.com/fr/courses/7771531-decouvrez-les-librairies-python-pour-la-data-science" target="_blank">Cours ici</a>

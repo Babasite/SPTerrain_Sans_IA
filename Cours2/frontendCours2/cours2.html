@@ -27,6 +27,7 @@
                 <a href="cours2.html"><a href="#git">Git/GitHub</a>
                 <a href="cours2.html"><a href="#dynamique">Rendre page dynamique</a>
                 <a href="cours2.html"><a href="#node">Full-stack</a>
+                <a href="cours2.html"><a href="#react">React</a>
               </span>
             </h1>
             <section>    
@@ -2508,10 +2509,47 @@ exports.deleteThing = (req, res, next ) => {<br>
        });<br></strong>
 }; 
 </div>
-<h2>Pour la suite</h2>
-<p>Commencer apprentissage d'un framework
+<p><u>Pour la suite</u>:<br>
+Commencer apprentissage d'un framework
    ou d'une librairie front-end avancée (Angular, React ou Vue).</p>
-    <span class=haut><a href="#debut">Revenir au début</a></span>
+                     </section>
+                     <section>
+  <h2 id="react">React (frameworks JavaScript) 
+  <span class="ici">
+    <a href="https://openclassrooms.com/fr/courses/8710331-debutez-avec-react"
+    target="_blank">Cours ici</a>
+  </span>
+  </h2>
+  <p>React sert à créer des interfaces de sites web qui réagissent aux actions des utilisateurs.</p>
+  <p>On peut commencer avec 
+    <a href="https://stackblitz.com/edit/debutez-avec-react-p1-c3"target="_blank">Outil Stackblitz</a>.<br>
+    <mark>JSX</mark> est l'extension JavaScript créée par React, qui permet d'utiliser une 
+    syntaxe similaire au HTML directement dans le code JavaScript.<br>
+En React, expressions JavaScript sont écrites entre accolades <mark>{ }</mark>.<br>
+<mark>Vite</mark> remplace anciens outils comme "Create React App" qui sont devenus obsolètes.<br>
+Les <mark>props</mark> (informations transmises à un composant) sont des objets que l'on peut 
+récupérer dans les paramètres de notre composant fct. <br>
+En React, un <mark>événement</mark> (réagir à un clic) s'écrit dans une balise en <mark>camelCase</mark>, et on lui passe la 
+fct à appeler, <mark>onClick</mark> (lorsqu'on clique),<br>
+onChange (lorsqu'une valeur change),
+onSubmit (lorsqu'on envoie un formulaire).<br>
+<em>Rm</em>: Pas besoin de <mark>addEventListener</mark> (contrairement à JS).<br>
+React passe un événement synthétique en paramètre des fonctions de "callBack".<br>
+Utilisation des formulaires "<mark>contrôlés</mark>" (conserver ce que la personne écrit dans 
+un <mark>state</mark>) est recommandée (sur les "non contrôlés")<br>
+Ils sauvegardent la valeur des champs dans le state local, et accèdent à la data entrée 
+par l'utilisateur avec "onChange".<br>
+Le state local est présent à l'intérieur d'un composant et garde sa valeur, même si 
+l'application le re-render. On peut alors dire qu'il est stateful.<br>
+<mark>useState</mark> (on a un bouton et on veut que le nombre augmente à chaque clic) 
+est un hook qui permet d'ajouter le state local React à des composants fonctions.<br>
+Un hook est une fonction qui permet de « se brancher » (to hook up) sur des fonctionnalités React. 
+On peut d'ailleurs les importer directement depuis React.<br>
+Le hook <mark>useEffectest</mark> (effectuer une action après un rendu) appelé après chaque rendu de votre composant.<br>
+ Il est possible de préciser quelle modification de donnée déclenche les effets exécutés dans 
+ useEffect, avec le tableau de dépendances (avec <mark>[nombre]</mark>). 
+  </p>
+   <span class=haut><a href="#debut">Revenir au début</a></span>
                      </section>
         </main>
         <footer>

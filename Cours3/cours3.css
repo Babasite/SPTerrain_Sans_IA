@@ -9,3 +9,8 @@ h2{color:green}
 h3{color:rgb(152, 114, 43)}
 h4{color:rgb(212, 170, 92)}
 h5{color: orange;}
+.enligne{display: flex;
+         gap: 20px;}
+.important{display: inline-block;
+    border:5px solid rgb(7, 79, 23);
+    padding: 5px;}

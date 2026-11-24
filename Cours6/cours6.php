@@ -534,7 +534,48 @@ Après un groupement de données, on peut filtrer résultat avec <mark>HAVING</m
 target="_blank">Cours ici</a>
         </span>
 </h2>
-<p></p>
+<p>MVC (modèle vue contrôleur): Optimiser architecture (découper code pr qu'il soit maintenable)<br>
+Isoler le PHP (qui gère les données "model" et informations "la vue"), Factoriser son code, 
+Passer à une archi orientée objet.<br>
+Un code professionnel est modulaire (chaque fichier a un rôle à la fois), découplé, documenté 
+<a href="https://phpdoc.org/"target="_blank">PHPdoc</a>,
+    clair (norme de formatage 
+    <a href="https://www.php-fig.org/psr/psr-12/"target="_blank">PSR-12</a>
+    )<br> et en anglais (commenter juste pourquoi).</p>
+<h3>Réorganiser son code (refactorisation)</h3>
+<p>Refactoriser code avec pattern MVC (sur notre index.php):<br>
+<u>Code PHP</u> à mettre en 1er <mark>&lt;?php ...   ?&gt; puis HTML puis &lt;?php de nx </mark>:<br>
+ indentation doit avoir 4 espaces, noms de variables en anglais, ajouter 
+espaces où c'est nécessaire (et les retirer où ça l'est pas),<br>
+ le retour d'une "querie" s'appelle
+un <mark>statement</mark>, on utilise les "doubles quotes" <mark>"</mark> autour de "query sql" pr 
+laisser les "simples quotes" <mark>'</mark> disponibles à l'interieur.<br>
+<u>Structurer "variables" ds code HTML</u>: Créer variable <mark>$posts=[ ];</mark> (juste avt 
+"?&gt;") qui sera un "tableau"<br> avec chaque index contenant une propriété 
+(ex: 'title' <mark>=> $row</mark>['titre']).<br>
+<u>Mettre en forme "code HTML"</u> (apres "&lt;Doctype! html&gt;"): Indentation 4 espaces 
+(pour un bloc ouvrant on décale de 1), espaces.<br>
+Ds " &lt;?php " du HTML, remplacer boucles "while" par <mark>foreach</mark>($posts as $post){}<br>
+puis récupérer les "propriétés" (comme "title" à la place de "titre") données.</p>
+Séparer le code en 2 <u>fichiers</u>:<br>
+index.php (fichier tjrs lu en 1er) et templates/homepage.php (affichera les données ds la page,
+ ts le code lié à l'affichage) -> On y met tt apres "doctype" compris.<br>
+puis <mark>require('templates/homepage.php'); ?&gt;</mark> (ds "index.php")<br>
+<em>Rm</em>: Mieux que "include" car vaut mieux faire planter le script si le fichier n'était 
+pas trouvé.</p>
+<h3>Isoler accès aux données</h3>
+<p> a continuer...
+
+
+
+
+
+
+
+
+
+
+
 <h2>POO (programmation orientée objet)
         <span class="sql">
         <a href="https://openclassrooms.com/fr/courses/1665806-programmez-en-oriente-objet-en-php"
@@ -547,3 +588,24 @@ target="_blank">Cours ici</a>
 target="_blank">Cours ici</a>
         </span>
 </h2>
+<p>framework: boîte à outils (collection de petites librairies)<br>
+<mark>routing</mark> (tjrs faire en sorte que utilisateurs puissent accéder 
+à plsrs pages)<br>
+<mark>templating</mark> (tjrs avoir une logique qui permette d’afficher lesdites pages)<br>
+Faudra aussi de quoi accéder à une bdd, ou un accès sécurisé, etc.<br>
+On va donc utiliser des solutions ttes prêtes et testées.</p>
+<p><em>3 types de "composants"</em>: <br>
+<mark>Les Composants</mark>: Fournissent une fonctionnalité autonome et indépendante (console, 
+routing, EventDispatcher…)<br>
+<mark>Les Polyfills</mark>: Outils de compatibilité qui permettent d’utiliser des fonctions de PHP 
+normalement non disponibles dans la version qu'on utilise.<br>
+<mark>Les Contrats</mark>: Donnent accès à des interfaces extraites des composants, pr être 
+compatible avec Symfony qd on écrit un projet en dehors du framework. 
+</p>
+<p>On trouve aussi les <mark>Bridges</mark> (Apportent une couche de compatibilité entre une 
+librairie externe à l’écosystème Symfony, et les composants de Symfony (pensez à l’adaptateur 
+secteur qui vous permet de brancher votre chargeur sur le réseau électrique d’un pays étranger).)<br>
+et les <mark>Bundles</mark> (Des assemblages de plusieurs composants, auxquels on fournit une 
+configuration et une intégration communes (exemple : le SecurityBundle rassemble tous les 
+composants ayant trait à la sécurité de vos applications).)</p>
+<em>Rm</em>: Techniquement, le framework Symfony pourrait en fait presque se résumer… au FrameworkBundle .
